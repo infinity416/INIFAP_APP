@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Riego" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="colorPrimary">@color/cpNavbar</item>
+        <item name="colorPrimaryVariant">@color/cpNavbar</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/cpNavbar</item>
+
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BottomNavigation">
+        <item name="android:background">@color/cpNavbar</item>
+        <item name="itemIconTint">@color/cButton</item>
+        <item name="itemTextColor">@color/cButton</item>
+    </style>
+
+   <!-- <style name="splashscreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/cpNavbar</item>
+    </style>-->
+</resources>

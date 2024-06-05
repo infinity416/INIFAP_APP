@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/cpNavbar"/>
+
+    <item
+        android:left="10dp"
+        android:right="10dp"
+        android:top="260dp"
+        android:bottom="260dp"
+        android:end="260dp"
+        android:start="-50dp">
+        <bitmap
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/sader" />
+        </item>
+    <!--<item android:gravity="top">
+        <bitmap android:src="@drawable/sdr"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </item>
+    <item android:start="@android:dimen/app_icon_size">
+        <bitmap android:src="@drawable/inifap"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="top"/>
+    </item>-->
+</layer-list>
