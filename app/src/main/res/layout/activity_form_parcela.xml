@@ -32,7 +32,8 @@
                 android:layout_marginEnd="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Nombre de la Parcela"
-                android:inputType="text"/>
+                android:inputType="text"
+                app:helperText="Required"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -53,7 +54,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
-                    android:inputType="none"
+
                     android:background="@drawable/style_border"
                     android:hint="Cultivo"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -117,8 +118,9 @@
                 android:layout_marginEnd="80dp"
                 android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
-                android:hint="Fecha (DD/MM/YYYY)"
-                android:inputType="date"/>
+                android:hint="Inicio de siembra"
+                android:clickable="false"
+                android:focusable="false"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -139,7 +141,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/style_border"
-                    android:inputType="none"
+
                     android:hint="Crecimiento" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,9 +163,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
-                    android:inputType="none"
                     android:background="@drawable/style_border"
                     android:hint="Tipo de Riego" />
+                <!--android:inputType="none"-->
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -272,7 +274,8 @@
                 android:layout_marginBottom="1dp"
                 android:text="Guardar"
                 android:textColor="@color/cButtonAction"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <Button
                 android:id="@+id/closeBtn"

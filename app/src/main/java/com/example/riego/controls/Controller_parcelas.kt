@@ -30,4 +30,7 @@ interface Controller_parcelas {
 
     @Query("SELECT * FROM parcelas")
     fun consultarLocalitation(): LiveData<List<Parcela>>
+
+    @Query("SELECT * FROM parcelas WHERE naame=:naame")
+    fun consutaParcelaName(naame: String): LiveData<Parcela>
 }

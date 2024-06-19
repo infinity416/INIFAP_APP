@@ -3,6 +3,7 @@ package com.example.riego
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -17,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.riego.DB.Parcela
 import com.example.riego.source.DBparcela
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -24,6 +26,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class FormParcela : AppCompatActivity() {
@@ -49,8 +52,8 @@ class FormParcela : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_form_parcela)
         val lisCultivo = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
-        val lisSuelo = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
-        val lisRiego = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
+        val lisRiego = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
+        val lisSuelo = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
         val lisCresimiento = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
 
         val adapter = this.let { ArrayAdapter(it.applicationContext, R.layout.list_items, cultivo) }
@@ -102,6 +105,23 @@ class FormParcela : AppCompatActivity() {
         val input3 = findViewById<EditText>(R.id.latitudInput)
         val input4 = findViewById<EditText>(R.id.longuitdInput)
         val input5 = findViewById<EditText>(R.id.dateInput)
+        input5.setOnClickListener {
+            val datePicker = DateTime{day, month, year ->
+                //input5.setText(day.toString()+"/"+(month+1).toString()+"/"+year.toString())
+                if(day<10){
+                    if((month+1) <= 9){
+                        input5.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
+                    }else{
+                        input5.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                    }
+                }else if((month+1) <= 9){
+                    input5.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
+                }else{
+                    input5.setText(day.toString()+"/"+(month+1)+"/"+year )
+                }
+            }
+            datePicker.show(supportFragmentManager,"datePicker")
+        }
         val input13 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
         val input6 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
         val input7 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
@@ -150,19 +170,61 @@ if (idParcela != 0){
     }*/
     val savebtn = findViewById<Button>(R.id.saveBtn)
     savebtn.setOnClickListener {
+        val nombre = input1.text.toString()
+        val cultivo = input2.text.toString()
+        val lat = input3.text.toString()
+        val lon = input4.text.toString()
+        val dia = input5.text.toString()
+        val creci = input13.text.toString()
+        val triego = input6.text.toString()
+        val tsuelo = input7.text.toString()
+        val agua = input8.text.toString()
+        val largo = input9.text.toString()
+        val ancho = input10.text.toString()
+        val hora = input11.text.toString()
+
+        /******/
+        if(nombre.isEmpty()){
+            input1.setError("Ingrese el nombre de la parcela")
+            return@setOnClickListener
+        }else if(cultivo.isEmpty()){
+            input2.setError("Seleccione el cultivo")
+            return@setOnClickListener
+        }else if(lat.isEmpty()){
+            input3.setError("Ingrese la latitud")
+            return@setOnClickListener
+        }else if(lon.isEmpty()){
+            input4.setError("Ingrese la longitud")
+            return@setOnClickListener
+        }else if(dia.isEmpty()){
+            input5.setError("Ingrese la fecha de inicio de siembra")
+            return@setOnClickListener
+        }else if(creci.isEmpty()){
+            input13.setError("Seleccione el tipo de crecimiento")
+            return@setOnClickListener
+        }else if(triego.isEmpty()){
+            input6.setError("Seleccione el tipo de riego")
+            return@setOnClickListener
+        }else if(tsuelo.isEmpty()){
+            input7.setError("Seleccione el tipo de suelo")
+            return@setOnClickListener
+        }else if(agua.isEmpty()){
+            input8.setError("Ingrese la cantidad de agua")
+            return@setOnClickListener
+        }else if(largo.isEmpty()){
+            input9.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else if(ancho.isEmpty()){
+            input10.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else if(hora.isEmpty()){
+            input11.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else{
+
+
+
         CoroutineScope(Dispatchers.IO).launch {
-            val nombre = input1.text.toString()
-            val cultivo = input2.text.toString()
-            val lat = input3.text.toString()
-            val lon = input4.text.toString()
-            val dia = input5.text.toString()
-            val creci = input13.text.toString()
-            val triego = input6.text.toString()
-            val tsuelo = input7.text.toString()
-            val agua = input8.text.toString()
-            val largo = input9.text.toString()
-            val ancho = input10.text.toString()
-            val hora = input11.text.toString()
             parcela.id = idParcela
             parcela.naame = nombre
             parcela.cultivo = cultivo
@@ -177,10 +239,14 @@ if (idParcela != 0){
             parcela.anch = ancho
             parcela.hora = hora
 
-
             println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
             println(parcela)
             databse.parcelas().editarParcela(parcela)
+
+            //Toast.makeText(this@FormParcela.baseContext.applicationContext , "Datos Actualizados", Toast.LENGTH_LONG).show()
+        }
+            Toast.makeText(this, "Datos Actualizados", Toast.LENGTH_LONG).show()
+            this@FormParcela.finish()
         }
     }
 
@@ -204,15 +270,64 @@ if (idParcela != 0){
         val largo = input9.text.toString()
         val ancho = input10.text.toString()
         val hora = input11.text.toString()
-        println(nombre + cultivo + lat + lon +dia+creci+triego +tsuelo+ agua+ largo +ancho+ hora)
-        //println(cultivo)
-        val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo, agua, largo, ancho, hora)
-        println(newParcela)
-        CoroutineScope(Dispatchers.IO).launch {
-            database.parcelas().agregarParcela(newParcela)
-            //(this@GraficoFragment.context as Activity).finish()
-            //  requireActivity()?.onBackPressed()
+
+        /******/
+        if(nombre.isEmpty()){
+            input1.setError("Ingrese el nombre de la parcela")
+            return@setOnClickListener
+        }else if(cultivo.isEmpty()){
+            input2.setError("Seleccione el cultivo")
+            return@setOnClickListener
+        }else if(lat.isEmpty()){
+            input3.setError("Ingrese la latitud")
+            return@setOnClickListener
+        }else if(lon.isEmpty()){
+            input4.setError("Ingrese la longitud")
+            return@setOnClickListener
+        }else if(dia.isEmpty()){
+            input5.setError("Ingrese la fecha de inicio de siembra")
+            return@setOnClickListener
+        }else if(creci.isEmpty()){
+            input13.setError("Seleccione el tipo de crecimiento")
+            return@setOnClickListener
+        }else if(triego.isEmpty()){
+            input6.setError("Seleccione el tipo de riego")
+            return@setOnClickListener
+        }else if(tsuelo.isEmpty()){
+            input7.setError("Seleccione el tipo de suelo")
+            return@setOnClickListener
+        }else if(agua.isEmpty()){
+            input8.setError("Ingrese la cantidad de agua")
+            return@setOnClickListener
+        }else if(largo.isEmpty()){
+            input9.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else if(ancho.isEmpty()){
+            input10.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else if(hora.isEmpty()){
+            input11.setError("Ingrese el dato solicitante")
+            return@setOnClickListener
+        }else{
+            println(nombre + cultivo + lat + lon +dia+ creci + triego + tsuelo+ agua+ largo +ancho+ hora)
+            //println(cultivo)
+            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora)
+            println(newParcela)
+            CoroutineScope(Dispatchers.IO).launch {
+                database.parcelas().agregarParcela(newParcela)
+                //(this@GraficoFragment.context as Activity).finish()
+                //  requireActivity()?.onBackPressed()
+
+        }
+            Toast.makeText(this , "Datos Guardados", Toast.LENGTH_LONG).show()
             this@FormParcela.finish()
+
+
+        /******/
+
+
+
+
         }
     }
 }
