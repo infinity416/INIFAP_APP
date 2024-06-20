@@ -44,16 +44,60 @@ class GraficoFragment : Fragment() {
     var client = OkHttpClient()
     var header = "confidential-apiKey"
     var datestar = "01/05/2024"
-    var dateend = "12/06/2024"
+    var dateend = "12/07/2024"
 
     //var url ="https://appinifap.sytes.net/apiweb/api/riego?estacionID=41276&fechaIni="+datestar+"&fechaFin="+dateend+"&cultivo=1&crecimiento=2&suelo=2&riego=1&a1=0.8&a2=0.2&a3=0.8"
     ///url="https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=111&fechaIni=1/5/2024&fechaFin=12/5/2024&cultivo=2&crecimiento=2&suelo=3&riego=1&a1=.5&a2=.65&a3=1.55"
-    var url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=111&fechaIni="+datestar+"&fechaFin="+dateend+"&cultivo=2&crecimiento=2&suelo=3&riego=1&a1=.5&a2=.65&a3=1.55"
+    //var url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=111&fechaIni="+datestar+"&fechaFin="+dateend+"&cultivo=2&crecimiento=2&suelo=3&riego=1&a1=.5&a2=.65&a3=1.55"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val goku= arguments?.getString("Stationsid")
+        var vegeta = arguments?.getString("StationsDateInput")
+        var piccolo = arguments?.getString("StationsDateStart")
+        var krillin = arguments?.getString("StationsCultivo")
+        var gohan = arguments?.getString("StationsCrecimiento")
+        var trukns = arguments?.getString("StationsSuelo")
+        var goten = arguments?.getString("StationsReigo")
+        var tenshihan = arguments?.getString("StationsLargo")
+        var yamcha = arguments?.getString("StationsAncho")
+        var chaos = arguments?.getString("StationsAgua")
+
+
+        var frezzer = when (krillin){
+            "Maíz Grano"  -> 1
+            "Maíz Forraje"  -> 2
+            else -> "Invalid_Cultivo."
+        }
+
+        var cellperfecto = when (gohan){
+            "Precoz"  -> 1
+            "Intermedio"  -> 2
+            "Tardío"  -> 3
+            else -> "Invalid_Tipo_de_Crecimiento."
+        }
+
+        var androides17y18 = when (trukns){
+            "Ligero"  -> 1
+            "Media"  -> 2
+            "Pesado"  -> 3
+            else -> "Invalid_Tipo_de_suelo."
+        }
+
+        var majinbu = when (goten){
+            "Goteo"  -> 1
+            //""  -> 2
+            //""  -> 3
+            else -> "Invalid_Tipo_de_Goteo."
+        }
+        // otro funcional val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+vegeta+"&fechaFin="+piccolo+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
+        println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
+        println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
+        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
+
         // Inflate the layout for this fragment
         val con = inflater.inflate(R.layout.fragment_grafico, container, false)
         val lolcito = okhttp3.Request.Builder().url(url).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
@@ -168,21 +212,20 @@ class GraficoFragment : Fragment() {
                                     Meses.add("Diciembre")
                                     MesesNUM.add(12)
                                 }
-
-
-                                /****-Capitulo II-***/
-
-                                for (R in 0 until cincovs5.length()) {
-                                    val eye = cincovs5.getJSONObject(R)
-                                    val eyevalue = eye.get("Valor")
-                                    valores2.add(eyevalue.toString())
-                                }
-                                /****--**/
                             }
+                            /****-Capitulo II-***/
+
+                            for (R in 0 until cincovs5.length()) {
+                                val eye = cincovs5.getJSONObject(R)
+                                val eyevalue = eye.get("Valor")
+                                valores2.add(eyevalue.toString())
+                            }
+                            /****--**/
                             println(valores)
                             println(fechas)
                             println(Meses)
                             println(MesesNUM)
+                            println(valores2.size)
                             println(valores2)
 
 

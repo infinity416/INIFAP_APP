@@ -21,6 +21,8 @@ import com.example.riego.R
 import com.example.riego.source.DBparcela
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -31,6 +33,7 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.internal.notifyAll
 import org.json.JSONObject
 import java.io.IOException
 
@@ -216,7 +219,6 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMaparcela = googleMap
-
         println("cadena de catos lat:"+this.parcela.lat.toDouble()+", lon:"+this.parcela.lon.toDouble()+", name:"+this.parcela.naame+", km:"+this.km+" y fecha:"+ this.inputfecha +"  ATT: INFINITY")
 
         var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=${parcela.lat}&longitud=${parcela.lon}&distanciaEst=${km}"
@@ -244,8 +246,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                 val kmStation = ND64.getInt("Dias")
                                 val nameStation = ND64.getString("EstacionName")
                                 val idStation = ND64.getInt("EstacionID")
-                                val latStation = ND64.getInt("Latitud")
-                                val lonStation = ND64.getInt("Longitud")
+                                val latStation = ND64.getDouble("Latitud")
+                                val lonStation = ND64.getDouble("Longitud")
                                 //println(kmStation.toString())
                                 val neg = -1
                                 val k = 0
@@ -255,13 +257,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                 val p = 31
                                 val p1 = 365
                                 val i = 366
-                                val coordeStation= LatLng(latStation.toDouble(), lonStation.toDouble())
+                                val coordeStation= LatLng(latStation, lonStation)
 
                                 if(kmStation === neg){
                                     println("Fuera del Rango de Chihuahua "+kmStation)
                                 }else if((kmStation>=k) && (kmStation<=e)){
                                     println("Dentro del rango de 0...5 " +kmStation)
-                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(parcela.naame +", "+ nameStation +", "+ coordeStation+", "+ kmStation ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
+                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
                                         CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
@@ -272,11 +274,16 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     /****/
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                                         @SuppressLint("ResourceType")
+
                                         override fun onMarkerClick(marker: Marker): Boolean {
-                                           historicoFragment = HistoricoFragment()
+                                            historicoFragment = HistoricoFragment()
+                                            val tit1 = marker.title
+                                            println(tit1)
                                             val args = Bundle()
+
+
                                             //args.putString("Stationsname", nameStation.toString())
-                                            args.putInt("Stationsid", idStation)
+                                            args.putString("Stationsid", tit1)
                                             //args.putString("Stationslat", latStation.toString())
                                             args.putString("StationsDateInput", inputfecha)
                                             args.putString("StationsDateStart", parcela.fecha)
@@ -287,22 +294,21 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                             args.putString("StationsLargo", parcela.larg)
                                             args.putString("StationsAncho", parcela.anch)
                                             args.putString("StationsAgua", parcela.agua)
-                                            historicoFragment.arguments = args
+                                            /*historicoFragment.arguments = args
                                             childFragmentManager
                                                 .beginTransaction()
                                                 .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()
+                                                .commit()*/
 
-                                            return false
-                                        }
+                                            return false}
                                     })
                                      /******/
 
 
                                 }else if((kmStation>=r) && (kmStation<=o)){
                                     println("Dentro del rango de 6...30 "+kmStation)
-                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(parcela.naame +", "+ nameStation +", "+ coordeStation+", "+ kmStation).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
+                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
                                         CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
@@ -314,6 +320,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                                         @SuppressLint("ResourceType")
                                         override fun onMarkerClick(marker: Marker): Boolean {
+                                            val tit1 = marker.title
+                                            println(tit1)
                                             historicoFragment = HistoricoFragment()
                                             val args = Bundle()
                                             //args.putString("Stationsname", nameStation.toString())
@@ -342,7 +350,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                 }else if((kmStation>=p) && (kmStation<=p1)){
                                     println("Dentro del rango de 31...365 "+kmStation)
-                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(parcela.naame +", "+ nameStation +", "+ coordeStation+", "+ kmStation ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_naranja)).anchor(0.0f, 0.0f)
+                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_naranja)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
                                         CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
@@ -354,6 +362,9 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                                         @SuppressLint("ResourceType")
                                         override fun onMarkerClick(marker: Marker): Boolean {
+
+                                            val tit1 = marker.title
+                                            println(tit1)
                                             historicoFragment = HistoricoFragment()
                                             val args = Bundle()
                                             //args.putString("Stationsname", nameStation.toString())
@@ -382,7 +393,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                 }else if(kmStation>=i){
                                     println("Dentro del rango de mas de 366 "+kmStation)
-                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(parcela.naame +", "+ nameStation +", "+ coordeStation +", "+ kmStation ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
+                                    val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString() ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
                                         CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
@@ -395,9 +406,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         @SuppressLint("ResourceType")
                                         override fun onMarkerClick(marker: Marker): Boolean {
                                             historicoFragment = HistoricoFragment()
+                                            val tit1 = marker.title
+                                            println(tit1)
                                             val args = Bundle()
                                             //args.putString("Stationsname", nameStation.toString())
-                                            args.putInt("Stationsid", idStation)
+                                            args.putString("Stationsid", tit1)
                                             //args.putString("Stationslat", latStation.toString())
                                             args.putString("StationsDateInput", inputfecha)
                                             args.putString("StationsDateStart", parcela.fecha)
@@ -432,6 +445,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                             4000,
                             null
                         )
+
                     }
                 }
             }
@@ -439,3 +453,4 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
         return
     }
 }
+
