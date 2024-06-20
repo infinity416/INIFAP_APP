@@ -3,6 +3,7 @@ package com.example.riego.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.getSystemService
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.loader.content.AsyncTaskLoader
@@ -109,7 +111,13 @@ class HistoricoFragment : Fragment() {
         //getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val wificonection = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val newtworkinfo = wificonection.getActiveNetworkInfo()
-
+        val gpsconection = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val gpsstatus = gpsconection.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if(gpsstatus==true){
+            println("encendio")
+        }else{
+            println("apagado")
+        }
 
 
 
