@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    android:layout_marginHorizontal="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/msmdialogwifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="No hay registros"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="262dp"
+            android:layout_height="165dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:srcCompat="@drawable/busqeudafile" />
+
+        <Button
+            android:id="@+id/btnclose3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_border"
+            android:text="Cerrar"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <!--<Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="300dp"
+            android:text="Cerrar" />-->
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
