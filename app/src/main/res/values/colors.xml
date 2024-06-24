@@ -12,4 +12,7 @@
     <color name="colorAccent">#760032</color>
     <color name="cButton">#B9893D</color>
     <color name="cButtonAction">#017339</color>
+    <color name="saveAction">#8DC63F</color>
+    <color name="updateAction">#00AEEF</color>
+    <color name="deleteAction">#BE1E2D</color>
 </resources>

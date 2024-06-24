@@ -11,8 +11,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="387dp"
-        android:layout_height="155dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
 
@@ -63,14 +63,14 @@
 
         <ImageButton
             android:id="@+id/btndelete"
-            android:layout_width="51dp"
-            android:layout_height="46dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/btnedit"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="-16dp"
             android:background="@drawable/style_btn_circle"
             android:src="@drawable/baseline_delete" />
     </RelativeLayout>

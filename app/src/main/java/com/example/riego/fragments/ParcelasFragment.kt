@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -47,13 +48,21 @@ class ParcelasFragment : Fragment() {
         val conextion= inflater.inflate(R.layout.fragment_parcelas, container, false)
 
         val unsc = conextion.findViewById<RecyclerView>(R.id.recyclerList)
-
+        var hayresgitro = conextion.findViewById<TextView>(R.id.textViewsinRegistros)
 
         val databaseparce = DBparcela.getDatabase(this.context as Activity)
         databaseparce.parcelas().obtenerParcela().observe(viewLifecycleOwner, Observer {
             parcelaList = it
-            unsc.layoutManager = LinearLayoutManager(context)
-            unsc.adapter = CardABC(parcelaList)
+
+            if(parcelaList.size==0){
+                hayresgitro.setVisibility(TextView.VISIBLE)
+            }else{
+                hayresgitro.setVisibility(TextView.INVISIBLE)
+                unsc.layoutManager = LinearLayoutManager(context)
+                unsc.adapter = CardABC(parcelaList)
+                println("aca......."+parcelaList.size)
+            }
+
 
             val floatbtn = conextion.findViewById<FloatingActionButton>(R.id.floatingActionButton)
             floatbtn.setOnClickListener {

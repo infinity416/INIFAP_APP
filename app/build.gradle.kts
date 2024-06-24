@@ -64,7 +64,7 @@ dependencies {
     //http
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
     //location
-    implementation("com.google.android.gms:play-services-location:19.0.1")
+    implementation("com.google.android.gms:play-services-location:19.0.0")
     //Room
     implementation ("androidx.room:room-ktx:2.6.1")
     //implementation ("androidx.room:room-compiler:2.6.1")

@@ -5,19 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FormParcela"
+    android:background="@drawable/fondo"
     android:orientation="vertical"
-    android:background="@drawable/fondo">
+    tools:context=".FormParcela">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="5dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <EditText
@@ -28,12 +30,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="80dp"
-                android:layout_marginTop="46dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Nombre de la Parcela"
                 android:inputType="text"
-                app:helperText="Required"/>
+                app:helperText="Required" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -42,10 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="80dp"
                 android:layout_marginStart="80dp"
-                >
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="80dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView"
@@ -56,31 +57,19 @@
                     android:layout_weight="1"
 
                     android:background="@drawable/style_border"
-                    android:hint="Cultivo"/>
+                    android:hint="Cultivo" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="87dp"
-                android:orientation="horizontal">
-                <ImageButton
-                    android:id="@+id/buttonUbication"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="350dp"
-                    android:layout_marginEnd="-100dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/style_btn_circle"
-                    android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_mylocation"
-                    android:backgroundTint="@color/cButtonAction"/>
+
+
+
                 <!--<ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="325dp"
                     android:background="@drawable/style_btn_img"
                     android:layout_gravity="center" />-->
-            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/latitudInput"
@@ -88,12 +77,35 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="-80dp"
-                android:layout_marginEnd="80dp"
                 android:layout_marginStart="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Latitud"
-                android:inputType="text"/>
+                android:inputType="text" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonUbication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:srcCompat="@drawable/style_btn_img"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-55dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/cpNavbar"/>
+
+            <!--<ImageButton
+                android:id="@+id/buttonUbication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="350dp"
+                android:layout_marginTop="-45dp"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/style_btn_circle"
+                android:backgroundTint="@color/cButtonAction"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_mylocation" />-->
 
             <EditText
                 android:id="@+id/longuitdInput"
@@ -101,12 +113,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Longitud"
-                android:inputType="text"/>
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/dateInput"
@@ -114,13 +126,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
-                android:hint="Inicio de siembra"
                 android:clickable="false"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:hint="Inicio de siembra" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -129,9 +141,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp">
+                android:layout_marginEnd="80dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView3"
@@ -152,9 +164,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp">
+                android:layout_marginEnd="80dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView1"
@@ -176,9 +188,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp">
+                android:layout_marginEnd="80dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView2"
@@ -192,19 +204,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:orientation="horizontal">
+
 
                 <Switch
                     android:id="@+id/switch1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="315dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="13dp"
                     android:text="Galón" />
-            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/aguaInput"
@@ -212,14 +221,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="-65dp"
-                android:layout_marginEnd="105dp"
                 android:layout_marginStart="80dp"
+                android:layout_marginTop="-35dp"
+                android:layout_marginEnd="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Gasto de agua"
-                android:inputType="numberDecimal"
-                />
-
+                android:inputType="numberDecimal" />
 
 
             <EditText
@@ -228,12 +235,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Largo del sistema (M)"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/anchoInput"
@@ -241,12 +248,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Ancho del sistema (M)"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/timeInput"
@@ -254,13 +261,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginStart="80dp"
                 android:background="@drawable/style_border"
                 android:hint="Hora de riego (Hrs)"
-                android:inputType="numberDecimal"
-                />
+                android:inputType="numberDecimal" />
 
             <Button
                 android:id="@+id/saveBtn"
@@ -274,8 +280,7 @@
                 android:layout_marginBottom="1dp"
                 android:text="Guardar"
                 android:textColor="@color/cButtonAction"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/closeBtn"
@@ -283,12 +288,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="130dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="130dp"
-                android:layout_marginStart="130dp"
                 android:text="Cancelar"
                 android:textColor="@color/cButtonAction"
                 android:textStyle="bold" />
+
 
 
 
@@ -324,39 +330,6 @@
                         android:hint="Cultivo" />-->
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <!--<ScrollView

@@ -2,11 +2,16 @@ package com.example.riego
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,18 +27,20 @@ import kotlinx.coroutines.launch
 import java.util.zip.Inflater
 
 class CardABC(private val parcelaList: List<Parcela>): RecyclerView.Adapter<CardABC.ViewHolder>() {
+
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val sierra1 = itemView.findViewById<TextView>(R.id.txtcultivo)
         val sierra2 = itemView.findViewById<TextView>(R.id.txtnombre)
         val sierra3 = itemView.findViewById<TextView>(R.id.txtfecha)
         val btnbr = itemView.findViewById<ImageButton>(R.id.btndelete)
         val btned = itemView.findViewById<ImageButton>(R.id.btnedit)
+
+
         //val dx = itemView.context.startActivity(next)
     }
 
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder {
         val unsc = LayoutInflater.from(container.context).inflate(R.layout.card_abc, container, false)
-
 
         //correjir(LayoutInflater, ViewGroup)
         return ViewHolder(unsc)
@@ -67,14 +74,33 @@ class CardABC(private val parcelaList: List<Parcela>): RecyclerView.Adapter<Card
 
         //deletestart
         holder.btnbr.setOnClickListener{
-            CoroutineScope(Dispatchers.IO).launch {
-                database.parcelas().borrarParcela(G.id)
-                //println("elimina a "+G.id)
-                //println(database.parcelas().borrarParcela(G.id))
+            val dialog = Dialog(holder.itemView.context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.alertdialog_delete)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val btnclose = dialog.findViewById<Button>(R.id.btnclose7)
+
+            btnclose.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    database.parcelas().borrarParcela(G.id)
+                    //println("elimina a "+G.id)
+                    //println(database.parcelas().borrarParcela(G.id))
+                }
+                dialog.dismiss()
             }
+            dialog.show()
+
+
         }
         //deletefinish
     }
+
+
+
+
+
 
 
     /* @SuppressLint("SuspiciousIndentation")

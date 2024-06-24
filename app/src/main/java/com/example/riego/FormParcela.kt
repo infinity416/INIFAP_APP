@@ -3,14 +3,19 @@ package com.example.riego
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -88,10 +93,9 @@ class FormParcela : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         latitude = findViewById(R.id.latitudInput)
         longitude = findViewById(R.id.longuitdInput)
+
         val btnLoc = findViewById<ImageButton>(R.id.buttonUbication)
-        btnLoc.setOnClickListener {
-            locationGPS()
-        }
+
 
         /*val floatbtn = findViewById<Button>(R.id.btnexit)
         floatbtn.setOnClickListener{
@@ -129,9 +133,19 @@ class FormParcela : AppCompatActivity() {
         val input9 = findViewById<EditText>(R.id.largoInput)
         val input10 = findViewById<EditText>(R.id.anchoInput)
         val input11 = findViewById<EditText>(R.id.timeInput)
+        val nanendoSwitch = findViewById<Switch>(R.id.switch1)
         println("Comando!!!! Comando!!!")
         println(idParcela)
         //
+
+        val database = DBparcela.getDatabase(this)
+
+        btnLoc.setOnClickListener {
+            //locationGPS()
+            newlocationGPS()
+        }
+
+
 if (idParcela != 0){
     databse= DBparcela.getDatabase(this)
     parcelaLiveData = databse.parcelas().consutaParcela(idParcela)
@@ -141,8 +155,8 @@ if (idParcela != 0){
         var clock1 = input1.setText(parcela.naame).toString()
         var z =parcela.naame
         input2.setText(parcela.cultivo)
-        input3.setText(parcela.lat)
-        input4.setText(parcela.lon)
+        latitude.setText(parcela.lat)
+        longitude.setText(parcela.lon)
         input5.setText(parcela.fecha)
         input13.setText(parcela.crecimieto)
         input6.setText(parcela.riego)
@@ -168,22 +182,37 @@ if (idParcela != 0){
         input11.setText(actparcela.hora)
         idParcela = actparcela.id
     }*/
+    var agua = ""
+    //nanendoSwitch.setOnClickListener {
+
+
+    //}
+
     val savebtn = findViewById<Button>(R.id.saveBtn)
     savebtn.setOnClickListener {
         val nombre = input1.text.toString()
         val cultivo = input2.text.toString()
-        val lat = input3.text.toString()
-        val lon = input4.text.toString()
+        val lat = latitude.text.toString()
+        val lon = longitude.text.toString()
         val dia = input5.text.toString()
         val creci = input13.text.toString()
         val triego = input6.text.toString()
         val tsuelo = input7.text.toString()
-        val agua = input8.text.toString()
+       // val agua = input8.text.toString()
+        if(nanendoSwitch.isChecked){
+            val cantwater = input8.text.toString().toDouble()
+            val convert =(0.264172*cantwater)
+            agua = convert.toString()
+        }else{
+            agua = input8.text.toString()
+        }
         val largo = input9.text.toString()
         val ancho = input10.text.toString()
         val hora = input11.text.toString()
 
         /******/
+
+
         if(nombre.isEmpty()){
             input1.setError("Ingrese el nombre de la parcela")
             return@setOnClickListener
@@ -245,28 +274,49 @@ if (idParcela != 0){
 
             //Toast.makeText(this@FormParcela.baseContext.applicationContext , "Datos Actualizados", Toast.LENGTH_LONG).show()
         }
-            Toast.makeText(this, "Datos Actualizados", Toast.LENGTH_LONG).show()
-            this@FormParcela.finish()
+            //Toast.makeText(this, "Datos Actualizados", Toast.LENGTH_LONG).show()
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.alertdialog_update)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val btnclose = dialog.findViewById<Button>(R.id.btnclose6)
+
+            btnclose.setOnClickListener {
+                dialog.dismiss()
+                this@FormParcela.finish()
+            }
+            dialog.show()
+
         }
     }
 
 
 }else{
 
-    val database = DBparcela.getDatabase(this)
 
+    var agua = ""
     val savebtn = findViewById<Button>(R.id.saveBtn)
     savebtn.setOnClickListener {
 
         val nombre = input1.text.toString()
         val cultivo = input2.text.toString()
-        val lat = input3.text.toString()
-        val lon = input4.text.toString()
+        val lat = latitude.text.toString()
+        val lon = longitude.text.toString()
         val dia = input5.text.toString()
         val creci = input13.text.toString()
         val triego = input6.text.toString()
         val tsuelo = input7.text.toString()
-        val agua = input8.text.toString()
+        if(nanendoSwitch.isChecked){
+            val cantwater = input8.text.toString().toDouble()
+            val convert =(0.264172*cantwater)
+            agua = convert.toString()
+        }else{
+            agua = input8.text.toString()
+        }
+        agua
+        //val agua = input8.text.toString()
         val largo = input9.text.toString()
         val ancho = input10.text.toString()
         val hora = input11.text.toString()
@@ -319,8 +369,21 @@ if (idParcela != 0){
                 //  requireActivity()?.onBackPressed()
 
         }
-            Toast.makeText(this , "Datos Guardados", Toast.LENGTH_LONG).show()
-            this@FormParcela.finish()
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.alertdialog_save)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
+
+            btnclose.setOnClickListener {
+                dialog.dismiss()
+                this@FormParcela.finish()
+            }
+            dialog.show()
+            //Toast.makeText(this , "Datos Guardados", Toast.LENGTH_LONG).show()
+
 
 
         /******/
@@ -340,29 +403,40 @@ if (idParcela != 0){
         return
     }
 
-    private fun locationGPS(){
-        if (this.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            }
+    private fun newlocationGPS() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED &&
-            this.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            }
-            != PackageManager.PERMISSION_GRANTED){
-            this.let {
-                ActivityCompat.requestPermissions(
-                    it as Activity,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    100
-                )
-            }
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            !=PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
+            return
+        }
 
+        val localizacion = fusedLocationProviderClient.lastLocation
+
+        localizacion.addOnSuccessListener {
+            if(it!=null){
+                val lat = it.latitude.toString()
+                val lon = it.longitude.toString()
+                println("vamos haber")
+                println(lat.plus(longitude.text))
+                println(lon.plus(longitude.text))
+                latitude.setText(lat)
+                longitude.setText(lon)
+            }
+        }
+    }
+
+    /*private fun locationGPS(){
+        if (this.let {
+            ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
+        } != PackageManager.PERMISSION_GRANTED &&
+            this.let {
+                ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION)
+            } != PackageManager.PERMISSION_GRANTED) {
+                this.let {
+                    ActivityCompat.requestPermissions(it as Activity, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 100)
+            }
             return
         }
 
@@ -379,5 +453,5 @@ if (idParcela != 0){
                 longitude.setText(lon)
             }
         }
-    }
+    }*/
 }
