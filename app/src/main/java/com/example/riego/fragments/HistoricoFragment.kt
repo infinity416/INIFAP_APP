@@ -84,6 +84,7 @@ class HistoricoFragment : Fragment() {
         var aguaParcela = arguments?.getString("StationsAgua")
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
+            //"Algodón"  -> 0
             "Maíz Grano"  -> 1
             "Maíz Forraje"  -> 2
             else -> "Invalid_Cultivo."
@@ -438,15 +439,7 @@ class HistoricoFragment : Fragment() {
 
 
 
-        /**GPS**/
-        val gpsconection = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val gpsstatus = gpsconection.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if(gpsstatus==true){
-            println("encendio")
-        }else{
-            println("apagado")
-        }
-        /**GPS**/
+
 
 
         var back = movimiento.findViewById<FloatingActionButton>(R.id.btnBack)

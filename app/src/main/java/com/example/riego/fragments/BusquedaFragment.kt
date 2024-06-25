@@ -2,15 +2,22 @@ package com.example.riego.fragments
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
@@ -56,7 +63,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var header = "confidential-apiKey"
 
 
-    var howis = arrayListOf("-opciones-")
+    var howis = arrayListOf("")
     var calve = arrayListOf("")
     var km = ""
     var inputfecha = ""
@@ -69,92 +76,109 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         // Inflate the layout for this fragment
         val con = inflater.inflate(R.layout.fragment_busqueda, container, false)
-       //
-       //
-       //
-       //
-       //
-       //
-       //
-       //
-       /////////////////
-         val interFecha = con.findViewById<EditText>(R.id.fechrangoInput)
-        interFecha.setOnClickListener {
-            val datePicker = DateTime{ day, month, year ->
-                if(day<10){
-                    if((month+1) <= 9){
-                        interFecha.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
+
+        val wificonection = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val newtworkinfo = wificonection.getActiveNetworkInfo()
+
+
+        if(newtworkinfo!= null && newtworkinfo.isConnected()){
+
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            /////////////////
+
+
+
+            val interFecha = con.findViewById<EditText>(R.id.fechrangoInput)
+            interFecha.setOnClickListener {
+                val datePicker = DateTime{ day, month, year ->
+                    if(day<10){
+                        if((month+1) <= 9){
+                            interFecha.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
+                        }else{
+                            interFecha.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                        }
+                    }else if((month+1) <= 9){
+                        interFecha.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
                     }else{
-                        interFecha.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                        interFecha.setText(day.toString()+"/"+(month+1)+"/"+year )
                     }
-                }else if((month+1) <= 9){
-                    interFecha.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
-                }else{
-                    interFecha.setText(day.toString()+"/"+(month+1)+"/"+year )
+
+
+
+
+                    //var nux.text = interFecha.setText(day.toString()+"/"+month.toString()+"/"+year.toString())
                 }
+                datePicker.show(childFragmentManager,"datePicker")
 
-
-
-
-                //var nux.text = interFecha.setText(day.toString()+"/"+month.toString()+"/"+year.toString())
             }
-            datePicker.show(childFragmentManager,"datePicker")
 
-        }
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            /////////////////
 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        /////////////////
-
-        val rango = con.findViewById<EditText>(R.id.distanciaInput)
+            val rango = con.findViewById<EditText>(R.id.distanciaInput)
 
 
 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        /////////////////
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            /////////////////
 
-        val lisParcelas = con.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextViewParcela)
-        val datadb = DBparcela.getDatabase(this.context as Activity)
-        datadb.parcelas().consultarLocalitation().observe(viewLifecycleOwner, Observer {
-            parcelaList = it
-            for (G in 0 until parcelaList.size){
-                howis.add(parcelaList.get(G).naame)
-                val contrac = ArrayAdapter((this.context as Activity).applicationContext, R.layout.list_items, howis )
-                lisParcelas.setOnItemClickListener { parent, view, position, id ->
-                    val itemParcelaName = parent.getItemAtPosition(position)
-                    parcelaLiveData=datadb.parcelas().consutaParcelaName(itemParcelaName.toString())
-                    parcelaLiveData.observe(this, Observer {
-                        parcela = it
-                        var namelat = parcela.lat
-                        val namelon = parcela.lon
-                        println("LOKKKK"+namelat + namelon)
-                    })
+            val lisParcelas = con.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextViewParcela)
+            val datadb = DBparcela.getDatabase(this.context as Activity)
+            datadb.parcelas().consultarLocalitation().observe(viewLifecycleOwner, Observer {
+                parcelaList = it
+
+                var howisx = arrayListOf("")
+
+                for (G in 0 until parcelaList.size){
+                    howisx.add(parcelaList.get(G).naame)
+                    //howisx.add(parcelaList.get(G).naame)
+                    //howis.add(parcelaList.get(G).naame)
+                    //val contrac = ArrayAdapter((this.context as Activity).applicationContext, R.layout.list_items, howisxl )
+                    val contrac = ArrayAdapter(context as Activity, R.layout.list_items, howisx)
+
+                    lisParcelas.setOnItemClickListener { parent, view, position, id ->
+                        val itemParcelaName = parent.getItemAtPosition(position)
+                        parcelaLiveData=datadb.parcelas().consutaParcelaName(itemParcelaName.toString())
+                        parcelaLiveData.observe(this, Observer {
+                            parcela = it
+                            var namelat = parcela.lat
+                            val namelon = parcela.lon
+                            println("LOKKKK"+namelat + namelon)
+                        })
+                    }
+                    lisParcelas.setAdapter(contrac)
                 }
-                lisParcelas.setAdapter(contrac)
-            }
-        })
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        /////////////////
+            })
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            /////////////////
 
 
 
@@ -162,40 +186,55 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
 
 
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        /////////////////
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            /////////////////
 
-        val btnConsulta = con.findViewById<Button>(R.id.btnConsulta)
-        btnConsulta?.setOnClickListener{
-             km = rango.text.toString()
-            inputfecha = interFecha?.text.toString()
-            val Nparcela = lisParcelas.text.toString()
+            val btnConsulta = con.findViewById<Button>(R.id.btnConsulta)
+            btnConsulta?.setOnClickListener{
+                km = rango.text.toString()
+                inputfecha = interFecha?.text.toString()
+                val Nparcela = lisParcelas.text.toString()
 
 //            println("cadena de catos lat:"+parcela.lat+", lon:"+parcela.lon+", name:"+parcela.naame+", km:"+km+" y fecha:"+ interFecha?.text.toString()+"  ATT: INFINITY")
 
-            if(km.isEmpty()) {
-                rango.setError("Ingrese la distancia")
-                return@setOnClickListener
-            }else if(Nparcela.isEmpty()){
-                //lisParcelas.setError("Seleccione la parcela")
-                Toast.makeText(this.context, "Selecione la parcela", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }else if (inputfecha.isEmpty()){
-                interFecha.setError("Seleccione la fecha")
-                return@setOnClickListener
-            }else{
-                Toast.makeText(this.context, "Buscando...", Toast.LENGTH_LONG).show()
-                btnConsulta.setTransitionVisibility(View.GONE)
-                createFragment()
+                if(km.isEmpty()) {
+                    rango.setError("Ingrese la distancia")
+                    return@setOnClickListener
+                }else if(Nparcela.isEmpty()){
+                    //lisParcelas.setError("Seleccione la parcela")
+                    Toast.makeText(this.context, "Selecione la parcela", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }else if (inputfecha.isEmpty()){
+                    interFecha.setError("Seleccione la fecha")
+                    return@setOnClickListener
+                }else{
+                    Toast.makeText(this.context, "Buscando...", Toast.LENGTH_LONG).show()
+                    btnConsulta.setTransitionVisibility(View.GONE)
+                    createFragment()
+                }
             }
+        }else{
+            val dialog = Dialog(context as Activity)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.alertdialog_notwifi)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val btnclose = dialog.findViewById<Button>(R.id.btnclose1)
+
+            btnclose.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
         }
+
         return con
     }
 
@@ -441,9 +480,9 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                         val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
                         mMaparcela.addMarker(ubicactionParcela)
                         mMaparcela.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 16.5f),
-                            4000,
-                            null
+                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
+                            15,
+                            null,
                         )
 
                     }
@@ -453,4 +492,5 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
         return
     }
 }
+
 

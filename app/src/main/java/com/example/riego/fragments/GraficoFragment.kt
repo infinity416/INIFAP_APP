@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import com.example.riego.R
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
@@ -116,7 +117,7 @@ class GraficoFragment : Fragment() {
                     println("ERROR 500, por fechas...")
                 }else if(fax == 200){
                 if(response.isSuccessful){
-                    activity?.runOnUiThread {
+                    //activity?.runOnUiThread {
                         val lagrieta = response.body!!.string()
                         val aram = JSONObject(lagrieta)
                         val estrellaoscura = aram.names().toString()
@@ -236,6 +237,8 @@ class GraficoFragment : Fragment() {
 
                             val bodyLinesGrafic = con.findViewById<LineChart>(R.id.ViewGrafica)
 
+
+
                             val descripcion = Description()
                             descripcion.setText("")
                             descripcion.setPosition(150f, 55f)
@@ -272,11 +275,15 @@ class GraficoFragment : Fragment() {
                             val lineDateSet = LineDataSet(datagrafic as List<Entry>?, "Agua Disponible")
                             lineDateSet.setLineWidth(4f)
                             lineDateSet.setColor(Color.BLUE)
+                            lineDateSet.setDrawFilled(true)
+                            lineDateSet.setFillDrawable(Color.argb(60,108, 64,205).toDrawable())
+                            //lineDateSet.valueTextColor = Color.GREEN
                             lineDateSet.setDrawCircles(true)
                             lineDateSet.setDrawCircleHole(true)
                             lineDateSet.setCircleColor(Color.GREEN)
                             lineDateSet.setCircleRadius(3f)
                             lineDateSet.setValueTextSize(5f)
+
                             //lineDateSet.setValueTextColors(Color.YELLOW)
 
 
@@ -284,19 +291,26 @@ class GraficoFragment : Fragment() {
                             val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
                             lineDateSet2.setLineWidth(4f)
                             lineDateSet2.setColor(Color.RED)
+                            lineDateSet2.setDrawFilled(true)
+                            lineDateSet2.setFillDrawable(Color.argb(60,158, 64,104).toDrawable())
                             lineDateSet2.setDrawCircles(true)
                             lineDateSet2.setDrawCircleHole(true)
                             lineDateSet2.setCircleColor(Color.MAGENTA)
                             lineDateSet2.setCircleRadius(3f)
                             lineDateSet2.setValueTextSize(5f)
+                            lineDateSet2.setValueTextSize(5f)
+                            lineDateSet.setValueTextColor(Color.BLACK)
+
 
                             val linedate = LineData(lineDateSet, lineDateSet2)
 
+                            //bodyLinesGrafic.setNoDataText("No hay datos que graficar...")
+                            //bodyLinesGrafic.setNoDataTextColor(Color.BLACK)
                             bodyLinesGrafic.data = linedate
                             bodyLinesGrafic.setDrawBorders(true)
                             bodyLinesGrafic.invalidate()
                         }
-                    }
+                    //}
                 }
                 }
 

@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
@@ -36,10 +37,10 @@ import kotlinx.coroutines.launch
 
 class FormParcela : AppCompatActivity() {
 
-    val cultivo = arrayOf("Maíz Grano","Maíz Forraje")
+    val cultivo = arrayOf("Algodón","Maíz Grano","Maíz Forraje")
     val cresimiento = arrayOf("Precoz", "Intermedio", "Tardío")
     val suelo = arrayOf("Ligero","Media","Pesado")
-    val rigo = arrayOf("Goteo")
+    val rigo = arrayOf("Goteo", "Pivote")
 
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -404,6 +405,11 @@ if (idParcela != 0){
     }
 
     private fun newlocationGPS() {
+        /**GPS**/
+        val gpsconection = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val gpsstatus = gpsconection.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
+
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -415,17 +421,51 @@ if (idParcela != 0){
         val localizacion = fusedLocationProviderClient.lastLocation
 
         localizacion.addOnSuccessListener {
-            if(it!=null){
-                val lat = it.latitude.toString()
-                val lon = it.longitude.toString()
-                println("vamos haber")
-                println(lat.plus(longitude.text))
-                println(lon.plus(longitude.text))
-                latitude.setText(lat)
-                longitude.setText(lon)
+            if(gpsstatus==true){
+                println("encendio")
+                /**GPS**/
+
+                if(it!=null){
+                    val lat = it.latitude.toString()
+                    val lon = it.longitude.toString()
+                    println("vamos haber")
+                    println(lat.plus(longitude.text))
+                    println(lon.plus(longitude.text))
+                    latitude.setText(lat)
+                    longitude.setText(lon)
+                }
+
+            }else{
+                println("apagado")
+                val dialog = Dialog(this)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(false)
+                dialog.setContentView(R.layout.alertdialog_offgps)
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                val btnclose = dialog.findViewById<Button>(R.id.btnclose8)
+
+                btnclose.setOnClickListener {
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
+
         }
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
 
     /*private fun locationGPS(){
         if (this.let {

@@ -15,4 +15,8 @@
     <color name="saveAction">#8DC63F</color>
     <color name="updateAction">#00AEEF</color>
     <color name="deleteAction">#BE1E2D</color>
+    <color name="graficas1">#9E4068</color>
+    <color name="graficas2">#6C40CD</color>
+    <color name="textriegocard">#00A4E1</color>
+
 </resources>
