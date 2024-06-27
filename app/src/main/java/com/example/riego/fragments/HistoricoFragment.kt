@@ -208,59 +208,59 @@ class HistoricoFragment : Fragment() {
                                                 }
                                                 dialog.show()
                                             }else if(codeclaveii == 200){
-                                                if(responses.isSuccessful){
-                                                    activity?.runOnUiThread{
-                                                        val hayii = responses.body!!.string()
-                                                        val algoii = JSONObject(hayii)
-                                                        val encontreii =  algoii.names().toString()
-                                                        val verygood = "[\"riego\"]"
-                                                        val notverygood = "[\"error\"]"
-                                                        if(encontreii == notverygood){
-                                                            val senalii = algoii.getJSONObject("error").get("id")
-                                                            if(senalii == 1){
-                                                                val dialog = Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                val hayii = responses.body!!.string()
+                                                val algoii = JSONObject(hayii)
+                                                val encontreii =  algoii.names().toString()
+                                                val verygood = "[\"riego\"]"
+                                                val notverygood = "[\"error\"]"
+                                                if(encontreii == notverygood){
+                                                    val senalii = algoii.getJSONObject("error").get("id")
+                                                    if(senalii == 1){
+                                                        val dialog = Dialog(context as Activity)
+                                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                        dialog.setCancelable(false)
+                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                        val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
-                                                                }
-                                                                dialog.show()
-                                                            }else if(senalii == 2){
-                                                                val dialog = Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                        btnclose.setOnClickListener {
+                                                            dialog.dismiss()
+                                                        }
+                                                        dialog.show()
+                                                    }else if(senalii == 2){
+                                                        val dialog = Dialog(context as Activity)
+                                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                        dialog.setCancelable(false)
+                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                        val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
-                                                                }
-                                                                dialog.show()
-                                                            }else if(senalii == 3){
-                                                                val dialog = Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                        btnclose.setOnClickListener {
+                                                            dialog.dismiss()
+                                                        }
+                                                        dialog.show()
+                                                    }else if(senalii == 3){
+                                                        val dialog = Dialog(context as Activity)
+                                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                        dialog.setCancelable(false)
+                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                        val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
-                                                                }
-                                                                dialog.show()
-                                                            }
-                                                        } else if(encontreii == verygood){
+                                                        btnclose.setOnClickListener {
+                                                            dialog.dismiss()
+                                                        }
+                                                        dialog.show()
+                                                    }
+                                                } else if(encontreii == verygood) {
+                                                    if (responses.isSuccessful) {
+                                                        activity?.runOnUiThread {
                                                             val senalii = algoii.getJSONObject("riego")
                                                             val cuantossonii = senalii.getJSONArray("RequerimientoRiego")
-                                                            if(cuantossonii.length() == 0){
+                                                            if (cuantossonii.length() == 0) {
                                                                 val dialog = Dialog(context as Activity)
                                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                                 dialog.setCancelable(false)
@@ -273,23 +273,22 @@ class HistoricoFragment : Fragment() {
                                                                     dialog.dismiss()
                                                                 }
                                                                 dialog.show()
-                                                            }else{
+                                                            } else {
                                                                 println("has tomado el camio II")
-                                                                for (l in 0 until cuantossonii.length()){
+                                                                for (l in 0 until cuantossonii.length()) {
                                                                     val contacto = cuantossonii.getJSONObject(l)
                                                                     val historial = Historial(
-                                                                        contacto.getString("Fecha"),
-                                                                        contacto.getDouble("LaminaSueloActual"),
-                                                                        contacto.getDouble("LaminaReponer"),
-                                                                        contacto.getString("TiempoRiego"),
-                                                                        contacto.getDouble("UCA"),
-                                                                        contacto.getInt("PrecipitacionEfectivaAcum"),
-                                                                        contacto.getDouble("ETCAcum")
-                                                                    )
+                                                                            contacto.getString("Fecha"),
+                                                                            contacto.getDouble("LaminaSueloActual"),
+                                                                            contacto.getDouble("LaminaReponer"),
+                                                                            contacto.getString("TiempoRiego"),
+                                                                            contacto.getDouble("UCA"),
+                                                                            contacto.getInt("PrecipitacionEfectivaAcum"),
+                                                                            contacto.getDouble("ETCAcum")
+                                                                        )
                                                                     historlaList.add(historial)
                                                                     Log.d("Ejemploplox", historlaList.toString())
                                                                 }
-
                                                                 palpatin.layoutManager = LinearLayoutManager(context)
                                                                 palpatin.adapter = Card(historlaList)
                                                             }
@@ -299,13 +298,11 @@ class HistoricoFragment : Fragment() {
                                             }
                                         }
                                     })
-
                                 }
 
 
                                 /******/
                             }else if(codeclave == 200){
-
                                         val hay = response.body!!.string()
                                         val algo = JSONObject(hay)
                                         val encontre =  algo.names().toString()
