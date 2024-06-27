@@ -52,8 +52,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMaparcela: GoogleMap
     lateinit var historicoFragment: HistoricoFragment
 
-   /* private lateinit var databse: DBparcela
-    private lateinit var parcelaLiveData: LiveData<Parcela>*/
+    /* private lateinit var databse: DBparcela
+     private lateinit var parcelaLiveData: LiveData<Parcela>*/
     //private lateinit var pacelaLists : Parcela
     var parcelaList = emptyList<Parcela>()
     private lateinit var parcela: Parcela
@@ -319,8 +319,6 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                             val tit1 = marker.title
                                             println(tit1)
                                             val args = Bundle()
-
-
                                             //args.putString("Stationsname", nameStation.toString())
                                             args.putString("Stationsid", tit1)
                                             //args.putString("Stationslat", latStation.toString())
@@ -333,16 +331,17 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                             args.putString("StationsLargo", parcela.larg)
                                             args.putString("StationsAncho", parcela.anch)
                                             args.putString("StationsAgua", parcela.agua)
-                                            /*historicoFragment.arguments = args
+                                            historicoFragment.arguments = args
                                             childFragmentManager
                                                 .beginTransaction()
                                                 .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()*/
+                                                .commit()
 
-                                            return false}
+                                            return false
+                                        }
                                     })
-                                     /******/
+                                    /******/
 
 
                                 }else if((kmStation>=r) && (kmStation<=o)){
@@ -359,12 +358,12 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                                         @SuppressLint("ResourceType")
                                         override fun onMarkerClick(marker: Marker): Boolean {
+                                            historicoFragment = HistoricoFragment()
                                             val tit1 = marker.title
                                             println(tit1)
-                                            historicoFragment = HistoricoFragment()
                                             val args = Bundle()
                                             //args.putString("Stationsname", nameStation.toString())
-                                            args.putInt("Stationsid", idStation)
+                                            args.putString("Stationsid", tit1)
                                             //args.putString("Stationslat", latStation.toString())
                                             args.putString("StationsDateInput", inputfecha)
                                             args.putString("StationsDateStart", parcela.fecha)
@@ -401,13 +400,12 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
                                         @SuppressLint("ResourceType")
                                         override fun onMarkerClick(marker: Marker): Boolean {
-
+                                            historicoFragment = HistoricoFragment()
                                             val tit1 = marker.title
                                             println(tit1)
-                                            historicoFragment = HistoricoFragment()
                                             val args = Bundle()
                                             //args.putString("Stationsname", nameStation.toString())
-                                            args.putInt("Stationsid", idStation)
+                                            args.putString("Stationsid", tit1)
                                             //args.putString("Stationslat", latStation.toString())
                                             args.putString("StationsDateInput", inputfecha)
                                             args.putString("StationsDateStart", parcela.fecha)
@@ -492,5 +490,3 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
         return
     }
 }
-
-

@@ -63,8 +63,11 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     //http
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+    //implementation("com.squareup.okhttp3:okthttp")
+
     //location
     implementation("com.google.android.gms:play-services-location:19.0.0")
+
     //Room
     implementation ("androidx.room:room-ktx:2.6.1")
     //implementation ("androidx.room:room-compiler:2.6.1")

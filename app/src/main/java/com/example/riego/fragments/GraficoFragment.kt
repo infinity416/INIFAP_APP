@@ -1,37 +1,29 @@
 package com.example.riego.fragments
 
 
-import android.app.Activity
+
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import com.example.riego.R
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.DataSet
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.util.Arrays
-import kotlin.math.max
 
 
 private lateinit var lineList: List<String>
@@ -168,47 +160,47 @@ class GraficoFragment : Fragment() {
                                     //println("Son Enero" +mmc)
                                     Meses.add("Enero")
                                     MesesNUM.add(1)
-                                } else if (2 === mmc.toInt()) {
+                                } else if (2 == mmc.toInt()) {
                                     //println("Son Febrero " +mmc)
                                     Meses.add("Febrero")
                                     MesesNUM.add(2)
-                                } else if (3 === mmc.toInt()) {
+                                } else if (3 == mmc.toInt()) {
                                     //println("Son Marzo " +mmc)
                                     Meses.add("Marzo")
                                     MesesNUM.add(3)
-                                } else if (4 === mmc.toInt()) {
+                                } else if (4 == mmc.toInt()) {
                                     //println("Son Abril " +mmc)
                                     Meses.add("Abril")
                                     MesesNUM.add(4)
-                                } else if (5 === mmc.toInt()) {
+                                } else if (5 == mmc.toInt()) {
                                     //println("Son Mayo " +mmc)
                                     Meses.add("Mayo")
                                     MesesNUM.add(5)
-                                } else if (6 === mmc.toInt()) {
+                                } else if (6 == mmc.toInt()) {
                                     //println("Son Junio " +mmc)
                                     Meses.add("Junio")
                                     MesesNUM.add(6)
-                                } else if (7 === mmc.toInt()) {
+                                } else if (7 == mmc.toInt()) {
                                     //println("Son Julio " +mmc)
                                     Meses.add("Julio")
                                     MesesNUM.add(7)
-                                } else if (8 === mmc.toInt()) {
+                                } else if (8 == mmc.toInt()) {
                                     //println("Son Agosto " +mmc)
                                     Meses.add("Agosto")
                                     MesesNUM.add(8)
-                                } else if (9 === mmc.toInt()) {
+                                } else if (9 == mmc.toInt()) {
                                     //println("Son Septiembre " +mmc)
                                     Meses.add("Septiembre")
                                     MesesNUM.add(9)
-                                } else if (10 === mmc.toInt()) {
+                                } else if (10 == mmc.toInt()) {
                                     //println("Son Octubre " +mmc)
                                     Meses.add("Octubre")
                                     MesesNUM.add(10)
-                                } else if (11 === mmc.toInt()) {
+                                } else if (11 == mmc.toInt()) {
                                     //println("Son Noviembre " +mmc)
                                     Meses.add("Noviembre")
                                     MesesNUM.add(11)
-                                } else if (12 === mmc.toInt()) {
+                                } else if (12 == mmc.toInt()) {
                                     //println("Son Diciembre " +mmc)
                                     Meses.add("Diciembre")
                                     MesesNUM.add(12)
@@ -248,7 +240,7 @@ class GraficoFragment : Fragment() {
 
 
                             val EjeX = bodyLinesGrafic.getXAxis()
-                            EjeX.setValueFormatter(IndexAxisValueFormatter(Meses.toSet()))
+                            EjeX.setValueFormatter(IndexAxisValueFormatter(fechas))
                             EjeX.setCenterAxisLabels(true)
                             EjeX.setPosition(XAxis.XAxisPosition.BOTTOM)
                             EjeX.setGranularity(1f)

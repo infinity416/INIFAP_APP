@@ -54,7 +54,7 @@ class HistoricoFragment : Fragment() {
     lateinit var graficoFragment: GraficoFragment
     lateinit var historicoFragment: HistoricoFragment
 
-    @SuppressLint("MissingInflatedId")
+    //@SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,14 +63,14 @@ class HistoricoFragment : Fragment() {
         /****Atenea****/
         //var nameParcela = arguments?.getString("Stationsname")
         var idParcela = arguments?.getString("Stationsid")
-        var idParcela1 = arguments?.getInt("Stationsid630")
-        var idParcela2 = arguments?.getInt("Stationsid31365")
-        var idParcela3 = arguments?.getInt("Stationsid")
+       // var idParcela1 = arguments?.getInt("Stationsid630")
+        ///var idParcela2 = arguments?.getInt("Stationsid31365")
+        //var idParcela3 = arguments?.getInt("Stationsid")
 
-        println("de 0 a 5: "+idParcela.toString())
-        println("de 6 a 30: "+idParcela1)
-        println("de 31 a 365: "+idParcela2)
-        println("mas de 366: "+idParcela3)
+        //println("de 0 a 5: "+idParcela.toString())
+        //println("de 6 a 30: "+idParcela1)
+        //println("de 31 a 365: "+idParcela2)
+       // println("mas de 366: "+idParcela3)
 
         //var latParcela = arguments?.getString("Stationslat")?.toInt()
         var dateinputParcela = arguments?.getString("StationsDateInput")
@@ -182,128 +182,130 @@ class HistoricoFragment : Fragment() {
                                 }else{
                                     println("con datos"+urlii)
                                     haydata.setVisibility(TextView.INVISIBLE)
-                                }
 
-                                //println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+                                    //println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
 
-                                val imperioii = okhttp3.Request.Builder().url(urlii).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
+                                    val imperioii = okhttp3.Request.Builder().url(urlii).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
-                                clients.newCall(imperioii).enqueue(object : Callback{
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        e.printStackTrace()
-                                    }
+                                    clients.newCall(imperioii).enqueue(object : Callback{
+                                        override fun onFailure(call: Call, e: IOException) {
+                                            e.printStackTrace()
+                                        }
 
-                                    override fun onResponse(call: Call, responses: Response) {
-                                        val codeclaveii= responses.code
-                                        if(codeclaveii == 400){
-                                            val dialog = Dialog(context as Activity)
-                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                            dialog.setCancelable(false)
-                                            dialog.setContentView(R.layout.alertdialog_brokenserver)
-                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                        override fun onResponse(call: Call, responses: Response) {
+                                            val codeclaveii= responses.code
+                                            if(codeclaveii == 400){
+                                                val dialog = Dialog(context as Activity)
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                dialog.setCancelable(false)
+                                                dialog.setContentView(R.layout.alertdialog_brokenserver)
+                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose4)
+                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose4)
 
-                                            btnclose.setOnClickListener {
-                                                dialog.dismiss()
-                                            }
-                                            dialog.show()
-                                        }else if(codeclaveii == 200){
-                                            if(responses.isSuccessful){
-                                                activity?.runOnUiThread{
-                                                    val hayii = responses.body!!.string()
-                                                    val algoii = JSONObject(hayii)
-                                                    val encontreii =  algoii.names().toString()
-                                                    val verygood = "[\"riego\"]"
-                                                    val notverygood = "[\"error\"]"
-                                                    if(encontreii == notverygood){
-                                                        val senalii = algoii.getJSONObject("error").get("id")
-                                                        if(senalii == 1){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                btnclose.setOnClickListener {
+                                                    dialog.dismiss()
+                                                }
+                                                dialog.show()
+                                            }else if(codeclaveii == 200){
+                                                if(responses.isSuccessful){
+                                                    activity?.runOnUiThread{
+                                                        val hayii = responses.body!!.string()
+                                                        val algoii = JSONObject(hayii)
+                                                        val encontreii =  algoii.names().toString()
+                                                        val verygood = "[\"riego\"]"
+                                                        val notverygood = "[\"error\"]"
+                                                        if(encontreii == notverygood){
+                                                            val senalii = algoii.getJSONObject("error").get("id")
+                                                            if(senalii == 1){
+                                                                val dialog = Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
+                                                            }else if(senalii == 2){
+                                                                val dialog = Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
+                                                            }else if(senalii == 3){
+                                                                val dialog = Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
                                                             }
-                                                            dialog.show()
-                                                        }else if(senalii == 2){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                        } else if(encontreii == verygood){
+                                                            val senalii = algoii.getJSONObject("riego")
+                                                            val cuantossonii = senalii.getJSONArray("RequerimientoRiego")
+                                                            if(cuantossonii.length() == 0){
+                                                                val dialog = Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_notserver)
+                                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose3)
 
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
+                                                            }else{
+                                                                println("has tomado el camio II")
+                                                                for (l in 0 until cuantossonii.length()){
+                                                                    val contacto = cuantossonii.getJSONObject(l)
+                                                                    val historial = Historial(
+                                                                        contacto.getString("Fecha"),
+                                                                        contacto.getDouble("LaminaSueloActual"),
+                                                                        contacto.getDouble("LaminaReponer"),
+                                                                        contacto.getString("TiempoRiego"),
+                                                                        contacto.getDouble("UCA"),
+                                                                        contacto.getInt("PrecipitacionEfectivaAcum"),
+                                                                        contacto.getDouble("ETCAcum")
+                                                                    )
+                                                                    historlaList.add(historial)
+                                                                    Log.d("Ejemploplox", historlaList.toString())
+                                                                }
+
+                                                                palpatin.layoutManager = LinearLayoutManager(context)
+                                                                palpatin.adapter = Card(historlaList)
                                                             }
-                                                            dialog.show()
-                                                        }else if(senalii == 3){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
-
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
-                                                            }
-                                                            dialog.show()
-                                                        }
-                                                    } else if(encontreii == verygood){
-                                                        val senalii = algoii.getJSONObject("riego")
-                                                        val cuantossonii = senalii.getJSONArray("RequerimientoRiego")
-                                                        if(cuantossonii.length() == 0){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notserver)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose3)
-
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
-                                                            }
-                                                            dialog.show()
-                                                        }else{
-                                                            println("has tomado el camio II")
-                                                            for (l in 0 until cuantossonii.length()){
-                                                                val contacto = cuantossonii.getJSONObject(l)
-                                                                val historial = Historial(
-                                                                    contacto.getString("Fecha"),
-                                                                    contacto.getDouble("LaminaSueloActual"),
-                                                                    contacto.getDouble("LaminaReponer"),
-                                                                    contacto.getString("TiempoRiego"),
-                                                                    contacto.getDouble("UCA"),
-                                                                    contacto.getInt("PrecipitacionEfectivaAcum"),
-                                                                    contacto.getDouble("ETCAcum")
-                                                                )
-                                                                historlaList.add(historial)
-                                                                Log.d("Ejemploplox", historlaList.toString())
-                                                            }
-
-                                                            palpatin.layoutManager = LinearLayoutManager(context)
-                                                            palpatin.adapter = Card(historlaList)
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
-                                })
+                                    })
+
+                                }
+
+
                                 /******/
                             }else if(codeclave == 200){
-                                if (response.isSuccessful){
-                                    activity?.runOnUiThread {
+
                                         val hay = response.body!!.string()
                                         val algo = JSONObject(hay)
                                         val encontre =  algo.names().toString()
@@ -311,7 +313,7 @@ class HistoricoFragment : Fragment() {
                                         val notgood = "[\"error\"]"
                                         if(encontre==notgood){
                                             val senal = algo.getJSONObject("error").get("id")
-                                            if(senal === 1){
+                                            if(senal == 1){
                                                 println("Error en el Key")
                                                 val dialog = Dialog(context as Activity)
                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -325,7 +327,7 @@ class HistoricoFragment : Fragment() {
                                                     dialog.dismiss()
                                                 }
                                                 dialog.show()
-                                            }else if(senal === 2){
+                                            }else if(senal == 2){
                                                 println("Error en el valor de la key")
                                                 val dialog = Dialog(context as Activity)
                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -339,7 +341,7 @@ class HistoricoFragment : Fragment() {
                                                     dialog.dismiss()
                                                 }
                                                 dialog.show()
-                                            }else if(senal === 3){
+                                            }else if(senal == 3){
                                                 println("Error en la creacion de datos")
                                                 val dialog = Dialog(context as Activity)
                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -355,6 +357,8 @@ class HistoricoFragment : Fragment() {
                                                 dialog.show()
                                             }
                                         }else if(encontre==good){
+                                            if (response.isSuccessful) {
+                                                activity?.runOnUiThread{
                                             val senal = algo.getJSONObject("riego")
                                             val cuantosson = senal.getJSONArray("RequerimientoRiego")
                                             println("halo 2 "+cuantosson.length())
@@ -389,7 +393,6 @@ class HistoricoFragment : Fragment() {
                                                     historlaList.add(historial)
                                                     Log.d("Ejemploplox", historlaList.toString())
                                                 }
-
                                                 palpatin.layoutManager = LinearLayoutManager(context)
                                                 palpatin.adapter = Card(historlaList)
                                             }
