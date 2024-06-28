@@ -232,9 +232,9 @@ class GraficoFragment : Fragment() {
 
 
                             val descripcion = Description()
-                            descripcion.setText("")
-                            descripcion.setPosition(150f, 55f)
-                            descripcion.setTextSize(15f)
+                            descripcion.setText("Lamina de riego(mm)")
+                            descripcion.setPosition(310f, 38f)
+                            descripcion.setTextSize(10f)
                             bodyLinesGrafic.setDescription(descripcion)
                             bodyLinesGrafic.getAxisRight().setDrawLabels(false)
 

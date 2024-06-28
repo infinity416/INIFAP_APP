@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.FragmentTransaction
@@ -55,6 +57,7 @@ class HistoricoFragment : Fragment() {
     lateinit var historicoFragment: HistoricoFragment
 
     //@SuppressLint("MissingInflatedId")
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -453,6 +456,8 @@ class HistoricoFragment : Fragment() {
                 .replace(R.id.ViewHistoricoFragment,busquedaFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
+            next.setTransitionVisibility(View.GONE)
+            back.setTransitionVisibility(View.GONE)
         }
 
 
@@ -476,6 +481,8 @@ class HistoricoFragment : Fragment() {
                 .replace(R.id.ViewHistoricoFragment,graficoFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
+            next.setTransitionVisibility(View.GONE)
+            back.setTransitionVisibility(View.GONE)
         }
 
 

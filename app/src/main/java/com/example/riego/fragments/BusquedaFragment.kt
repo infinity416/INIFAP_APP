@@ -148,14 +148,19 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             datadb.parcelas().consultarLocalitation().observe(viewLifecycleOwner, Observer {
                 parcelaList = it
 
-                var howisx = arrayListOf("")
+                //var howisx = arrayListOf("")
+                var fechas: ArrayList<String> = ArrayList()
 
                 for (G in 0 until parcelaList.size){
-                    howisx.add(parcelaList.get(G).naame)
+                    //howisx.add(parcelaList.get(G).naame)
+                    val velocito = parcelaList.get(G).naame
+                    fechas.add(velocito)
+                    println("Oh!, levay...."+fechas)
                     //howisx.add(parcelaList.get(G).naame)
                     //howis.add(parcelaList.get(G).naame)
                     //val contrac = ArrayAdapter((this.context as Activity).applicationContext, R.layout.list_items, howisxl )
-                    val contrac = ArrayAdapter(context as Activity, R.layout.list_items, howisx)
+                    //val contrac = ArrayAdapter(context as Activity, R.layout.list_items, howisx)
+                    val contrac = ArrayAdapter(context as Activity, R.layout.list_items, fechas)
 
                     lisParcelas.setOnItemClickListener { parent, view, position, id ->
                         val itemParcelaName = parent.getItemAtPosition(position)
