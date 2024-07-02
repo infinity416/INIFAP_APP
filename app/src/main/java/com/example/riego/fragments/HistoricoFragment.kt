@@ -12,6 +12,7 @@ import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -87,9 +88,9 @@ class HistoricoFragment : Fragment() {
         var aguaParcela = arguments?.getString("StationsAgua")
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
-            //"Algodón"  -> 0
-            "Maíz Grano"  -> 1
-            "Maíz Forraje"  -> 2
+            "Algodón"  -> 1
+            "Maíz Grano"  -> 2
+            "Maíz Forraje"  -> 3
             else -> "Invalid_Cultivo."
         }
 
@@ -109,7 +110,7 @@ class HistoricoFragment : Fragment() {
 
         var riegoClave = when (riegoParcela){
             "Goteo"  -> 1
-            //""  -> 2
+            "Pivote"  -> 2
             //""  -> 3
             else -> "Invalid_Tipo_de_Goteo."
         }
@@ -198,18 +199,28 @@ class HistoricoFragment : Fragment() {
                                         override fun onResponse(call: Call, responses: Response) {
                                             val codeclaveii= responses.code
                                             if(codeclaveii == 400){
-                                                val dialog = Dialog(context as Activity)
-                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                dialog.setCancelable(false)
-                                                dialog.setContentView(R.layout.alertdialog_brokenserver)
-                                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                activity?.runOnUiThread {
+                                                    val hayii = responses.body!!.string()
+                                                    val algoii = JSONObject(hayii)
+                                                    val encontreii =  algoii.names().toString()
+                                                    println("Encontre queso..."+encontreii)
+                                                    val Howis = "[\"Message\"]"
+                                                    println(Howis)
+                                                    if(encontreii == Howis){
+                                                        val dialog = Dialog(context as Activity)
+                                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                        dialog.setCancelable(false)
+                                                        dialog.setContentView(R.layout.alertdialog_brokenserver)
+                                                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                val btnclose = dialog.findViewById<Button>(R.id.btnclose4)
+                                                        val btnclose = dialog.findViewById<Button>(R.id.btnclose4)
 
-                                                btnclose.setOnClickListener {
-                                                    dialog.dismiss()
+                                                        btnclose.setOnClickListener {
+                                                            dialog.dismiss()
+                                                        }
+                                                        dialog.show()
+                                                    }
                                                 }
-                                                dialog.show()
                                             }else if(codeclaveii == 200){
                                                 val hayii = responses.body!!.string()
                                                 val algoii = JSONObject(hayii)
@@ -305,6 +316,25 @@ class HistoricoFragment : Fragment() {
 
 
                                 /******/
+                            }else if(codeclave === 500){
+                                println("tenemos un f500")
+                                //if (response.isSuccessful) {
+                                    activity?.runOnUiThread {
+                                        val dialog = Dialog(context as Activity)
+                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                        dialog.setCancelable(false)
+                                        dialog.setContentView(R.layout.alertdialog_error500)
+                                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                        val btnclose = dialog.findViewById<Button>(R.id.btn500)
+
+                                        btnclose.setOnClickListener {
+                                            dialog.dismiss()
+                                        }
+                                        dialog.show()
+                                    }
+                                //}
+
                             }else if(codeclave == 200){
                                         val hay = response.body!!.string()
                                         val algo = JSONObject(hay)

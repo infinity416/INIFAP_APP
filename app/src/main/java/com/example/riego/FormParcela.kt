@@ -70,21 +70,21 @@ class FormParcela : AppCompatActivity() {
 
         lisCultivo.setOnItemClickListener { parent, view, position, id ->
             val itemCultivo = parent.getItemAtPosition(position)
-            Toast.makeText(this, "Has elegido $itemCultivo", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "Has elegido $itemCultivo", Toast.LENGTH_LONG).show()
         }
         lisSuelo.setOnItemClickListener { parent, view, position, id ->
             val itemSuelo = parent.getItemAtPosition(position)
-            Toast.makeText(this, "Has elegido $itemSuelo", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "Has elegido $itemSuelo", Toast.LENGTH_LONG).show()
         }
 
         lisRiego.setOnItemClickListener { parent, view, position, id ->
             val itemRiego = parent.getItemAtPosition(position)
-            Toast.makeText(this, "Has elegido $itemRiego", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "Has elegido $itemRiego", Toast.LENGTH_LONG).show()
         }
 
         lisCresimiento.setOnItemClickListener { parent, view, position, id ->
             val itemCrecimiento = parent.getItemAtPosition(position)
-            Toast.makeText(this, "Has elegido $$itemCrecimiento", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "Has elegido $$itemCrecimiento", Toast.LENGTH_LONG).show()
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)

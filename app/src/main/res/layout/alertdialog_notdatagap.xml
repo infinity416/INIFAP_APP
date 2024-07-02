@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
-    android:layout_marginHorizontal="20dp">
+    android:layout_marginHorizontal="20dp"
+    android:id="@+id/alertwifi">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,21 +20,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ERROR"
+            android:text="No hay datos que graficar"
             android:textSize="40dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="211dp"
-            android:layout_height="117dp"
+            android:layout_width="136dp"
+            android:layout_height="149dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/clouderror" />
+            app:srcCompat="@drawable/filedead" />
 
         <Button
-            android:id="@+id/btnclose2"
+            android:id="@+id/btnsindatagrap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/style_border"
@@ -41,16 +41,6 @@
             android:gravity="center"
             android:textSize="25dp"
             android:textStyle="bold" />
-
-        <!--<Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="190dp"
-            android:layout_marginTop="300dp"
-            android:text="Cerrar" />-->
 
     </LinearLayout>
 

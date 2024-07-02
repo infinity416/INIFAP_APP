@@ -2,12 +2,17 @@ package com.example.riego.fragments
 
 
 
+import android.app.Activity
+import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import androidx.core.graphics.drawable.toDrawable
 import com.example.riego.R
 import com.github.mikephil.charting.charts.LineChart
@@ -61,8 +66,9 @@ class GraficoFragment : Fragment() {
 
 
         var frezzer = when (krillin){
-            "Maíz Grano"  -> 1
-            "Maíz Forraje"  -> 2
+            "Algodón"  -> 1
+            "Maíz Grano"  -> 2
+            "Maíz Forraje"  -> 3
             else -> "Invalid_Cultivo."
         }
 
@@ -81,8 +87,8 @@ class GraficoFragment : Fragment() {
         }
 
         var majinbu = when (goten){
-            "Goteo"  -> 1
-            //""  -> 2
+            "Goteo"   -> 1
+            "Pivote"  -> 2
             //""  -> 3
             else -> "Invalid_Tipo_de_Goteo."
         }
@@ -106,7 +112,20 @@ class GraficoFragment : Fragment() {
                 if(fax == 400){
                    println("ERROR 400")
                 }else if(fax == 500){
-                    println("ERROR 500, por fechas...")
+                    activity?.runOnUiThread {
+                        val dialog = Dialog(context as Activity)
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                        dialog.setCancelable(false)
+                        dialog.setContentView(R.layout.alertdialog_error500)
+                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                        val btnclose = dialog.findViewById<Button>(R.id.btn500)
+
+                        btnclose.setOnClickListener {
+                            dialog.dismiss()
+                        }
+                        dialog.show()
+                    }
                 }else if(fax == 200){
                 if(response.isSuccessful){
                     //activity?.runOnUiThread {
@@ -121,192 +140,245 @@ class GraficoFragment : Fragment() {
                            //val codeid = aram.get("id")
                             println(arena)
                             if(arena === 1){
-                                println("Error en el Key")
+                                val dialog = Dialog(context as Activity)
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialog.setCancelable(false)
+                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+
+                                btnclose.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
                             }else if(arena === 2){
-                                println("Error en el valor de la key")
+                                val dialog = Dialog(context as Activity)
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialog.setCancelable(false)
+                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+
+                                btnclose.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
                             }else if(arena === 3){
-                                println("Error en la creacion de datos")
+                                val dialog = Dialog(context as Activity)
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialog.setCancelable(false)
+                                dialog.setContentView(R.layout.alertdialog_notdata)
+                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+
+                                btnclose.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
                             }
                         }else if(estrellaoscura==good){
                             println("Pase fino caballero....")
+                            if(response.isSuccessful){
+                                activity?.runOnUiThread {
+                                    println("mirame.... ")
+                                    val arena = aram.getJSONObject("riego")
+                                    println(arena.length())
+                                    val unoparatodos = arena.getJSONArray("AguaDisponible")
+                                    val cincovs5 = arena.getJSONArray("Abate")
+                                    println("dimon " + unoparatodos.length())
+                                    if(unoparatodos.length() == 0){
+                                        activity?.runOnUiThread {
+                                            val dialogs = Dialog(context as Activity)
+                                            dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                            dialogs.setCancelable(false)
+                                            dialogs.setContentView(R.layout.alertdialog_notdatagap)
+                                            dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                            println("mirame.... ")
-                            val arena = aram.getJSONObject("riego")
-                            println(arena.length())
-                            val unoparatodos = arena.getJSONArray("AguaDisponible")
-                            val cincovs5 = arena.getJSONArray("Abate")
-                            println("JASOU " + unoparatodos)
-                            println("SELECCION DE CAMPEON..." + cincovs5.length())
-                            var fechas: ArrayList<String> = ArrayList()
-                            var valores: ArrayList<String> = ArrayList()
-                            var Meses: ArrayList<String> = ArrayList()
-                            var MesesNUM: ArrayList<Int> = ArrayList()
-                            var valores2: ArrayList<String> = ArrayList()
-                            for (S in 0 until unoparatodos.length()) {
-                                val velocito = unoparatodos.getJSONObject(S)
-                                val velocitodate = velocito.get("Fecha")
-                                val velocitovalue = velocito.get("Valor")
-                                fechas.add(velocitodate.toString())
-                                valores.add(velocitovalue.toString())
-                                //println("solo sabes SALTAR:::: "+velocito)
-                                // println("Es hora de bailar.... "+ velocitodate)
-                                //println("SU.. Su.. Su KI es MAS DE " +velocitovalue+"!!!!!, y Aumentado")
-                                val mC1 = velocitodate.toString().get(3)
-                                val mC2 = velocitodate.toString().get(4)
-                                ///println("FU..."+mC1+"SION...."+mC2+" HAAAAA!!!!!"+mC1+mC2)
-                                val mmc = mC1.toString() + mC2.toString()
-                                //println(mmc)
-                                if (mmc.toInt() == 1) {
-                                    //println("Son Enero" +mmc)
-                                    Meses.add("Enero")
-                                    MesesNUM.add(1)
-                                } else if (2 == mmc.toInt()) {
-                                    //println("Son Febrero " +mmc)
-                                    Meses.add("Febrero")
-                                    MesesNUM.add(2)
-                                } else if (3 == mmc.toInt()) {
-                                    //println("Son Marzo " +mmc)
-                                    Meses.add("Marzo")
-                                    MesesNUM.add(3)
-                                } else if (4 == mmc.toInt()) {
-                                    //println("Son Abril " +mmc)
-                                    Meses.add("Abril")
-                                    MesesNUM.add(4)
-                                } else if (5 == mmc.toInt()) {
-                                    //println("Son Mayo " +mmc)
-                                    Meses.add("Mayo")
-                                    MesesNUM.add(5)
-                                } else if (6 == mmc.toInt()) {
-                                    //println("Son Junio " +mmc)
-                                    Meses.add("Junio")
-                                    MesesNUM.add(6)
-                                } else if (7 == mmc.toInt()) {
-                                    //println("Son Julio " +mmc)
-                                    Meses.add("Julio")
-                                    MesesNUM.add(7)
-                                } else if (8 == mmc.toInt()) {
-                                    //println("Son Agosto " +mmc)
-                                    Meses.add("Agosto")
-                                    MesesNUM.add(8)
-                                } else if (9 == mmc.toInt()) {
-                                    //println("Son Septiembre " +mmc)
-                                    Meses.add("Septiembre")
-                                    MesesNUM.add(9)
-                                } else if (10 == mmc.toInt()) {
-                                    //println("Son Octubre " +mmc)
-                                    Meses.add("Octubre")
-                                    MesesNUM.add(10)
-                                } else if (11 == mmc.toInt()) {
-                                    //println("Son Noviembre " +mmc)
-                                    Meses.add("Noviembre")
-                                    MesesNUM.add(11)
-                                } else if (12 == mmc.toInt()) {
-                                    //println("Son Diciembre " +mmc)
-                                    Meses.add("Diciembre")
-                                    MesesNUM.add(12)
+                                            val btnclose = dialogs.findViewById<Button>(R.id.btnsindatagrap)
+
+                                            btnclose.setOnClickListener {
+                                                dialogs.dismiss()
+                                            }
+                                            dialogs.show()
+                                        }
+                                    }else{
+                                        println("JASOU " + unoparatodos)
+                                        println("SELECCION DE CAMPEON..." + cincovs5.length())
+                                        var fechas: ArrayList<String> = ArrayList()
+                                        var valores: ArrayList<String> = ArrayList()
+                                        var Meses: ArrayList<String> = ArrayList()
+                                        var MesesNUM: ArrayList<Int> = ArrayList()
+                                        var valores2: ArrayList<String> = ArrayList()
+                                        for (S in 0 until unoparatodos.length()) {
+                                            val velocito = unoparatodos.getJSONObject(S)
+                                            val velocitodate = velocito.get("Fecha")
+                                            val velocitovalue = velocito.get("Valor")
+                                            fechas.add(velocitodate.toString())
+                                            valores.add(velocitovalue.toString())
+                                            //println("solo sabes SALTAR:::: "+velocito)
+                                            // println("Es hora de bailar.... "+ velocitodate)
+                                            //println("SU.. Su.. Su KI es MAS DE " +velocitovalue+"!!!!!, y Aumentado")
+                                            val mC1 = velocitodate.toString().get(3)
+                                            val mC2 = velocitodate.toString().get(4)
+                                            ///println("FU..."+mC1+"SION...."+mC2+" HAAAAA!!!!!"+mC1+mC2)
+                                            val mmc = mC1.toString() + mC2.toString()
+                                            //println(mmc)
+                                            if (mmc.toInt() == 1) {
+                                                //println("Son Enero" +mmc)
+                                                Meses.add("Enero")
+                                                MesesNUM.add(1)
+                                            } else if (2 == mmc.toInt()) {
+                                                //println("Son Febrero " +mmc)
+                                                Meses.add("Febrero")
+                                                MesesNUM.add(2)
+                                            } else if (3 == mmc.toInt()) {
+                                                //println("Son Marzo " +mmc)
+                                                Meses.add("Marzo")
+                                                MesesNUM.add(3)
+                                            } else if (4 == mmc.toInt()) {
+                                                //println("Son Abril " +mmc)
+                                                Meses.add("Abril")
+                                                MesesNUM.add(4)
+                                            } else if (5 == mmc.toInt()) {
+                                                //println("Son Mayo " +mmc)
+                                                Meses.add("Mayo")
+                                                MesesNUM.add(5)
+                                            } else if (6 == mmc.toInt()) {
+                                                //println("Son Junio " +mmc)
+                                                Meses.add("Junio")
+                                                MesesNUM.add(6)
+                                            } else if (7 == mmc.toInt()) {
+                                                //println("Son Julio " +mmc)
+                                                Meses.add("Julio")
+                                                MesesNUM.add(7)
+                                            } else if (8 == mmc.toInt()) {
+                                                //println("Son Agosto " +mmc)
+                                                Meses.add("Agosto")
+                                                MesesNUM.add(8)
+                                            } else if (9 == mmc.toInt()) {
+                                                //println("Son Septiembre " +mmc)
+                                                Meses.add("Septiembre")
+                                                MesesNUM.add(9)
+                                            } else if (10 == mmc.toInt()) {
+                                                //println("Son Octubre " +mmc)
+                                                Meses.add("Octubre")
+                                                MesesNUM.add(10)
+                                            } else if (11 == mmc.toInt()) {
+                                                //println("Son Noviembre " +mmc)
+                                                Meses.add("Noviembre")
+                                                MesesNUM.add(11)
+                                            } else if (12 == mmc.toInt()) {
+                                                //println("Son Diciembre " +mmc)
+                                                Meses.add("Diciembre")
+                                                MesesNUM.add(12)
+                                            }
+                                        }
+                                        /****-Capitulo II-***/
+
+                                        for (R in 0 until cincovs5.length()) {
+                                            val eye = cincovs5.getJSONObject(R)
+                                            val eyevalue = eye.get("Valor")
+                                            valores2.add(eyevalue.toString())
+                                        }
+                                        /****--**/
+                                        println(valores)
+                                        println(fechas)
+                                        println(Meses)
+                                        println(MesesNUM)
+                                        println(valores2.size)
+                                        println(valores2)
+
+
+                                        /*****/
+                                        println(Meses.filter { it === "Mayo" }.size)
+                                        println(Meses.filter { it === "Junio" }.size)
+                                        /****/
+
+                                        val bodyLinesGrafic = con.findViewById<LineChart>(R.id.ViewGrafica)
+
+
+
+                                        val descripcion = Description()
+                                        descripcion.setText("Lamina de riego(mm)")
+                                        descripcion.setPosition(310f, 38f)
+                                        descripcion.setTextSize(10f)
+                                        bodyLinesGrafic.setDescription(descripcion)
+                                        bodyLinesGrafic.getAxisRight().setDrawLabels(false)
+
+
+                                        val EjeX = bodyLinesGrafic.getXAxis()
+                                        EjeX.setValueFormatter(IndexAxisValueFormatter(fechas))
+                                        EjeX.setCenterAxisLabels(true)
+                                        EjeX.setPosition(XAxis.XAxisPosition.BOTTOM)
+                                        EjeX.setGranularity(1f)
+                                        EjeX.setGranularityEnabled(true)
+
+                                        bodyLinesGrafic.setDragEnabled(true)
+                                        bodyLinesGrafic.setVisibleXRangeMaximum(1f)
+
+
+
+                                        val datagrafic : ArrayList<BarEntry> =  ArrayList()
+                                        val datagrafic2 : ArrayList<BarEntry> =  ArrayList()
+
+                                        for(I in 0 until valores.size){
+                                            val value7w7 = valores.get(I).toFloat()
+                                            val valueUwU = valores2.get(I).toFloat()
+                                            val i = I.toFloat()
+                                            datagrafic.add(BarEntry(i, value7w7))
+                                            datagrafic2.add(BarEntry(i, valueUwU))
+                                        }
+
+                                        //val conjunto1 = BarDataSet(datagrafic, "AguaDisponible")
+
+                                        val lineDateSet = LineDataSet(datagrafic as List<Entry>?, "Agua Disponible")
+                                        lineDateSet.setLineWidth(4f)
+                                        lineDateSet.setColor(Color.BLUE)
+                                        lineDateSet.setDrawFilled(true)
+                                        lineDateSet.setFillDrawable(Color.argb(60,108, 64,205).toDrawable())
+                                        //lineDateSet.valueTextColor = Color.GREEN
+                                        lineDateSet.setDrawCircles(true)
+                                        lineDateSet.setDrawCircleHole(true)
+                                        lineDateSet.setCircleColor(Color.GREEN)
+                                        lineDateSet.setCircleRadius(3f)
+                                        lineDateSet.setValueTextSize(5f)
+
+                                        //lineDateSet.setValueTextColors(Color.YELLOW)
+
+
+
+                                        val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
+                                        lineDateSet2.setLineWidth(4f)
+                                        lineDateSet2.setColor(Color.RED)
+                                        lineDateSet2.setDrawFilled(true)
+                                        lineDateSet2.setFillDrawable(Color.argb(60,158, 64,104).toDrawable())
+                                        lineDateSet2.setDrawCircles(true)
+                                        lineDateSet2.setDrawCircleHole(true)
+                                        lineDateSet2.setCircleColor(Color.MAGENTA)
+                                        lineDateSet2.setCircleRadius(3f)
+                                        lineDateSet2.setValueTextSize(5f)
+                                        lineDateSet2.setValueTextSize(5f)
+                                        lineDateSet.setValueTextColor(Color.BLACK)
+
+
+                                        val linedate = LineData(lineDateSet, lineDateSet2)
+
+                                        //bodyLinesGrafic.setNoDataText("No hay datos que graficar...")
+                                        //bodyLinesGrafic.setNoDataTextColor(Color.BLACK)
+                                        bodyLinesGrafic.data = linedate
+                                        bodyLinesGrafic.setDrawBorders(true)
+                                        bodyLinesGrafic.invalidate()
+                                    }
                                 }
                             }
-                            /****-Capitulo II-***/
 
-                            for (R in 0 until cincovs5.length()) {
-                                val eye = cincovs5.getJSONObject(R)
-                                val eyevalue = eye.get("Valor")
-                                valores2.add(eyevalue.toString())
-                            }
-                            /****--**/
-                            println(valores)
-                            println(fechas)
-                            println(Meses)
-                            println(MesesNUM)
-                            println(valores2.size)
-                            println(valores2)
-
-
-                            /*****/
-                            println(Meses.filter { it === "Mayo" }.size)
-                            println(Meses.filter { it === "Junio" }.size)
-                            /****/
-
-                            val bodyLinesGrafic = con.findViewById<LineChart>(R.id.ViewGrafica)
-
-
-
-                            val descripcion = Description()
-                            descripcion.setText("Lamina de riego(mm)")
-                            descripcion.setPosition(310f, 38f)
-                            descripcion.setTextSize(10f)
-                            bodyLinesGrafic.setDescription(descripcion)
-                            bodyLinesGrafic.getAxisRight().setDrawLabels(false)
-
-
-                            val EjeX = bodyLinesGrafic.getXAxis()
-                            EjeX.setValueFormatter(IndexAxisValueFormatter(fechas))
-                            EjeX.setCenterAxisLabels(true)
-                            EjeX.setPosition(XAxis.XAxisPosition.BOTTOM)
-                            EjeX.setGranularity(1f)
-                            EjeX.setGranularityEnabled(true)
-
-                            bodyLinesGrafic.setDragEnabled(true)
-                            bodyLinesGrafic.setVisibleXRangeMaximum(1f)
-
-
-
-                            val datagrafic : ArrayList<BarEntry> =  ArrayList()
-                            val datagrafic2 : ArrayList<BarEntry> =  ArrayList()
-
-                            for(I in 0 until valores.size){
-                                val value7w7 = valores.get(I).toFloat()
-                                val valueUwU = valores2.get(I).toFloat()
-                                val i = I.toFloat()
-                                datagrafic.add(BarEntry(i, value7w7))
-                                datagrafic2.add(BarEntry(i, valueUwU))
-                            }
-
-                            //val conjunto1 = BarDataSet(datagrafic, "AguaDisponible")
-
-                            val lineDateSet = LineDataSet(datagrafic as List<Entry>?, "Agua Disponible")
-                            lineDateSet.setLineWidth(4f)
-                            lineDateSet.setColor(Color.BLUE)
-                            lineDateSet.setDrawFilled(true)
-                            lineDateSet.setFillDrawable(Color.argb(60,108, 64,205).toDrawable())
-                            //lineDateSet.valueTextColor = Color.GREEN
-                            lineDateSet.setDrawCircles(true)
-                            lineDateSet.setDrawCircleHole(true)
-                            lineDateSet.setCircleColor(Color.GREEN)
-                            lineDateSet.setCircleRadius(3f)
-                            lineDateSet.setValueTextSize(5f)
-
-                            //lineDateSet.setValueTextColors(Color.YELLOW)
-
-
-
-                            val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
-                            lineDateSet2.setLineWidth(4f)
-                            lineDateSet2.setColor(Color.RED)
-                            lineDateSet2.setDrawFilled(true)
-                            lineDateSet2.setFillDrawable(Color.argb(60,158, 64,104).toDrawable())
-                            lineDateSet2.setDrawCircles(true)
-                            lineDateSet2.setDrawCircleHole(true)
-                            lineDateSet2.setCircleColor(Color.MAGENTA)
-                            lineDateSet2.setCircleRadius(3f)
-                            lineDateSet2.setValueTextSize(5f)
-                            lineDateSet2.setValueTextSize(5f)
-                            lineDateSet.setValueTextColor(Color.BLACK)
-
-
-                            val linedate = LineData(lineDateSet, lineDateSet2)
-
-                            //bodyLinesGrafic.setNoDataText("No hay datos que graficar...")
-                            //bodyLinesGrafic.setNoDataTextColor(Color.BLACK)
-                            bodyLinesGrafic.data = linedate
-                            bodyLinesGrafic.setDrawBorders(true)
-                            bodyLinesGrafic.invalidate()
                         }
                     //}
+                   }
                 }
-                }
-
-
             }
         })
         return con
