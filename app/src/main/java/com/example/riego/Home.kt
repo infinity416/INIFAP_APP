@@ -23,13 +23,15 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val Bottom_Navigation :BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        val Fl_Primero :FrameLayout = findViewById<FrameLayout>(R.id.fl_primero)
+        val Bottom_Navigation: BottomNavigationView =
+            findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val Fl_Primero: FrameLayout = findViewById<FrameLayout>(R.id.fl_primero)
+
 
         parcelasFragment = ParcelasFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fl_primero,parcelasFragment)
+            .replace(R.id.fl_primero, parcelasFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 

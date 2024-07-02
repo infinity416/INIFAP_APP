@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.Window
@@ -86,7 +87,7 @@ class FormParcela : AppCompatActivity() {
             Toast.makeText(this, "Has elegido $$itemCrecimiento", Toast.LENGTH_LONG).show()
         }
 
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         latitude = findViewById(R.id.latitudInput)
         longitude = findViewById(R.id.longuitdInput)
 
@@ -405,31 +406,40 @@ class FormParcela : AppCompatActivity() {
         val gpsstatus = gpsconection.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
 
+
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
             !=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 104)
             return
         }
-        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        val localizacion = fusedLocationProviderClient.lastLocation
 
+        val localizacion = fusedLocationProviderClient.lastLocation
         localizacion.addOnSuccessListener {
             if(gpsstatus==true){
                 println("encendio")
                 /**GPS**/
+                val location : Location?= it
 
-                if(it!=null){
-                    println("z.z"+ it.toString())
-                    val lat = it.latitude.toString()
-                    val lon = it.longitude.toString()
-                    println("vamos haber")
-                    println(lat.plus(longitude.text))
-                    println(lon.plus(longitude.text))
-                    latitude.setText(lat)
-                    longitude.setText(lon)
+                if(location != null){
+                    latitude.setText(location.latitude.toString())
+                    longitude.setText(location.longitude.toString())
+                }else{
+                    val dialog = Dialog(this)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(R.layout.alertdialog_singps)
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                    val btnclose = dialog.findViewById<Button>(R.id.btnsingps)
+
+                    btnclose.setOnClickListener {
+                        dialog.dismiss()
+                    }
+                    dialog.show()
                 }
+
 
             }else{
                 println("apagado")
