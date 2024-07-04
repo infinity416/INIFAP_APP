@@ -17,6 +17,30 @@
         android:orientation="vertical"
         android:padding="60px">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnBackGRafp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            android:src="@drawable/baseline_arrow_back"
+            android:backgroundTint="@color/cpNavbar"
+            android:background="@color/cpNavbar"
+            />
+
+        <TextView
+            android:id="@+id/valueview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            />
+
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/ViewGrafica"
             android:layout_width="match_parent"

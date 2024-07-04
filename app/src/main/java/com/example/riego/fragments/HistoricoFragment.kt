@@ -1,18 +1,13 @@
 package com.example.riego.fragments
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,17 +15,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.getSystemService
-import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.FragmentTransaction
-import androidx.loader.content.AsyncTaskLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.riego.Card
-import com.example.riego.FormParcela
 import com.example.riego.Historial
 import com.example.riego.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -220,6 +210,21 @@ class HistoricoFragment : Fragment() {
                                                         }
                                                         dialog.show()
                                                     }
+                                                }
+                                            }else if(codeclaveii == 500){
+                                                activity?.runOnUiThread {
+                                                    val dialog = Dialog(context as Activity)
+                                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                    dialog.setCancelable(false)
+                                                    dialog.setContentView(R.layout.alertdialog_error500)
+                                                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                                    val btnclose = dialog.findViewById<Button>(R.id.btn500)
+
+                                                    btnclose.setOnClickListener {
+                                                        dialog.dismiss()
+                                                    }
+                                                    dialog.show()
                                                 }
                                             }else if(codeclaveii == 200){
                                                 val hayii = responses.body!!.string()

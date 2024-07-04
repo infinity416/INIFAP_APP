@@ -3,7 +3,6 @@ package com.example.riego
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentTransaction
 import com.example.riego.fragments.BusquedaFragment
 import com.example.riego.fragments.GraficoFragment
