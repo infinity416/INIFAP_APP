@@ -3,6 +3,7 @@ package com.example.riego
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.FragmentTransaction
 import com.example.riego.fragments.BusquedaFragment
 import com.example.riego.fragments.GraficoFragment
@@ -35,9 +36,10 @@ class Home : AppCompatActivity() {
             .commit()
 
 
-
         Bottom_Navigation.setOnItemSelectedListener { it ->
+
             when(it.itemId){
+
                 R.id.busqueda -> {
                     busquedaFragment = BusquedaFragment()
                     supportFragmentManager

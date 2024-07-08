@@ -110,7 +110,7 @@ class GraficoFragment : Fragment() {
         // otro funcional val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+vegeta+"&fechaFin="+piccolo+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
         println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
         println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
-        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
+        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3=null"
         val urlIvacio = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
 
         // Inflate the layout for this fragment
@@ -121,7 +121,9 @@ class GraficoFragment : Fragment() {
 
         if(newtworkinfo!= null && newtworkinfo.isConnected()){
 
-            if(url != urlIvacio){
+            if(url == urlIvacio){
+                println("Vacia")
+            }else{
                 val lolcito = okhttp3.Request.Builder().url(url).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
                 client.newCall(lolcito).enqueue(object : Callback, OnChartValueSelectedListener,
@@ -135,15 +137,17 @@ class GraficoFragment : Fragment() {
                         val fax = response.code
                         if(fax == 400){
                             println("ERROR 400")
-                            //REVISAR MAÑANA 3/7/24
                             println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
                             val urlII = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
                             val urlIIvacia = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null"
 
-                            if(urlII != urlIIvacia){
+                            if(urlII == urlIIvacia){
+println("Vacia")
+                            }else{
                                 val sagassj = okhttp3.Request.Builder().url(urlII).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
-                                DBZ.newCall(sagassj).enqueue(object : Callback{
+                                DBZ.newCall(sagassj).enqueue(object : Callback,
+                                    OnChartValueSelectedListener {
                                     override fun onFailure(call: Call, e: IOException) {
                                         e.printStackTrace()
                                     }
@@ -213,13 +217,149 @@ class GraficoFragment : Fragment() {
                                                         dialog.show()
 
                                                     }else{
+                                                        var sayajiaman1: ArrayList<String> = ArrayList()
+                                                        var vegito: ArrayList<String> = ArrayList()
+                                                        var gogeta: ArrayList<String> = ArrayList()
+                                                        var sayajiaman2: ArrayList<Int> = ArrayList()
                                                         for(s in 0 until dabura.length()){
-
+//REVISAR MAÑANA 5/7/24
+                                                            val elmal = dabura.getJSONObject(s)
+                                                            val crimen = elmal.get("Fecha")
+                                                            val delitos = elmal.get("Valor")
+                                                            fechas.add(crimen.toString())
+                                                            vegito.add(delitos.toString())
+                                                            val mC1 = crimen.toString().get(3)
+                                                            val mC2 = crimen.toString().get(4)
+                                                            ///println("FU..."+mC1+"SION...."+mC2+" HAAAAA!!!!!"+mC1+mC2)
+                                                            val mmc = mC1.toString() + mC2.toString()
+                                                            //println(mmc)
+                                                            if (mmc.toInt() == 1) {
+                                                                //println("Son Enero" +mmc)
+                                                               sayajiaman1.add("Enero")
+                                                               sayajiaman2.add(1)
+                                                            } else if (2 == mmc.toInt()) {
+                                                                //println("Son Febrero " +mmc)
+                                                               sayajiaman1.add("Febrero")
+                                                               sayajiaman2.add(2)
+                                                            } else if (3 == mmc.toInt()) {
+                                                                //println("Son Marzo " +mmc)
+                                                               sayajiaman1.add("Marzo")
+                                                               sayajiaman2.add(3)
+                                                            } else if (4 == mmc.toInt()) {
+                                                                //println("Son Abril " +mmc)
+                                                               sayajiaman1.add("Abril")
+                                                               sayajiaman2.add(4)
+                                                            } else if (5 == mmc.toInt()) {
+                                                                //println("Son Mayo " +mmc)
+                                                               sayajiaman1.add("Mayo")
+                                                               sayajiaman2.add(5)
+                                                            } else if (6 == mmc.toInt()) {
+                                                                //println("Son Junio " +mmc)
+                                                               sayajiaman1.add("Junio")
+                                                               sayajiaman2.add(6)
+                                                            } else if (7 == mmc.toInt()) {
+                                                                //println("Son Julio " +mmc)
+                                                               sayajiaman1.add("Julio")
+                                                               sayajiaman2.add(7)
+                                                            } else if (8 == mmc.toInt()) {
+                                                                //println("Son Agosto " +mmc)
+                                                               sayajiaman1.add("Agosto")
+                                                               sayajiaman2.add(8)
+                                                            } else if (9 == mmc.toInt()) {
+                                                                //println("Son Septiembre " +mmc)
+                                                               sayajiaman1.add("Septiembre")
+                                                               sayajiaman2.add(9)
+                                                            } else if (10 == mmc.toInt()) {
+                                                                //println("Son Octubre " +mmc)
+                                                               sayajiaman1.add("Octubre")
+                                                               sayajiaman2.add(10)
+                                                            } else if (11 == mmc.toInt()) {
+                                                                //println("Son Noviembre " +mmc)
+                                                               sayajiaman1.add("Noviembre")
+                                                               sayajiaman2.add(11)
+                                                            } else if (12 == mmc.toInt()) {
+                                                                //println("Son Diciembre " +mmc)
+                                                               sayajiaman1.add("Diciembre")
+                                                               sayajiaman2.add(12)
+                                                            }
                                                         }
 
                                                         for (e in 0 until majinbugordito.length()){
-                                                            
+//REVISAR MAÑANA 5/7/24
+                                                            val bumaligno = majinbugordito.getJSONObject(e)
+                                                            val superbu = bumaligno.get("Valor")
+                                                            gogeta.add(superbu.toString())
                                                         }
+
+                                                        val bodyLinesGrafic = con.findViewById<LineChart>(R.id.ViewGrafica)
+
+
+
+                                                        val descripcion = Description()
+                                                        descripcion.setText("Lamina de riego(mm)")
+                                                        descripcion.setPosition(310f, 38f)
+                                                        descripcion.setTextSize(10f)
+                                                        bodyLinesGrafic.setDescription(descripcion)
+                                                        bodyLinesGrafic.getAxisRight().setDrawLabels(false)
+
+
+                                                        val EjeX = bodyLinesGrafic.getXAxis()
+                                                        EjeX.setValueFormatter(IndexAxisValueFormatter(fechas))
+                                                        EjeX.setCenterAxisLabels(true)
+                                                        EjeX.setPosition(XAxis.XAxisPosition.BOTTOM)
+                                                        EjeX.setGranularity(1f)
+                                                        EjeX.setGranularityEnabled(true)
+
+                                                        bodyLinesGrafic.setDragEnabled(true)
+                                                        bodyLinesGrafic.setVisibleXRangeMaximum(1f)
+
+
+
+                                                        val datagrafic : ArrayList<BarEntry> =  ArrayList()
+                                                        val datagrafic2 : ArrayList<BarEntry> =  ArrayList()
+
+                                                        for(I in 0 until vegito.size){
+                                                            val gohanbu = vegito.get(I).toFloat()
+                                                            val janemba = gogeta.get(I).toFloat()
+                                                            val i = I.toFloat()
+                                                            datagrafic.add(BarEntry(i, gohanbu))
+                                                            datagrafic2.add(BarEntry(i, janemba))
+                                                        }
+
+                                                        lineDateSet = LineDataSet(datagrafic as List<Entry>?, "Agua Disponible")
+                                                        lineDateSet.setLineWidth(4f)
+                                                        lineDateSet.setColor(Color.BLUE)
+                                                        lineDateSet.setDrawFilled(true)
+                                                        lineDateSet.setFillDrawable(Color.argb(60,108, 64,205).toDrawable())
+                                                        lineDateSet.setDrawCircles(true)
+                                                        lineDateSet.setDrawCircleHole(true)
+                                                        lineDateSet.setCircleColor(Color.GREEN)
+                                                        lineDateSet.setCircleRadius(3f)
+                                                        lineDateSet.setValueTextSize(5f)
+                                                        lineDateSet.setDrawValues(true)
+
+                                                        val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
+                                                        lineDateSet2.setLineWidth(4f)
+                                                        lineDateSet2.setColor(Color.RED)
+                                                        lineDateSet2.setDrawFilled(true)
+                                                        lineDateSet2.setFillDrawable(Color.argb(60,158, 64,104).toDrawable())
+                                                        lineDateSet2.setDrawCircles(true)
+                                                        lineDateSet2.setDrawCircleHole(true)
+                                                        lineDateSet2.setCircleColor(Color.MAGENTA)
+                                                        lineDateSet2.setCircleRadius(3f)
+                                                        lineDateSet2.setValueTextSize(5f)
+                                                        lineDateSet2.setValueTextSize(5f)
+                                                        lineDateSet.setValueTextColor(Color.BLACK)
+
+
+                                                        val linedate = LineData(lineDateSet, lineDateSet2)
+
+                                                        bodyLinesGrafic.data = linedate
+                                                        bodyLinesGrafic.setPinchZoom(true)
+                                                        bodyLinesGrafic.setOnChartValueSelectedListener(this)
+                                                        bodyLinesGrafic.setDrawBorders(true)
+                                                        bodyLinesGrafic.setDrawMarkers(true)
+                                                        bodyLinesGrafic.invalidate()
                                                     }
                                                 }
                                             }else if( androides == majinbu){
@@ -268,14 +408,22 @@ class GraficoFragment : Fragment() {
                                         }
 
                                     }
+
+                                    override fun onValueSelected(e: Entry?, h: Highlight?) {
+                                        val nel = (e?.y).toString()
+                                        val nel2 = (e?.x)?.toInt()
+                                        val ñal = fechas.get(nel2!!.toInt())
+                                        Toast.makeText(context, "${nel}, ${ñal}", Toast.LENGTH_SHORT).show()
+                                        val txtvalue = con.findViewById<TextView>(R.id.valueview)
+                                        txtvalue.text = nel+"-"+ñal
+                                        println( fechas.get(nel2!!.toInt()))
+                                    }
+
+                                    override fun onNothingSelected() {
+                                        println("no seleciono punto.")
+                                    }
                                 })
-                            }else{
-
                             }
-
-
-
-
 
 
                         }else if(fax == 500){
@@ -602,8 +750,6 @@ class GraficoFragment : Fragment() {
 
                 })
 
-            }else{
-                println("Vacio")
             }
 
 
