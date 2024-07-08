@@ -358,6 +358,8 @@ class FormParcela : AppCompatActivity() {
                 }else{
                     println(nombre + cultivo + lat + lon +dia+ creci + triego + tsuelo+ agua+ largo +ancho+ hora)
                     //println(cultivo)
+                    //parcelaLiveData= databse.parcelas().existeName(nombre)
+
                     val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora)
                     println(newParcela)
                     CoroutineScope(Dispatchers.IO).launch {

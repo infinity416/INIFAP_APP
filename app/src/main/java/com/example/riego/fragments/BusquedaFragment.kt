@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.riego.DB.Parcela
-import com.example.riego.DateTime
 import com.example.riego.R
 import com.example.riego.source.DBparcela
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -43,6 +42,7 @@ import okhttp3.Response
 import okhttp3.internal.notifyAll
 import org.json.JSONObject
 import java.io.IOException
+import DateTimeBusqueda as DateTimeBusqueda1
 
 
 class BusquedaFragment : Fragment(), OnMapReadyCallback {
@@ -58,8 +58,10 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var parcelaList = emptyList<Parcela>()
     private lateinit var parcela: Parcela
     private lateinit var parcelaLiveData: LiveData<Parcela>
+    private lateinit var parcelaLiveData2: LiveData<Parcela>
 
     var client = OkHttpClient()
+    var sal = OkHttpClient()
     var header = "confidential-apiKey"
 
 
@@ -67,6 +69,10 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var calve = arrayListOf("")
     var km = ""
     var inputfecha = ""
+    var identification = toString()
+    var namelat = toString()
+    var namelon = toString()
+    var diaff = toString()
 
     //private lateinit var  dx : FragmentActivity
     @SuppressLint("FragmentLiveDataObserve", "NewApi")
@@ -97,25 +103,24 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
             val interFecha = con.findViewById<EditText>(R.id.fechrangoInput)
             interFecha.setOnClickListener {
-                val datePicker = DateTime{ day, month, year ->
-                    if(day<10){
-                        if((month+1) <= 9){
-                            interFecha.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
-                        }else{
-                            interFecha.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                val datePicker = DateTimeBusqueda1 { day, month, year ->
+                    if (day < 10) {
+                        if ((month + 1) <= 9) {
+                            interFecha.setText("0" + day.toString() + "/" + "0" + (month + 1) + "/" + year)
+                        } else {
+                            interFecha.setText("0" + day.toString() + "/" + (month + 1) + "/" + year)
                         }
-                    }else if((month+1) <= 9){
-                        interFecha.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
-                    }else{
-                        interFecha.setText(day.toString()+"/"+(month+1)+"/"+year )
+                    } else if ((month + 1) <= 9) {
+                        interFecha.setText(day.toString() + "/" + "0" + (month + 1) + "/" + year)
+                    } else {
+                        interFecha.setText(day.toString() + "/" + (month + 1) + "/" + year)
                     }
 
 
-
-
                     //var nux.text = interFecha.setText(day.toString()+"/"+month.toString()+"/"+year.toString())
+                }.also {
+                    it.show(childFragmentManager,"datePicker")
                 }
-                datePicker.show(childFragmentManager,"datePicker")
 
             }
 
@@ -129,7 +134,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             //
             /////////////////
 
-            val rango = con.findViewById<EditText>(R.id.distanciaInput)
+            //val rango = con.findViewById<EditText>(R.id.distanciaInput)
 
 
 
@@ -150,12 +155,16 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                 //var howisx = arrayListOf("")
                 var fechas: ArrayList<String> = ArrayList()
+                var idname: ArrayList<String> = ArrayList()
 
                 for (G in 0 until parcelaList.size){
                     //howisx.add(parcelaList.get(G).naame)
                     val velocito = parcelaList.get(G).naame
+                    val velocitov2 = parcelaList.get(G).id
                     fechas.add(velocito)
+                    idname.add(velocitov2.toString())
                     println("Oh!, levay...."+fechas)
+                    println("Oh!, mikasa...."+idname)
                     //howisx.add(parcelaList.get(G).naame)
                     //howis.add(parcelaList.get(G).naame)
                     //val contrac = ArrayAdapter((this.context as Activity).applicationContext, R.layout.list_items, howisxl )
@@ -164,13 +173,47 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                     lisParcelas.setOnItemClickListener { parent, view, position, id ->
                         val itemParcelaName = parent.getItemAtPosition(position)
+                        parent.getItemAtPosition(position)
+                        println("one "+ position)
+                        println("two "+ id)
+                        println("tree "+ itemParcelaName)
                         parcelaLiveData=datadb.parcelas().consutaParcelaName(itemParcelaName.toString())
                         parcelaLiveData.observe(this, Observer {
                             parcela = it
-                            var namelat = parcela.lat
-                            val namelon = parcela.lon
-                            println("LOKKKK"+namelat + namelon)
+                            namelat = parcela.lat
+                            namelon = parcela.lon
+                            identification = parcela.id.toString()
+                            diaff = parcela.fecha
+                            println("LOKKKK"+namelat + namelon+" "+it.id)
                         })
+
+                        /*val nelnel = "Gato"
+                        parcelaLiveData2=datadb.parcelas().existeName(nelnel)
+                        println("soy asi " +parcelaLiveData2.value?.naame?.length)*/
+
+                            /*if(parcelaLiveData2.value?.naame.toString() == null){
+                                println("no existe")
+
+                            }else{
+                                println("ya existe")
+                            }*/
+
+                        /*parcelaLiveData2.observe(this,{
+                            parcela = it
+                            val nunu1 = parcela.id
+                            if(nunu1>0){
+                                println("Ya existe el nombre")
+                                return@observe
+                            }else{
+                                println("no existe el nombre")
+                                val nunu =  parcela.naame
+                                println("cooler daimon "+nunu)
+                                println("king cooler "+ it)
+                            }
+
+                        })*/
+
+
                     }
                     lisParcelas.setAdapter(contrac)
                 }
@@ -203,16 +246,17 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
             val btnConsulta = con.findViewById<Button>(R.id.btnConsulta)
             btnConsulta?.setOnClickListener{
-                km = rango.text.toString()
+                //km = rango.text.toString()
                 inputfecha = interFecha?.text.toString()
                 val Nparcela = lisParcelas.text.toString()
 
 //            println("cadena de catos lat:"+parcela.lat+", lon:"+parcela.lon+", name:"+parcela.naame+", km:"+km+" y fecha:"+ interFecha?.text.toString()+"  ATT: INFINITY")
 
-                if(km.isEmpty()) {
-                    rango.setError("Ingrese la distancia")
-                    return@setOnClickListener
-                }else if(Nparcela.isEmpty()){
+                //if(km.isEmpty()) {
+                    //rango.setError("Ingrese la distancia")
+                    //return@setOnClickListener
+                //}else
+                    if(Nparcela.isEmpty()){
                     //lisParcelas.setError("Seleccione la parcela")
                     Toast.makeText(this.context, "Selecione la parcela", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
@@ -263,9 +307,12 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMaparcela = googleMap
-        println("cadena de catos lat:"+this.parcela.lat.toDouble()+", lon:"+this.parcela.lon.toDouble()+", name:"+this.parcela.naame+", km:"+this.km+" y fecha:"+ this.inputfecha +"  ATT: INFINITY")
+        //println("cadena de catos lat:"+this.parcela.lat.toDouble()+", lon:"+this.parcela.lon.toDouble()+", name:"+this.parcela.naame+" y fecha:"+ this.inputfecha +"  ATT: INFINITY, id: "+parcela.id+" ok!"+identification)
 
-        var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=${parcela.lat}&longitud=${parcela.lon}&distanciaEst=${km}"
+        //var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=${namelat}&longitud=${namelon}&distanciaEst=${km}"
+        println("https://appinifap.sytes.net/apiweb/api/localizar?latitud=31.117659&longitud=-106.876329&fechaIni=15/05/2023&fechaFin=10/07/2023")
+        var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+this.inputfecha
+        println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+this.inputfecha)
 
         val nes = okhttp3.Request.Builder().url(url).build()
 
@@ -275,219 +322,382 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if(response.isSuccessful){
+                val clavemorce = response.code
+                if(clavemorce === 500){
                     activity?.runOnUiThread {
-                        val tari = response.body!!.string()
-                        val  Atari= JSONObject(tari)
-                        val GameCube = Atari.getJSONArray("estacion_cercana")
-                        //println(GameCube.length())
-                        if(GameCube.length() === 0){
-                            println("No hay estaciones dentro de ese rango...")
-                        }
-                        else{
-                            for (E in 0 until GameCube.length()){
-                                val ND64 = GameCube.getJSONObject(E)
-                                val kmStation = ND64.getInt("Dias")
-                                val nameStation = ND64.getString("EstacionName")
-                                val idStation = ND64.getInt("EstacionID")
-                                val latStation = ND64.getDouble("Latitud")
-                                val lonStation = ND64.getDouble("Longitud")
-                                //println(kmStation.toString())
-                                val neg = -1
-                                val k = 0
-                                val e = 5
-                                val r = 6
-                                val o = 30
-                                val p = 31
-                                val p1 = 365
-                                val i = 366
-                                val coordeStation= LatLng(latStation, lonStation)
+                        val dialog = Dialog(context as Activity)
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                        dialog.setCancelable(false)
+                        dialog.setContentView(R.layout.alertdialog_error500)
+                        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                if(kmStation === neg){
+                        val btnclose = dialog.findViewById<Button>(R.id.btn500)
+
+                        btnclose.setOnClickListener {
+                            dialog.dismiss()
+                        }
+                        dialog.show()
+                    }
+                }else if (clavemorce == 400){
+                    println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud=37.42342342342342&longitud=-122.08395287867832&fechaIni=08/04/2024&fechaFin=10/06/2024")
+                    val urlII = "https://secrural.chihuahua.gob.mx/apiweb/api/localizar?"
+
+                    val leona = okhttp3.Request.Builder().url(urlII).build()
+                    sal.newCall(leona).enqueue(object : Callback{
+                        override fun onFailure(call: Call, e: IOException) {
+                            TODO("Not yet implemented")
+                        }
+
+                        override fun onResponse(call: Call, response: Response) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }else if(clavemorce == 200){
+
+                    if(response.isSuccessful){
+                        activity?.runOnUiThread {
+                            val tari = response.body!!.string()
+                            val  Atari= JSONObject(tari)
+                            val GameCube = Atari.getJSONArray("estacion_cercana")
+                            //println(GameCube.length())
+                            if(GameCube.length() === 0){
+                                println("No hay estaciones dentro de ese rango...")
+                            }
+                            else{
+                                for (E in 0 until GameCube.length()){
+                                    val ND64 = GameCube.getJSONObject(E)
+                                    //val kmStation = ND64.getInt("Dias")
+                                    val clasification = ND64.getString("Clasificacion")
+                                    val nameStation = ND64.getString("EstacionName")
+                                    val idStation = ND64.getInt("EstacionID")
+                                    val latStation = ND64.getDouble("Latitud")
+                                    val lonStation = ND64.getDouble("Longitud")
+                                    val coordeStation= LatLng(latStation, lonStation)
+
+                                    if(clasification.toString().toInt() == 1){
+                                        println("dentro de 1 "+ clasification)
+                                        val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
+                                        mMap.addMarker(ubicactionStation)
+                                        mMap.animateCamera(
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            4000,
+                                            null
+                                        )
+                                        /****/
+                                        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                                            @SuppressLint("ResourceType")
+
+                                            override fun onMarkerClick(marker: Marker): Boolean {
+                                                historicoFragment = HistoricoFragment()
+                                                val tit1 = marker.title
+                                                println(tit1)
+                                                val args = Bundle()
+                                                //args.putString("Stationsname", nameStation.toString())
+                                                args.putString("Stationsid", tit1)
+                                                //args.putString("Stationslat", latStation.toString())
+                                                args.putString("StationsDateInput", inputfecha)
+                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsCultivo", parcela.cultivo)
+                                                args.putString("StationsCrecimiento", parcela.crecimieto)
+                                                args.putString("StationsSuelo", parcela.suelo)
+                                                args.putString("StationsReigo", parcela.riego)
+                                                args.putString("StationsLargo", parcela.larg)
+                                                args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsAgua", parcela.agua)
+                                                historicoFragment.arguments = args
+                                                childFragmentManager
+                                                    .beginTransaction()
+                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                                    .commit()
+
+                                                return false
+                                            }
+                                        })
+                                        /******/
+                                    }else if(clasification.toString().toInt() == 2){
+                                        println("dentro de 2 "+ clasification)
+                                        val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
+                                        mMap.addMarker(ubicactionStation)
+                                        mMap.animateCamera(
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            4000,
+                                            null
+                                        )
+
+                                        /****/
+                                        mMap.setOnMarkerClickListener(object : OnMarkerClickListener {
+                                            @SuppressLint("ResourceType")
+                                            override fun onMarkerClick(marker: Marker): Boolean {
+                                                historicoFragment = HistoricoFragment()
+                                                val tit1 = marker.title
+                                                println(tit1)
+                                                val args = Bundle()
+                                                //args.putString("Stationsname", nameStation.toString())
+                                                args.putString("Stationsid", tit1)
+                                                //args.putString("Stationslat", latStation.toString())
+                                                args.putString("StationsDateInput", inputfecha)
+                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsCultivo", parcela.cultivo)
+                                                args.putString("StationsCrecimiento", parcela.crecimieto)
+                                                args.putString("StationsSuelo", parcela.suelo)
+                                                args.putString("StationsReigo", parcela.riego)
+                                                args.putString("StationsLargo", parcela.larg)
+                                                args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsAgua", parcela.agua)
+                                                historicoFragment.arguments = args
+                                                childFragmentManager
+                                                    .beginTransaction()
+                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                                    .commit()
+
+                                                return false
+                                            }
+                                        })
+                                        /******/
+                                    }else if(clasification.toString().toInt() == 3){
+                                        println("dentro de 3 "+ clasification)
+                                        val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString() ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
+                                        mMap.addMarker(ubicactionStation)
+                                        mMap.animateCamera(
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            4000,
+                                            null
+                                        )
+
+                                        /****/
+                                        mMap.setOnMarkerClickListener(object : OnMarkerClickListener {
+                                            @SuppressLint("ResourceType")
+                                            override fun onMarkerClick(marker: Marker): Boolean {
+                                                historicoFragment = HistoricoFragment()
+                                                val tit1 = marker.title
+                                                println(tit1)
+                                                val args = Bundle()
+                                                //args.putString("Stationsname", nameStation.toString())
+                                                args.putString("Stationsid", tit1)
+                                                //args.putString("Stationslat", latStation.toString())
+                                                args.putString("StationsDateInput", inputfecha)
+                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsCultivo", parcela.cultivo)
+                                                args.putString("StationsCrecimiento", parcela.crecimieto)
+                                                args.putString("StationsSuelo", parcela.suelo)
+                                                args.putString("StationsReigo", parcela.riego)
+                                                args.putString("StationsLargo", parcela.larg)
+                                                args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsAgua", parcela.agua)
+                                                historicoFragment.arguments = args
+                                                childFragmentManager
+                                                    .beginTransaction()
+                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                                    .commit()
+
+                                                return false
+                                            }
+                                        })
+                                        /******/
+                                    }
+                                    println(clasification+" vs")
+                                    /*****
+                                    //println(kmStation.toString())
+                                    val neg = -1
+                                    val k = 0
+                                    val e = 5
+                                    val r = 6
+                                    val o = 30
+                                    val p = 31
+                                    val p1 = 365
+                                    val i = 366
+                                    val coordeStation= LatLng(latStation, lonStation)
+
+                                    /*if(kmStation === neg){
                                     println("Fuera del Rango de Chihuahua "+kmStation)
-                                }else if((kmStation>=k) && (kmStation<=e)){
+                                    }else */
+                                    if((kmStation>=k) && (kmStation<=e)){
                                     println("Dentro del rango de 0...5 " +kmStation)
                                     val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
-                                        CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                        4000,
-                                        null
+                                    CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                    4000,
+                                    null
                                     )
 
                                     /****/
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                                        @SuppressLint("ResourceType")
+                                    @SuppressLint("ResourceType")
 
-                                        override fun onMarkerClick(marker: Marker): Boolean {
-                                            historicoFragment = HistoricoFragment()
-                                            val tit1 = marker.title
-                                            println(tit1)
-                                            val args = Bundle()
-                                            //args.putString("Stationsname", nameStation.toString())
-                                            args.putString("Stationsid", tit1)
-                                            //args.putString("Stationslat", latStation.toString())
-                                            args.putString("StationsDateInput", inputfecha)
-                                            args.putString("StationsDateStart", parcela.fecha)
-                                            args.putString("StationsCultivo", parcela.cultivo)
-                                            args.putString("StationsCrecimiento", parcela.crecimieto)
-                                            args.putString("StationsSuelo", parcela.suelo)
-                                            args.putString("StationsReigo", parcela.riego)
-                                            args.putString("StationsLargo", parcela.larg)
-                                            args.putString("StationsAncho", parcela.anch)
-                                            args.putString("StationsAgua", parcela.agua)
-                                            historicoFragment.arguments = args
-                                            childFragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()
+                                    override fun onMarkerClick(marker: Marker): Boolean {
+                                    historicoFragment = HistoricoFragment()
+                                    val tit1 = marker.title
+                                    println(tit1)
+                                    val args = Bundle()
+                                    //args.putString("Stationsname", nameStation.toString())
+                                    args.putString("Stationsid", tit1)
+                                    //args.putString("Stationslat", latStation.toString())
+                                    args.putString("StationsDateInput", inputfecha)
+                                    args.putString("StationsDateStart", parcela.fecha)
+                                    args.putString("StationsCultivo", parcela.cultivo)
+                                    args.putString("StationsCrecimiento", parcela.crecimieto)
+                                    args.putString("StationsSuelo", parcela.suelo)
+                                    args.putString("StationsReigo", parcela.riego)
+                                    args.putString("StationsLargo", parcela.larg)
+                                    args.putString("StationsAncho", parcela.anch)
+                                    args.putString("StationsAgua", parcela.agua)
+                                    historicoFragment.arguments = args
+                                    childFragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .commit()
 
-                                            return false
-                                        }
+                                    return false
+                                    }
                                     })
                                     /******/
 
 
-                                }else if((kmStation>=r) && (kmStation<=o)){
+                                    }else if((kmStation>=r) && (kmStation<=o)){
                                     println("Dentro del rango de 6...30 "+kmStation)
                                     val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
-                                        CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                        4000,
-                                        null
+                                    CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                    4000,
+                                    null
                                     )
 
                                     /****/
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                                        @SuppressLint("ResourceType")
-                                        override fun onMarkerClick(marker: Marker): Boolean {
-                                            historicoFragment = HistoricoFragment()
-                                            val tit1 = marker.title
-                                            println(tit1)
-                                            val args = Bundle()
-                                            //args.putString("Stationsname", nameStation.toString())
-                                            args.putString("Stationsid", tit1)
-                                            //args.putString("Stationslat", latStation.toString())
-                                            args.putString("StationsDateInput", inputfecha)
-                                            args.putString("StationsDateStart", parcela.fecha)
-                                            args.putString("StationsCultivo", parcela.cultivo)
-                                            args.putString("StationsCrecimiento", parcela.crecimieto)
-                                            args.putString("StationsSuelo", parcela.suelo)
-                                            args.putString("StationsReigo", parcela.riego)
-                                            args.putString("StationsLargo", parcela.larg)
-                                            args.putString("StationsAncho", parcela.anch)
-                                            args.putString("StationsAgua", parcela.agua)
-                                            historicoFragment.arguments = args
-                                            childFragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()
+                                    @SuppressLint("ResourceType")
+                                    override fun onMarkerClick(marker: Marker): Boolean {
+                                    historicoFragment = HistoricoFragment()
+                                    val tit1 = marker.title
+                                    println(tit1)
+                                    val args = Bundle()
+                                    //args.putString("Stationsname", nameStation.toString())
+                                    args.putString("Stationsid", tit1)
+                                    //args.putString("Stationslat", latStation.toString())
+                                    args.putString("StationsDateInput", inputfecha)
+                                    args.putString("StationsDateStart", parcela.fecha)
+                                    args.putString("StationsCultivo", parcela.cultivo)
+                                    args.putString("StationsCrecimiento", parcela.crecimieto)
+                                    args.putString("StationsSuelo", parcela.suelo)
+                                    args.putString("StationsReigo", parcela.riego)
+                                    args.putString("StationsLargo", parcela.larg)
+                                    args.putString("StationsAncho", parcela.anch)
+                                    args.putString("StationsAgua", parcela.agua)
+                                    historicoFragment.arguments = args
+                                    childFragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .commit()
 
-                                            return false
-                                        }
+                                    return false
+                                    }
                                     })
                                     /******/
 
-                                }else if((kmStation>=p) && (kmStation<=p1)){
+                                    }else if((kmStation>=p) && (kmStation<=p1)){
                                     println("Dentro del rango de 31...365 "+kmStation)
                                     val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_naranja)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
-                                        CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                        4000,
-                                        null
+                                    CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                    4000,
+                                    null
                                     )
 
                                     /****/
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                                        @SuppressLint("ResourceType")
-                                        override fun onMarkerClick(marker: Marker): Boolean {
-                                            historicoFragment = HistoricoFragment()
-                                            val tit1 = marker.title
-                                            println(tit1)
-                                            val args = Bundle()
-                                            //args.putString("Stationsname", nameStation.toString())
-                                            args.putString("Stationsid", tit1)
-                                            //args.putString("Stationslat", latStation.toString())
-                                            args.putString("StationsDateInput", inputfecha)
-                                            args.putString("StationsDateStart", parcela.fecha)
-                                            args.putString("StationsCultivo", parcela.cultivo)
-                                            args.putString("StationsCrecimiento", parcela.crecimieto)
-                                            args.putString("StationsSuelo", parcela.suelo)
-                                            args.putString("StationsReigo", parcela.riego)
-                                            args.putString("StationsLargo", parcela.larg)
-                                            args.putString("StationsAncho", parcela.anch)
-                                            args.putString("StationsAgua", parcela.agua)
-                                            historicoFragment.arguments = args
-                                            childFragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()
+                                    @SuppressLint("ResourceType")
+                                    override fun onMarkerClick(marker: Marker): Boolean {
+                                    historicoFragment = HistoricoFragment()
+                                    val tit1 = marker.title
+                                    println(tit1)
+                                    val args = Bundle()
+                                    //args.putString("Stationsname", nameStation.toString())
+                                    args.putString("Stationsid", tit1)
+                                    //args.putString("Stationslat", latStation.toString())
+                                    args.putString("StationsDateInput", inputfecha)
+                                    args.putString("StationsDateStart", parcela.fecha)
+                                    args.putString("StationsCultivo", parcela.cultivo)
+                                    args.putString("StationsCrecimiento", parcela.crecimieto)
+                                    args.putString("StationsSuelo", parcela.suelo)
+                                    args.putString("StationsReigo", parcela.riego)
+                                    args.putString("StationsLargo", parcela.larg)
+                                    args.putString("StationsAncho", parcela.anch)
+                                    args.putString("StationsAgua", parcela.agua)
+                                    historicoFragment.arguments = args
+                                    childFragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .commit()
 
-                                            return false
-                                        }
+                                    return false
+                                    }
                                     })
                                     /******/
 
-                                }else if(kmStation>=i){
+                                    }else if(kmStation>=i){
                                     println("Dentro del rango de mas de 366 "+kmStation)
                                     val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString() ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
                                     mMap.addMarker(ubicactionStation)
                                     mMap.animateCamera(
-                                        CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                        4000,
-                                        null
+                                    CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                    4000,
+                                    null
                                     )
 
                                     /****/
                                     mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                                        @SuppressLint("ResourceType")
-                                        override fun onMarkerClick(marker: Marker): Boolean {
-                                            historicoFragment = HistoricoFragment()
-                                            val tit1 = marker.title
-                                            println(tit1)
-                                            val args = Bundle()
-                                            //args.putString("Stationsname", nameStation.toString())
-                                            args.putString("Stationsid", tit1)
-                                            //args.putString("Stationslat", latStation.toString())
-                                            args.putString("StationsDateInput", inputfecha)
-                                            args.putString("StationsDateStart", parcela.fecha)
-                                            args.putString("StationsCultivo", parcela.cultivo)
-                                            args.putString("StationsCrecimiento", parcela.crecimieto)
-                                            args.putString("StationsSuelo", parcela.suelo)
-                                            args.putString("StationsReigo", parcela.riego)
-                                            args.putString("StationsLargo", parcela.larg)
-                                            args.putString("StationsAncho", parcela.anch)
-                                            args.putString("StationsAgua", parcela.agua)
-                                            historicoFragment.arguments = args
-                                            childFragmentManager
-                                                .beginTransaction()
-                                                .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                .commit()
+                                    @SuppressLint("ResourceType")
+                                    override fun onMarkerClick(marker: Marker): Boolean {
+                                    historicoFragment = HistoricoFragment()
+                                    val tit1 = marker.title
+                                    println(tit1)
+                                    val args = Bundle()
+                                    //args.putString("Stationsname", nameStation.toString())
+                                    args.putString("Stationsid", tit1)
+                                    //args.putString("Stationslat", latStation.toString())
+                                    args.putString("StationsDateInput", inputfecha)
+                                    args.putString("StationsDateStart", parcela.fecha)
+                                    args.putString("StationsCultivo", parcela.cultivo)
+                                    args.putString("StationsCrecimiento", parcela.crecimieto)
+                                    args.putString("StationsSuelo", parcela.suelo)
+                                    args.putString("StationsReigo", parcela.riego)
+                                    args.putString("StationsLargo", parcela.larg)
+                                    args.putString("StationsAncho", parcela.anch)
+                                    args.putString("StationsAgua", parcela.agua)
+                                    historicoFragment.arguments = args
+                                    childFragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    .commit()
 
-                                            return false
-                                        }
+                                    return false
+                                    }
                                     })
                                     /******/
 
+                                    }*/
+
                                 }
-
                             }
-                        }
-                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
-                        val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
-                        mMaparcela.addMarker(ubicactionParcela)
-                        mMaparcela.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
-                            15,
-                            null,
-                        )
+                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                            val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
+                            mMaparcela.addMarker(ubicactionParcela)
+                            mMaparcela.animateCamera(
+                                CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
+                                15,
+                                null,
+                            )
 
+                        }
                     }
                 }
             }
