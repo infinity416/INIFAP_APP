@@ -9,6 +9,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.FragmentTransaction
 import com.example.riego.CustomMarkerView
@@ -63,6 +65,7 @@ class GraficoFragment : Fragment() {
     //var url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=111&fechaIni="+datestar+"&fechaFin="+dateend+"&cultivo=2&crecimiento=2&suelo=3&riego=1&a1=.5&a2=.65&a3=1.55"
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -335,7 +338,7 @@ println("Vacia")
                                                         lineDateSet.setDrawCircleHole(true)
                                                         lineDateSet.setCircleColor(Color.GREEN)
                                                         lineDateSet.setCircleRadius(3f)
-                                                        lineDateSet.setValueTextSize(5f)
+                                                        lineDateSet.setValueTextSize(22f)
                                                         lineDateSet.setDrawValues(true)
 
                                                         val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
@@ -347,8 +350,8 @@ println("Vacia")
                                                         lineDateSet2.setDrawCircleHole(true)
                                                         lineDateSet2.setCircleColor(Color.MAGENTA)
                                                         lineDateSet2.setCircleRadius(3f)
-                                                        lineDateSet2.setValueTextSize(5f)
-                                                        lineDateSet2.setValueTextSize(5f)
+                                                        lineDateSet2.setValueTextSize(22f)
+                                                        //lineDateSet2.setValueTextSize(5f)
                                                         lineDateSet.setValueTextColor(Color.BLACK)
 
 
@@ -666,7 +669,7 @@ println("Vacia")
                                                 lineDateSet.setDrawCircleHole(true)
                                                 lineDateSet.setCircleColor(Color.GREEN)
                                                 lineDateSet.setCircleRadius(3f)
-                                                lineDateSet.setValueTextSize(5f)
+                                                lineDateSet.setValueTextSize(22f)
                                                 //lineDateSet.setDrawValues(false)
                                                 lineDateSet.setDrawValues(true)
 
@@ -685,8 +688,8 @@ println("Vacia")
                                                 lineDateSet2.setDrawCircleHole(true)
                                                 lineDateSet2.setCircleColor(Color.MAGENTA)
                                                 lineDateSet2.setCircleRadius(3f)
-                                                lineDateSet2.setValueTextSize(5f)
-                                                lineDateSet2.setValueTextSize(5f)
+                                                lineDateSet2.setValueTextSize(22f)
+                                                //lineDateSet2.setValueTextSize(5f)
                                                 lineDateSet.setValueTextColor(Color.BLACK)
 
 
@@ -757,11 +760,24 @@ println("Vacia")
 
             batk.setOnClickListener {
                 historicoFragment = HistoricoFragment()
+                val vadeNuez = Bundle()
+                vadeNuez.putString("Stationsid", goku)
+                vadeNuez.putString("StationsDateInput", vegeta)
+                vadeNuez.putString("StationsDateStart", piccolo)
+                vadeNuez.putString("StationsCultivo", krillin)
+                vadeNuez.putString("StationsCrecimiento", gohan)
+                vadeNuez.putString("StationsSuelo", trukns)
+                vadeNuez.putString("StationsReigo", goten)
+                vadeNuez.putString("StationsLargo", tenshihan)
+                vadeNuez.putString("StationsAncho", yamcha)
+                vadeNuez.putString("StationsAgua", chaos)
+                historicoFragment.arguments = vadeNuez
                 childFragmentManager
                     .beginTransaction()
                     .replace(R.id.ViewGraficoFragment,historicoFragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
+                batk.setTransitionVisibility(View.GONE)
             }
         }else{
             val dialog = Dialog(context as Activity)

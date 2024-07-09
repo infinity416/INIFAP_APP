@@ -44,7 +44,7 @@
        android:layout_height="wrap_content"
        android:layout_alignParentTop="true"
        android:layout_alignParentEnd="true"
-       android:layout_marginTop="55dp"
+       android:layout_marginTop="105dp"
        android:layout_marginEnd="80dp"
        android:layout_marginStart="80dp"
        >
@@ -53,27 +53,13 @@
          android:id="@+id/autoCompleteTextViewParcela"
          android:layout_width="match_parent"
          android:layout_height="53dp"
-         android:layout_marginTop="55dp"
+         android:layout_marginTop="105dp"
          android:layout_marginEnd="2dp"
          android:layout_weight="1"
          android:inputType="none"
          android:background="@drawable/style_border"
          android:hint="Seleccione su Parcela"/>
    </com.google.android.material.textfield.TextInputLayout>
-
-   <EditText
-       android:id="@+id/distanciaInput"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentStart="true"
-       android:layout_alignParentTop="true"
-       android:layout_alignParentEnd="true"
-       android:layout_marginStart="80dp"
-       android:layout_marginTop="125dp"
-       android:layout_marginEnd="80dp"
-       android:background="@drawable/style_border"
-       android:hint="Rango de Busqueda Km"
-       android:inputType="number"/>
 
    <EditText
        android:id="@+id/fechrangoInput"

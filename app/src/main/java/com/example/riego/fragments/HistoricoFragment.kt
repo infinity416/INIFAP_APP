@@ -216,10 +216,10 @@ class HistoricoFragment : Fragment() {
                                                     val dialog = Dialog(context as Activity)
                                                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                     dialog.setCancelable(false)
-                                                    dialog.setContentView(R.layout.alertdialog_error500)
+                                                    dialog.setContentView(R.layout.alertdialog_sindataestation)
                                                     dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                                    val btnclose = dialog.findViewById<Button>(R.id.btn500)
+                                                    val btnclose = dialog.findViewById<Button>(R.id.btnsindatastation)
 
                                                     btnclose.setOnClickListener {
                                                         dialog.dismiss()
@@ -328,10 +328,10 @@ class HistoricoFragment : Fragment() {
                                         val dialog = Dialog(context as Activity)
                                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                         dialog.setCancelable(false)
-                                        dialog.setContentView(R.layout.alertdialog_error500)
+                                        dialog.setContentView(R.layout.alertdialog_sindataestation)
                                         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                        val btnclose = dialog.findViewById<Button>(R.id.btn500)
+                                        val btnclose = dialog.findViewById<Button>(R.id.btnsindatastation)
 
                                         btnclose.setOnClickListener {
                                             dialog.dismiss()
