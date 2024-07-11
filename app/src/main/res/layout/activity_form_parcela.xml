@@ -266,6 +266,19 @@
                 android:hint="Hora de riego (Hrs)"
                 android:inputType="numberDecimal" />
 
+            <EditText
+                android:id="@+id/CMInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="80dp"
+                android:background="@drawable/style_border"
+                android:hint="Espacion entre surco (cm)"
+                android:inputType="numberDecimal" />
+
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"

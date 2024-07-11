@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -42,6 +43,7 @@ class FormParcela : AppCompatActivity() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var latitude: EditText
     private lateinit var longitude: EditText
+    lateinit var input16 : EditText
 
     private lateinit var databse: DBparcela
     private lateinit var parcela: Parcela
@@ -71,6 +73,25 @@ class FormParcela : AppCompatActivity() {
         lisCultivo.setOnItemClickListener { parent, view, position, id ->
             val itemCultivo = parent.getItemAtPosition(position)
             //Toast.makeText(this, "Has elegido $itemCultivo", Toast.LENGTH_LONG).show()
+            println("aqui..."+position)
+            println("aqui...7w7r"+parent)
+            println("aqui...z.z"+view)
+            println("aquiXD"+id)
+            println("aqui.My..name...is..."+itemCultivo)
+            val p1 = "Algodón"
+            if(position == 0){
+                println("algodon y "+itemCultivo+" es = a algodon al cuadrado")
+                latitude.visibility = View.VISIBLE
+                longitude.visibility =  View.INVISIBLE
+            }else if(position == 1){
+                println("Maiz y "+itemCultivo+" es = a Maiz al cuadrado")
+                longitude.visibility = View.VISIBLE
+                latitude.visibility = View.INVISIBLE
+            }else if( position == 2){
+                println("Maiz y "+itemCultivo+" es = a Maiz al cuadrado")
+                longitude.visibility = View.VISIBLE
+                latitude.visibility = View.INVISIBLE
+            }
         }
         lisSuelo.setOnItemClickListener { parent, view, position, id ->
             val itemSuelo = parent.getItemAtPosition(position)
@@ -80,6 +101,21 @@ class FormParcela : AppCompatActivity() {
         lisRiego.setOnItemClickListener { parent, view, position, id ->
             val itemRiego = parent.getItemAtPosition(position)
             //Toast.makeText(this, "Has elegido $itemRiego", Toast.LENGTH_LONG).show()
+
+            /****/
+            if(position == 0){
+                println("Capitulo II. el tipo de riego es: "+itemRiego)
+                input16.visibility = View.VISIBLE
+                input16.isEnabled = true
+            }else if(position == 1){
+                println(" el tipo de riego es: "+itemRiego)
+                input16.visibility = View.INVISIBLE
+            }/*else if( position == 2){
+                println("Capitulo II. el tipo de riego es: "+itemRiego)
+                longitude.visibility = View.VISIBLE
+                latitude.visibility = View.INVISIBLE
+            }*/
+            /****/
         }
 
         lisCresimiento.setOnItemClickListener { parent, view, position, id ->
@@ -131,6 +167,9 @@ class FormParcela : AppCompatActivity() {
         val input10 = findViewById<EditText>(R.id.anchoInput)
         val input11 = findViewById<EditText>(R.id.timeInput)
         val nanendoSwitch = findViewById<Switch>(R.id.switch1)
+         input16 =  findViewById(R.id.CMInput)
+         input16.isEnabled = false
+         input16.visibility = View.INVISIBLE
         println("Comando!!!! Comando!!!")
         println(idParcela)
         //

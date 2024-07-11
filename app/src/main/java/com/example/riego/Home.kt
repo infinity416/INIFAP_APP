@@ -10,7 +10,7 @@ import com.example.riego.fragments.GraficoFragment
 import com.example.riego.fragments.HistoricoFragment
 import com.example.riego.fragments.ParcelasFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import kotlin.math.absoluteValue
 
 
 class Home : AppCompatActivity() {
@@ -23,8 +23,7 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val Bottom_Navigation: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val Bottom_Navigation: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val Fl_Primero: FrameLayout = findViewById<FrameLayout>(R.id.fl_primero)
 
 
@@ -34,6 +33,7 @@ class Home : AppCompatActivity() {
             .replace(R.id.fl_primero, parcelasFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+
 
 
         Bottom_Navigation.setOnItemSelectedListener { it ->

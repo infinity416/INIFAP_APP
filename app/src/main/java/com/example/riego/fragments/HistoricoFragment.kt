@@ -78,31 +78,32 @@ class HistoricoFragment : Fragment() {
         var aguaParcela = arguments?.getString("StationsAgua")
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
-            "Algodón"  -> 1
-            "Maíz Grano"  -> 2
+            "Algodón"       -> 1
+            "Maíz Grano"    -> 2
             "Maíz Forraje"  -> 3
-            else -> "Invalid_Cultivo."
+            else            -> "Invalid_Cultivo."
         }
 
         var cresClave = when (crecimientoParcela){
-            "Precoz"  -> 1
+            "Precoz"      -> 1
             "Intermedio"  -> 2
-            "Tardío"  -> 3
-            else -> "Invalid_Tipo_de_Crecimiento."
+            "Tardío"      -> 3
+            else          -> "Invalid_Tipo_de_Crecimiento."
         }
 
         var sueloClave = when (sueloParcela){
             "Ligero"  -> 1
-            "Media"  -> 2
+            "Media"   -> 2
             "Pesado"  -> 3
-            else -> "Invalid_Tipo_de_suelo."
+            else      -> "Invalid_Tipo_de_suelo."
         }
 
         var riegoClave = when (riegoParcela){
-            "Goteo"  -> 1
-            "Pivote"  -> 2
-            //""  -> 3
-            else -> "Invalid_Tipo_de_Goteo."
+            "Goteo"         -> 1
+            "Pivote"        -> 2
+            //"Compuertas"  -> 3
+            //"Gravedad"    -> 3
+            else            -> "Invalid_Tipo_de_Goteo."
         }
 
         println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
