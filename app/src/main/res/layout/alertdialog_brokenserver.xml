@@ -22,7 +22,8 @@
             android:text="Dead Servidor!"
             android:textSize="36dp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -30,7 +31,8 @@
             android:layout_height="165dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/servererror" />
+            app:srcCompat="@drawable/servererror"
+            android:layout_marginTop="5dp"/>
 
         <Button
             android:id="@+id/btnclose4"
@@ -40,7 +42,8 @@
             android:text="Cerrar"
             android:gravity="center"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
         <!--<Button
             android:id="@+id/button2"

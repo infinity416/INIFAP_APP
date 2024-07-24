@@ -23,6 +23,7 @@ class DateTime(val listener: (day: Int, month:Int, year:Int) -> Unit): DialogFra
         val year = c.get(Calendar.YEAR)
 
         val picker = DatePickerDialog(activity as Context, this, year, month, day)
+        picker.datePicker.maxDate = c.time.time
         return picker
     }
 }

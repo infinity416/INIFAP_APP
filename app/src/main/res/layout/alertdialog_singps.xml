@@ -22,7 +22,8 @@
             android:gravity="center"
             android:text="Ubicación no encontrada"
             android:textSize="40dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -30,7 +31,8 @@
             android:layout_height="149dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/location_not_found_icon_gps" />
+            app:srcCompat="@drawable/location_not_found_icon_gps"
+            android:layout_marginTop="5dp"/>
 
         <Button
             android:id="@+id/btnsingps"
@@ -40,7 +42,8 @@
             android:text="Cerrar"
             android:gravity="center"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

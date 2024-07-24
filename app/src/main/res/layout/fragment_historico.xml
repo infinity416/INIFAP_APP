@@ -18,15 +18,15 @@
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recyclerViews"
            android:layout_width="match_parent"
-           android:layout_height="669dp"
-           android:layout_alignParentTop="true"
+           android:layout_height="660dp"
+           android:layout_below="@+id/toolbar"
            android:layout_alignParentEnd="true"
            android:layout_alignParentBottom="true"
-           android:layout_marginTop="47dp"
-           android:layout_marginEnd="7dp"
+           android:layout_marginTop="-1dp"
+           android:layout_marginEnd="0dp"
            android:layout_marginBottom="15dp" />
 
-       <com.google.android.material.floatingactionbutton.FloatingActionButton
+       <!--back<com.google.android.material.floatingactionbutton.FloatingActionButton
            android:id="@+id/btnBack"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -37,9 +37,9 @@
            android:clickable="true"
            android:src="@drawable/baseline_arrow_back"
            android:backgroundTint="@color/cpNavbar"
-           android:background="@color/cpNavbar"/>
+           android:background="@color/cpNavbar"/>-->
 
-       <com.google.android.material.floatingactionbutton.FloatingActionButton
+       <!--next<com.google.android.material.floatingactionbutton.FloatingActionButton
            android:id="@+id/btnNext"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
            android:clickable="true"
            android:src="@drawable/baseline_arrow_forward"
            android:backgroundTint="@color/cpNavbar"
-           android:background="@color/cpNavbar"/>
+           android:background="@color/cpNavbar"/>-->
 
        <TextView
            android:id="@+id/textViewsindata"
@@ -70,6 +70,71 @@
            android:textColor="@color/black"
            android:textSize="30dp"
            android:textStyle="bold" />
+
+       <androidx.appcompat.widget.Toolbar
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentEnd="true"
+           android:layout_marginTop="1dp"
+           android:layout_marginEnd="0dp"
+           android:background="?attr/colorPrimary"
+           android:minHeight="?attr/actionBarSize"
+           android:theme="?attr/actionBarTheme"
+           />
+
+       <com.google.android.material.appbar.MaterialToolbar
+           android:id="@+id/materialToolbar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentEnd="true"
+           android:layout_marginTop="1dp"
+           android:layout_marginEnd="2dp"
+           android:background="?attr/colorPrimary"
+           android:minHeight="?attr/actionBarSize"
+           android:theme="?attr/actionBarTheme" />
+
+
+
+       <ImageButton
+           android:id="@+id/imageButton"
+           android:layout_width="40dp"
+           android:layout_height="38dp"
+           android:layout_alignParentStart="true"
+           android:layout_alignParentTop="true"
+           android:layout_marginStart="11dp"
+           android:layout_marginTop="11dp"
+           android:background="@drawable/baseline_arrow_back"/>
+
+       <ImageButton
+           android:id="@+id/imageButton1"
+           android:layout_width="40dp"
+           android:layout_height="38dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentTop="true"
+           android:layout_marginEnd="11dp"
+           android:layout_marginTop="11dp"
+           android:background="@drawable/baseline_arrow_forward"/>
+
+       <TextView
+           android:id="@+id/textView14"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentStart="true"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentEnd="true"
+           android:layout_marginStart="131dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginEnd="137dp"
+           android:gravity="center"
+           android:text="Historico"
+           android:textSize="30dp"
+           android:textStyle="bold"
+           android:textAlignment="center" />
+
+
 
        <!--<ImageView
            android:id="@+id/nube"

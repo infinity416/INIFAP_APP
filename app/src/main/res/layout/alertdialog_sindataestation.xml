@@ -23,7 +23,8 @@
             android:text="No existen datos en la estacion"
             android:textSize="40dp"
             android:textStyle="bold"
-            android:textColor="@color/deleteAction"/>
+            android:textColor="@color/deleteAction"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -31,7 +32,8 @@
             android:layout_height="149dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/notdatav2" />
+            app:srcCompat="@drawable/notdatav2"
+            android:layout_marginTop="5dp"/>
 
         <Button
             android:id="@+id/btnsindatastation"
@@ -41,7 +43,8 @@
             android:text="Cerrar"
             android:gravity="center"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

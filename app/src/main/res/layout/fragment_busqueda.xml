@@ -24,20 +24,30 @@
     </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <!-- TODO: Update blank fragment layout -->
-
-   <fragment
-       android:id="@+id/map"
-       android:name="com.google.android.gms.maps.SupportMapFragment"
+   <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_gravity="bottom"
+       android:layout_height="match_parent">
 
-       android:layout_height="402dp"
-       android:layout_marginTop="150dp"
-       map:cameraZoom="10"
-       map:uiRotateGestures="true"
-       map:uiZoomControls="true" />
+      <fragment
+          android:id="@+id/map"
+          android:name="com.google.android.gms.maps.SupportMapFragment"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
 
-   <com.google.android.material.textfield.TextInputLayout
+          android:layout_below="@+id/btnConsulta"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentBottom="true"
+          android:layout_gravity="bottom"
+          android:layout_marginStart="3dp"
+          android:layout_marginTop="7dp"
+          android:layout_marginEnd="-3dp"
+          android:layout_marginBottom="-2dp"
+          map:cameraZoom="10"
+          map:uiRotateGestures="true"
+          map:uiZoomControls="true" />
+
+      <com.google.android.material.textfield.TextInputLayout
        android:id="@+id/textInputLayoutParcela"
        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
        android:layout_width="match_parent"
@@ -94,5 +104,5 @@
        android:layout_marginTop="150dp"
        map:uiRotateGestures="true"
        map:uiZoomControls="true"/>-->
-
+   </RelativeLayout>
 </FrameLayout>

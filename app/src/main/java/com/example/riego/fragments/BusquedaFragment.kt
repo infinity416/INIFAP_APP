@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -51,6 +52,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mMaparcela: GoogleMap
     lateinit var historicoFragment: HistoricoFragment
+
 
     /* private lateinit var databse: DBparcela
      private lateinit var parcelaLiveData: LiveData<Parcela>*/
@@ -76,11 +78,9 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
     //private lateinit var  dx : FragmentActivity
     @SuppressLint("FragmentLiveDataObserve", "NewApi")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
         val con = inflater.inflate(R.layout.fragment_busqueda, container, false)
 
         val wificonection = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -289,11 +289,6 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
 
 
-
-
-
-
-
     private fun createFragment(){
         val mapFragment =  childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -415,7 +410,9 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 )
                                                 /****/
                                                 mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                                                    @SuppressLint("ResourceType")
+                                                    @SuppressLint("ResourceType",
+                                                        "SuspiciousIndentation"
+                                                    )
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
                                                         historicoFragment = HistoricoFragment()
@@ -435,11 +432,12 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsAncho", parcela.anch)
                                                         args.putString("StationsAgua", parcela.agua)
                                                         historicoFragment.arguments = args
-                                                        childFragmentManager
-                                                            .beginTransaction()
-                                                            .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                                            .commit()
+                                                            childFragmentManager
+                                                                .beginTransaction()
+                                                                .replace(R.id.ViewBusquedaFragment, historicoFragment)
+                                                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                                                .commit()
+
 
                                                         return false
                                                     }
@@ -475,12 +473,12 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsAncho", parcela.anch)
                                                         args.putString("StationsAgua", parcela.agua)
                                                         historicoFragment.arguments = args
-                                                        childFragmentManager
+                                                         childFragmentManager
                                                             .beginTransaction()
                                                             .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                             .commit()
-
+                                                        //R.id.ViewBusquedaFragment
                                                         return false
                                                     }
                                                 })
@@ -598,6 +596,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 childFragmentManager
                                                     .beginTransaction()
                                                     .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    //.replace(R.id.bottom_navigation, historicoFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
 

@@ -18,6 +18,7 @@ data class Parcela(
     var larg: String,
     var anch: String,
     var hora: String,
+    var cmXsuko: String,
     @PrimaryKey(autoGenerate = true)
  var id: Int = 0,
 ): Serializable

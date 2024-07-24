@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -84,30 +85,31 @@ class GraficoFragment : Fragment() {
 
 
         var frezzer = when (krillin){
-            "Algodón"  -> 1
-            "Maíz Grano"  -> 2
+            "Algodón"       -> 1
+            "Maíz Grano"    -> 2
             "Maíz Forraje"  -> 3
-            else -> "Invalid_Cultivo."
+            else            -> "Invalid_Cultivo."
         }
 
         var cellperfecto = when (gohan){
-            "Precoz"  -> 1
+            "Precoz"      -> 1
             "Intermedio"  -> 2
-            "Tardío"  -> 3
-            else -> "Invalid_Tipo_de_Crecimiento."
+            "Tardío"      -> 3
+            else          -> "Invalid_Tipo_de_Crecimiento."
         }
 
         var androides17y18 = when (trukns){
             "Ligero"  -> 1
-            "Media"  -> 2
+            "Media"   -> 2
             "Pesado"  -> 3
-            else -> "Invalid_Tipo_de_suelo."
+            else      -> "Invalid_Tipo_de_suelo."
         }
 
         var majinbu = when (goten){
             "Goteo"   -> 1
             "Pivote"  -> 2
-            //""  -> 3
+            //"Compuertas"  -> 3
+            //"Gravedad"    -> 4
             else -> "Invalid_Tipo_de_Goteo."
         }
         // otro funcional val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+vegeta+"&fechaFin="+piccolo+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
@@ -756,7 +758,7 @@ println("Vacia")
             }
 
 
-            var batk = con.findViewById<FloatingActionButton>(R.id.btnBackGRafp)
+            var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
 
             batk.setOnClickListener {
                 historicoFragment = HistoricoFragment()
@@ -793,7 +795,29 @@ println("Vacia")
             }
             dialog.show()
         }
+        var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
 
+        batk.setOnClickListener {
+            historicoFragment = HistoricoFragment()
+            val vadeNuez = Bundle()
+            vadeNuez.putString("Stationsid", goku)
+            vadeNuez.putString("StationsDateInput", vegeta)
+            vadeNuez.putString("StationsDateStart", piccolo)
+            vadeNuez.putString("StationsCultivo", krillin)
+            vadeNuez.putString("StationsCrecimiento", gohan)
+            vadeNuez.putString("StationsSuelo", trukns)
+            vadeNuez.putString("StationsReigo", goten)
+            vadeNuez.putString("StationsLargo", tenshihan)
+            vadeNuez.putString("StationsAncho", yamcha)
+            vadeNuez.putString("StationsAgua", chaos)
+            historicoFragment.arguments = vadeNuez
+            childFragmentManager
+                .beginTransaction()
+                .replace(R.id.ViewGraficoFragment,historicoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+            batk.setTransitionVisibility(View.GONE)
+        }
         return con
     }
 }

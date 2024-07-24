@@ -1,5 +1,6 @@
 package com.example.riego.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -15,18 +16,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.riego.Card
 import com.example.riego.Historial
+import com.example.riego.Home
 import com.example.riego.R
+import com.example.riego.databinding.ActivityHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
@@ -43,16 +51,17 @@ class HistoricoFragment : Fragment() {
     //var url = "https://appinifap.sytes.net/apiweb/api/riego?EstacionID=4&FechaIni=01/04/2023&FechaFin=01/07/2023"
     //var url ="https://appinifap.sytes.net/apiweb/api/riego?estacionID=41276&fechaIni=15/05/2018&fechaFin=10/07/2018&cultivo=1&crecimiento=2&suelo=2&riego=1&a1=0.8&a2=0.2&a3=0.8"
     //var url = ""
+
     lateinit var busquedaFragment: BusquedaFragment
     lateinit var graficoFragment: GraficoFragment
     lateinit var historicoFragment: HistoricoFragment
 
+
+
     //@SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "ResourceType")
     @RequiresApi(Build.VERSION_CODES.Q)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         /****Atenea****/
         //var nameParcela = arguments?.getString("Stationsname")
@@ -102,7 +111,7 @@ class HistoricoFragment : Fragment() {
             "Goteo"         -> 1
             "Pivote"        -> 2
             //"Compuertas"  -> 3
-            //"Gravedad"    -> 3
+            //"Gravedad"    -> 4
             else            -> "Invalid_Tipo_de_Goteo."
         }
 
@@ -115,9 +124,16 @@ class HistoricoFragment : Fragment() {
         /*****A.C.*******/
 
 
-        val movimiento = inflater.inflate(R.layout.fragment_historico, container, false)
 
+        val movimiento = inflater.inflate(R.layout.fragment_historico, container, false)
         var haydata = movimiento.findViewById<TextView>(R.id.textViewsindata)
+
+        /***var  binding: ActivityHomeBinding
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding.bottomNavigation.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        //binding.bottomNavigation.selectedItemId = R.id.historico
+        binding.bottomNavigation.id = R.id.historico*/
+
         /****/
         //solovino
         val solovino = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
@@ -156,7 +172,7 @@ class HistoricoFragment : Fragment() {
                     println("con datos"+url)
                     haydata.setVisibility(TextView.INVISIBLE)
 
-                    val imperio = okhttp3.Request.Builder().url(url).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
+                    val imperio = Request.Builder().url(url).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
                     val palpatin = movimiento.findViewById<RecyclerView>(R.id.recyclerViews)
                     client.newCall(imperio).enqueue(object : Callback{
                         override fun onFailure(call: Call, e: IOException) {
@@ -180,7 +196,7 @@ class HistoricoFragment : Fragment() {
 
                                     //println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
 
-                                    val imperioii = okhttp3.Request.Builder().url(urlii).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
+                                    val imperioii = Request.Builder().url(urlii).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
                                     clients.newCall(imperioii).enqueue(object : Callback{
                                         override fun onFailure(call: Call, e: IOException) {
@@ -481,8 +497,8 @@ class HistoricoFragment : Fragment() {
 
 
 
-        var back = movimiento.findViewById<FloatingActionButton>(R.id.btnBack)
-        var next = movimiento.findViewById<FloatingActionButton>(R.id.btnNext)
+        var back = movimiento.findViewById<ImageButton>(R.id.imageButton)
+        var next = movimiento.findViewById<ImageButton>(R.id.imageButton1)
 
 
         back.setOnClickListener {

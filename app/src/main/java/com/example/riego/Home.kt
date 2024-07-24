@@ -26,12 +26,12 @@ class Home : AppCompatActivity() {
         val Bottom_Navigation: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val Fl_Primero: FrameLayout = findViewById<FrameLayout>(R.id.fl_primero)
 
-
+        Bottom_Navigation.selectedItemId = R.id.crear
         parcelasFragment = ParcelasFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fl_primero, parcelasFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             .commit()
 
 

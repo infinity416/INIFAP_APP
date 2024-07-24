@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
-    android:layout_marginHorizontal="20dp">
+    android:layout_marginHorizontal="20dp"
+    android:id="@+id/alertQF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,26 +17,32 @@
 
         <TextView
             android:id="@+id/msmdialogwifi"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Se a eliminado el registro"
-            android:textSize="36dp"
+            android:text="Nombre en uso, intenté con uno diferente"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="@color/deleteAction"
             android:layout_marginTop="5dp"/>
-
+        <!--<TextView
+            android:id="@+id/msmdialogwifi2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="intenté con uno diferente."
+            android:textSize="30dp"
+            android:textStyle="bold" />-->
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="262dp"
-            android:layout_height="165dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/cancel"
+            app:srcCompat="@drawable/question_icon"
             android:layout_marginTop="5dp"/>
 
         <Button
-            android:id="@+id/btnclose7"
+            android:id="@+id/btncloseQF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/style_border"

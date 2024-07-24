@@ -22,7 +22,8 @@
             android:text="Exito!!! Se Guardo correctamente"
             android:textSize="36dp"
             android:textStyle="bold"
-            android:textColor="@color/saveAction"/>
+            android:textColor="@color/saveAction"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -30,7 +31,8 @@
             android:layout_height="165dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:srcCompat="@drawable/success" />
+            app:srcCompat="@drawable/success"
+            android:layout_marginTop="5dp"/>
 
         <Button
             android:id="@+id/btnclose5"
@@ -40,7 +42,8 @@
             android:text="Aceptar"
             android:gravity="center"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 
