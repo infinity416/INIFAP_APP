@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -75,6 +77,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var namelat = toString()
     var namelon = toString()
     var diaff = toString()
+    lateinit var btnConsulta :Button
 
     //private lateinit var  dx : FragmentActivity
     @SuppressLint("FragmentLiveDataObserve", "NewApi")
@@ -88,18 +91,6 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
 
         if(newtworkinfo!= null && newtworkinfo.isConnected()){
-
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            /////////////////
-
-
 
             val interFecha = con.findViewById<EditText>(R.id.fechrangoInput)
             interFecha.setOnClickListener {
@@ -229,23 +220,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             /////////////////
 
 
-
-
-
-
-
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            /////////////////
-
-            val btnConsulta = con.findViewById<Button>(R.id.btnConsulta)
-            btnConsulta?.setOnClickListener{
+            btnConsulta = con.findViewById<Button>(R.id.btnConsulta)
+            btnConsulta.setOnClickListener{
                 //km = rango.text.toString()
                 inputfecha = interFecha?.text.toString()
                 val Nparcela = lisParcelas.text.toString()
@@ -265,8 +241,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                     return@setOnClickListener
                 }else{
                     Toast.makeText(this.context, "Buscando...", Toast.LENGTH_LONG).show()
-                    btnConsulta.setTransitionVisibility(View.GONE)
                     createFragment()
+
                 }
             }
         }else{
@@ -410,6 +386,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 )
                                                 /****/
                                                 mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                                                    @RequiresApi(Build.VERSION_CODES.Q)
                                                     @SuppressLint("ResourceType",
                                                         "SuspiciousIndentation"
                                                     )
@@ -438,7 +415,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                                 .commit()
 
-
+                                                        btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                         return false
                                                     }
                                                 })
@@ -453,6 +430,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 )
                                                 /****/
                                                 mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                                                    @RequiresApi(Build.VERSION_CODES.Q)
                                                     @SuppressLint("ResourceType")
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
@@ -479,6 +457,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                             .commit()
                                                         //R.id.ViewBusquedaFragment
+                                                        btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                         return false
                                                     }
                                                 })
@@ -493,6 +472,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 )
                                                 /****/
                                                 mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                                                    @RequiresApi(Build.VERSION_CODES.Q)
                                                     @SuppressLint("ResourceType")
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
@@ -518,7 +498,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                             .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                             .commit()
-
+                                                        btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                         return false
                                                     }
                                                 })
@@ -573,6 +553,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         )
                                         /****/
                                         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                                            @RequiresApi(Build.VERSION_CODES.Q)
                                             @SuppressLint("ResourceType")
 
                                             override fun onMarkerClick(marker: Marker): Boolean {
@@ -599,7 +580,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                     //.replace(R.id.bottom_navigation, historicoFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
-
+                                                btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }
                                         })
@@ -616,6 +597,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                         /****/
                                         mMap.setOnMarkerClickListener(object : OnMarkerClickListener {
+                                            @RequiresApi(Build.VERSION_CODES.Q)
                                             @SuppressLint("ResourceType")
                                             override fun onMarkerClick(marker: Marker): Boolean {
                                                 historicoFragment = HistoricoFragment()
@@ -640,7 +622,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                     .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
-
+                                                btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }
                                         })
@@ -657,6 +639,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                         /****/
                                         mMap.setOnMarkerClickListener(object : OnMarkerClickListener {
+                                            @RequiresApi(Build.VERSION_CODES.Q)
                                             @SuppressLint("ResourceType")
                                             override fun onMarkerClick(marker: Marker): Boolean {
                                                 historicoFragment = HistoricoFragment()
@@ -681,7 +664,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                     .replace(R.id.ViewBusquedaFragment,historicoFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
-
+                                                btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }
                                         })
