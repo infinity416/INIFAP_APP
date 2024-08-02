@@ -38,7 +38,7 @@ class FormParcela : AppCompatActivity() {
     val cultivo = arrayOf("Algodón","Maíz Grano","Maíz Forraje")
     val cresimiento = arrayOf("Precoz", "Intermedio", "Tardío")
     val suelo = arrayOf("Ligero","Media","Pesado")
-    val rigo = arrayOf("Goteo", "Pivote")
+    val rigo = arrayOf("Goteo", "Pivote"/*,"Compuertas","Grabedad"*/)
 
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -289,53 +289,103 @@ class FormParcela : AppCompatActivity() {
                     input11.setError("Ingrese el dato solicitante")
                     return@setOnClickListener
                 }else{
-                    /*dbase = DBparcela.getDatabase(this)
-                    parcelaTropper = dbase.parcelas().existeName(nombre)
-                    parcelaTropper.observe( this, Observer {
-                        if(it === null){
-                            CoroutineScope(Dispatchers.IO).launch {
-                                parcela.id = idParcela
-                                parcela.naame = nombre
-                                parcela.cultivo = cultivo
-                                parcela.lat = lat
-                                parcela.lon = lon
-                                parcela.fecha = dia
-                                parcela.crecimieto = creci
-                                parcela.riego = triego
-                                parcela.suelo = tsuelo
-                                parcela.agua = agua
-                                parcela.larg = largo
-                                parcela.anch = ancho
-                                parcela.hora = hora
-                                parcela.cmXsuko =  cmxsk
+                    dbase = DBparcela.getDatabase(this)
+                    parcelabusqueda = dbase.parcelas().consutaParcelaName(nombre)
+                    parcelabusqueda.observe( this, Observer {
+                        if(it?.naame ==  nombre){
+                            val dialogs = Dialog(this)
+                            dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialogs.setCancelable(false)
+                            dialogs.setContentView(R.layout.alertdialog_questionfile)
+                            dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
-                                println(parcela)
-                                databse.parcelas().editarParcela(parcela)
+                            val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
 
-                                //Toast.makeText(this@FormParcela.baseContext.applicationContext , "Datos Actualizados", Toast.LENGTH_LONG).show()
+                            btncloses.setOnClickListener {
+                                dialogs.dismiss()
                             }
-
+                            dialogs.show()
                         }else{
+                            val dialog = Dialog(this)
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialog.setCancelable(false)
+                            dialog.setContentView(R.layout.alertdialog_update)
+                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                                val dialogs = Dialog(this)
-                                dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialogs.setCancelable(false)
-                                dialogs.setContentView(R.layout.alertdialog_questionfile)
-                                dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                            val btnclose = dialog.findViewById<Button>(R.id.btnclose6)
 
-                                val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
-
-                                btncloses.setOnClickListener {
-                                    dialogs.dismiss()
+                            btnclose.setOnClickListener {
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    parcela.id = idParcela
+                                    parcela.naame = nombre
+                                    parcela.cultivo = cultivo
+                                    parcela.lat = lat
+                                    parcela.lon = lon
+                                    parcela.fecha = dia
+                                    parcela.crecimieto = creci
+                                    parcela.riego = triego
+                                    parcela.suelo = tsuelo
+                                    parcela.agua = agua
+                                    parcela.larg = largo
+                                    parcela.anch = ancho
+                                    parcela.hora = hora
+                                    parcela.cmXsuko =  cmxsk
+                                    //println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
+                                    println(parcela)
+                                    databse.parcelas().editarParcela(parcela)
                                 }
-                                dialogs.show()
-
+                                dialog.dismiss()
+                                this@FormParcela.finish()
+                            }
+                            dialog.show()
                         }
-                    })*/
+                    })
+                    /*parcelaTropper = dbase.parcelas().existeName(nombre)
+                   parcelaTropper.observe( this, Observer {
+                       if(it === null){
+                           CoroutineScope(Dispatchers.IO).launch {
+                               parcela.id = idParcela
+                               parcela.naame = nombre
+                               parcela.cultivo = cultivo
+                               parcela.lat = lat
+                               parcela.lon = lon
+                               parcela.fecha = dia
+                               parcela.crecimieto = creci
+                               parcela.riego = triego
+                               parcela.suelo = tsuelo
+                               parcela.agua = agua
+                               parcela.larg = largo
+                               parcela.anch = ancho
+                               parcela.hora = hora
+                               parcela.cmXsuko =  cmxsk
+
+                               println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
+                               println(parcela)
+                               databse.parcelas().editarParcela(parcela)
+
+                               //Toast.makeText(this@FormParcela.baseContext.applicationContext , "Datos Actualizados", Toast.LENGTH_LONG).show()
+                           }
+
+                       }else{
+
+                               val dialogs = Dialog(this)
+                               dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                               dialogs.setCancelable(false)
+                               dialogs.setContentView(R.layout.alertdialog_questionfile)
+                               dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                               val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
+
+                               btncloses.setOnClickListener {
+                                   dialogs.dismiss()
+                               }
+                               dialogs.show()
+
+                       }
+                   })*/
                     //Toast.makeText(this, "Datos Actualizados", Toast.LENGTH_LONG).show()
 
-                    CoroutineScope(Dispatchers.IO).launch {
+                    /***CoroutineScope(Dispatchers.IO).launch {
                         parcela.id = idParcela
                         parcela.naame = nombre
                         parcela.cultivo = cultivo
@@ -370,7 +420,7 @@ class FormParcela : AppCompatActivity() {
                         dialog.dismiss()
                         this@FormParcela.finish()
                     }
-                    dialog.show()
+                    dialog.show()*/
 
                 }
             }
@@ -567,28 +617,8 @@ class FormParcela : AppCompatActivity() {
                     dbase = DBparcela.getDatabase(this)
                     parcelaTropper = dbase.parcelas().existeName(nombre)
                     parcelaTropper.observe(this, Observer {
-                        if(it === null){
-                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
-                            println(newParcela)
-
-                            CoroutineScope(Dispatchers.IO).launch {
-                                database.parcelas().agregarParcela(newParcela)
-                            }
-
-                            val dialog = Dialog(this)
-                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                            dialog.setCancelable(false)
-                            dialog.setContentView(R.layout.alertdialog_save)
-                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                            val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
-
-                            btnclose.setOnClickListener {
-                                dialog.dismiss()
-                                this@FormParcela.finish()
-                            }
-                            dialog.show()
-                        }else{
+                        if (it?.naame == nombre){
+                            println("ya existe ese dato ${it?.naame}, y $nombre son iguales")
                             val dialogs = Dialog(this)
                             dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
                             dialogs.setCancelable(false)
@@ -601,156 +631,30 @@ class FormParcela : AppCompatActivity() {
                                 dialogs.dismiss()
                             }
                             dialogs.show()
-                        }
-                        //continamos aqui mañana 23/07/24
-                         /*if(it === null ){
-                            println("shingeki no kyojin!!!! esta VACIO, que se cree!!!")
-                            //plyer1 = "1"
-                             resultado = 1
-                             /*val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
-                             println(newParcela)
-
-                             CoroutineScope(Dispatchers.IO).launch {
-                                 database.parcelas().agregarParcela(newParcela)
-                                 //(this@GraficoFragment.context as Activity).finish()
-                                 //  requireActivity()?.onBackPressed()
-
-                             }
-                             val dialog = Dialog(this)
-                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                             dialog.setCancelable(false)
-                             dialog.setContentView(R.layout.alertdialog_save)
-                             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                             val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
-
-                             btnclose.setOnClickListener {
-                                 dialog.dismiss()
-                                 this@FormParcela.finish()
-                             }
-                             dialog.show()*/
-
                         }else{
-                            println("eren!!!!  Ya EXISTE")
-                            //player2 = "2"
-                             resultado = 2
-                             /*val dialogs = Dialog(this)
-                             dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                             dialogs.setCancelable(false)
-                             dialogs.setContentView(R.layout.alertdialog_questionfile)
-                             dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                            println("dato unico ${it?.naame}, y $nombre son diferentes")
 
-                             val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
+                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
+                            println(newParcela)
 
-                             btncloses.setOnClickListener {
-                                 dialogs.dismiss()
-                             }
-                             dialogs.show()*/
-                        }*/
+                            val dialog = Dialog(this)
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialog.setCancelable(false)
+                            dialog.setContentView(R.layout.alertdialog_save)
+                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                       /*
-                        when(resultado){
-                            1 -> {
-                                val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
-                                println(newParcela)
+                            val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
 
+                            btnclose.setOnClickListener {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     database.parcelas().agregarParcela(newParcela)
-                                    //(this@GraficoFragment.context as Activity).finish()
-                                    //  requireActivity()?.onBackPressed()
                                 }
-
-                                val dialog = Dialog(this)
-                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialog.setCancelable(false)
-                                dialog.setContentView(R.layout.alertdialog_save)
-                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
-
-                                btnclose.setOnClickListener {
-                                    dialog.dismiss()
-                                    this.finish()
-                                }
-                                dialog.show()
+                                dialog.dismiss()
+                                this@FormParcela.finish()
                             }
-                            2 -> {
-                                val dialogs = Dialog(this)
-                                dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialogs.setCancelable(false)
-                                dialogs.setContentView(R.layout.alertdialog_questionfile)
-                                dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
-
-                                btncloses.setOnClickListener {
-                                    dialogs.dismiss()
-                                }
-                                dialogs.show()
-                            }*/
-
-                        //println("How is..."+plyer1)
-                        //println("no hay medicina..."+player2)
-
-                       // println("que tengo que hacer "+ nel +" "+ nelv2)
-
-
-                        /*when(respuesta){
-                            1 -> {
-                                val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
-                                println(newParcela)
-
-                                CoroutineScope(Dispatchers.IO).launch {
-                                    database.parcelas().agregarParcela(newParcela)
-                                    //(this@GraficoFragment.context as Activity).finish()
-                                    //  requireActivity()?.onBackPressed()
-                                }
-
-                                val dialog = Dialog(this)
-                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialog.setCancelable(false)
-                                dialog.setContentView(R.layout.alertdialog_save)
-                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                val btnclose = dialog.findViewById<Button>(R.id.btnclose5)
-
-                                btnclose.setOnClickListener {
-                                    dialog.dismiss()
-                                    this@FormParcela.finish()
-                                }
-                                dialog.show()
-                            }
-                            2 -> {
-                                val dialogs = Dialog(this)
-                                dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                dialogs.setCancelable(false)
-                                dialogs.setContentView(R.layout.alertdialog_questionfile)
-                                dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                                val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
-
-                                btncloses.setOnClickListener {
-                                    dialogs.dismiss()
-                                }
-                                dialogs.show()
-
-                            }
-                        }*/
-                       // val nel = parcelaTropper.let { name->player2 }/***no***/
-                    //val nelv2 = parcelaTropper.let { name->plyer1 }/***si***/
-                      //  println("que tengo que hacer "+ nel +" "+ nelv2)
-                      //  Les = nel
+                            dialog.show()
+                        }
                     })
-                    /***/
-                    //println("finn"+respuesta)
-                     //println("bot"+Les)
-                    //Toast.makeText(this , "Datos Guardados", Toast.LENGTH_LONG).show()
-
-                    /******/
-
-
-
-
                 }
             }
         }
