@@ -14,11 +14,14 @@ data class Parcela(
     var crecimieto: String,
     var riego: String,
     var suelo: String,
-    var agua: String,
+    var pozo: String,
     var larg: String,
     var anch: String,
-    var hora: String,
+    var dias: String,
     var cmXsuko: String,
+    var largXsurco: String,
+    var cmXgotero: String,
+    var gotero: String,
     @PrimaryKey(autoGenerate = true)
  var id: Int = 0,
 ): Serializable

@@ -13,7 +13,7 @@
         android:title="Parcelas"
         />
 
-    <item
+   <!-- <item
         android:id="@+id/historico"
         android:icon="@drawable/baseline_calendar"
         android:title="Historico"
@@ -23,5 +23,5 @@
         android:id="@+id/grafico"
         android:icon="@drawable/baseline_assessment"
         android:title="Grafico"
-        />
+        />-->
 </menu>

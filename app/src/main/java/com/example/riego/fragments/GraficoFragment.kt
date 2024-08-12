@@ -82,6 +82,10 @@ class GraficoFragment : Fragment() {
         var tenshihan = arguments?.getString("StationsLargo")
         var yamcha = arguments?.getString("StationsAncho")
         var chaos = arguments?.getString("StationsAgua")
+        var pan= arguments?.getString("StationsLGSurco")
+        var videl= arguments?.getString("StationsGotero")
+        var bulma= arguments?.getString("StationsCMSurco")
+        var milk= arguments?.getString("StationsCMGoteo")
 
 
         var frezzer = when (krillin){
@@ -100,23 +104,40 @@ class GraficoFragment : Fragment() {
 
         var androides17y18 = when (trukns){
             "Ligero"  -> 1
-            "Media"   -> 2
+            "Medio"   -> 2
             "Pesado"  -> 3
             else      -> "Invalid_Tipo_de_suelo."
         }
 
         var majinbu = when (goten){
-            "Goteo"   -> 1
-            "Pivote"  -> 2
-            //"Compuertas"  -> 3
-            //"Gravedad"    -> 4
+            "Goteo"             -> 1
+            "Pivote"            -> 2
+            "Compuertas"        -> 3
+            "Avance Frontal"    -> 4
+            "Surco"             -> 5
             else -> "Invalid_Tipo_de_Goteo."
         }
+
+        val url = if(majinbu == 1){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$videl&a3=$bulma&a4=$milk"
+        }else if(majinbu == 2){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=null&a4=null"
+        }else if(majinbu == 3){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$yamcha&a4=null"
+        }else if(majinbu == 4){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=$bulma&a4=null"
+        }else if(majinbu == 5){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$bulma&a4=null"
+        }else{
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+
+        }
+
         // otro funcional val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+vegeta+"&fechaFin="+piccolo+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
         println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
         println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
-        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
-        val urlIvacio = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
+        ///////este sirve val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
+        val urlIvacio = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
 
         // Inflate the layout for this fragment
         val con = inflater.inflate(R.layout.fragment_grafico, container, false)
@@ -143,11 +164,24 @@ class GraficoFragment : Fragment() {
                         if(fax == 400){
                             println("ERROR 400")
                             println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
-                            val urlII = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
-                            val urlIIvacia = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null"
+                            ////esta sirve  val urlII = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
+                            val urlII = if(majinbu == 1){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$videl&a3=$bulma&a4=$milk"
+                            }else if(majinbu == 2){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=null&a4=null"
+                            }else if(majinbu == 3){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$yamcha&a4=null"
+                            }else if(majinbu == 4){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=$bulma&a4=null"
+                            }else if(majinbu == 5){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$bulma&a4=null"
+                            }else{
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null&a4=null"
+                            }
+                            val urlIIvacia = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null&a4=null"
 
                             if(urlII == urlIIvacia){
-println("Vacia")
+                            println("Vacia")
                             }else{
                                 val sagassj = okhttp3.Request.Builder().url(urlII).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
@@ -227,7 +261,6 @@ println("Vacia")
                                                         var gogeta: ArrayList<String> = ArrayList()
                                                         var sayajiaman2: ArrayList<Int> = ArrayList()
                                                         for(s in 0 until dabura.length()){
-//REVISAR MAÑANA 5/7/24
                                                             val elmal = dabura.getJSONObject(s)
                                                             val crimen = elmal.get("Fecha")
                                                             val delitos = elmal.get("Valor")
@@ -290,7 +323,7 @@ println("Vacia")
                                                         }
 
                                                         for (e in 0 until majinbugordito.length()){
-//REVISAR MAÑANA 5/7/24
+
                                                             val bumaligno = majinbugordito.getJSONObject(e)
                                                             val superbu = bumaligno.get("Valor")
                                                             gogeta.add(superbu.toString())
@@ -758,7 +791,9 @@ println("Vacia")
             }
 
 
-            var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
+            //var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
+            var batk = con.findViewById<ImageButton>(R.id.imgbtnH)
+
 
             batk.setOnClickListener {
                 historicoFragment = HistoricoFragment()
@@ -795,7 +830,8 @@ println("Vacia")
             }
             dialog.show()
         }
-        var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
+        //var batk = con.findViewById<ImageButton>(R.id.imageBtnGrafica)
+        var batk = con.findViewById<ImageButton>(R.id.imgbtnH)
 
         batk.setOnClickListener {
             historicoFragment = HistoricoFragment()
@@ -810,6 +846,10 @@ println("Vacia")
             vadeNuez.putString("StationsLargo", tenshihan)
             vadeNuez.putString("StationsAncho", yamcha)
             vadeNuez.putString("StationsAgua", chaos)
+            vadeNuez.putString("StationsLGSurco", pan)
+            vadeNuez.putString("StationsGotero", videl)
+            vadeNuez.putString("StationsCMSurco", bulma)
+            vadeNuez.putString("StationsCMGoteo", milk)
             historicoFragment.arguments = vadeNuez
             childFragmentManager
                 .beginTransaction()

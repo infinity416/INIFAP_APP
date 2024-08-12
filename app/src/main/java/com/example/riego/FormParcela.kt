@@ -37,14 +37,21 @@ class FormParcela : AppCompatActivity() {
 
     val cultivo = arrayOf("Algodón","Maíz Grano","Maíz Forraje")
     val cresimiento = arrayOf("Precoz", "Intermedio", "Tardío")
-    val suelo = arrayOf("Ligero","Media","Pesado")
-    val rigo = arrayOf("Goteo", "Pivote"/*,"Compuertas","Grabedad"*/)
+    val suelo = arrayOf("Ligero","Medio","Pesado")
+    val rigo = arrayOf("Goteo", "Pivote", "Compuertas", "Avance frontal", "Surco" /*"Grabedad"*/)
 
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var latitude: EditText
     private lateinit var longitude: EditText
+    lateinit var input8 : EditText
+    lateinit var input9 : EditText
+    lateinit var input10 : EditText
+    lateinit var input11 : EditText
     lateinit var input16 : EditText
+    lateinit var input17 : EditText
+    lateinit var input18 : EditText
+    lateinit var input19 : EditText
 
     private lateinit var databse: DBparcela
     private lateinit var parcela: Parcela
@@ -55,7 +62,7 @@ class FormParcela : AppCompatActivity() {
     private lateinit var parcelaTropper: LiveData<Parcela>
     private lateinit var parcelabusqueda: LiveData<Parcela>
 
-    @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
+    @SuppressLint("MissingInflatedId", "SuspiciousIndentation", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -98,10 +105,87 @@ class FormParcela : AppCompatActivity() {
                     println("Capitulo II. el tipo de riego es: "+itemRiego)
                     input16.visibility = View.VISIBLE
                     input16.isEnabled = true
+
+                    input17.visibility = View.VISIBLE
+                    input17.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input19.visibility = View.VISIBLE
+                    input19.isEnabled = true
+
+                    input8.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
                 }else if(itemRiego == "Pivote"){
                     println(" el tipo de riego es: "+itemRiego)
                     input16.visibility = View.INVISIBLE
-                }/*else if( position == 2){
+                    input17.visibility = View.INVISIBLE
+                    input18.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+
+                }else if(itemRiego == "Compuertas"){
+                    println(" el tipo de riego es: "+itemRiego)
+                    input17.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                }else if(itemRiego == "Avance frontal"){
+                    println(" el tipo de riego es: "+itemRiego)
+
+                    input16.visibility = View.INVISIBLE
+                    input17.visibility = View.INVISIBLE
+                    input18.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+                    input10.visibility = View.VISIBLE
+                    input10.isEnabled = true
+
+                }else if(itemRiego == "Surco"){
+                    println(" el tipo de riego es: "+itemRiego)
+
+                    input17.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+                }
+                /*else if( position == 2){
                 println("Capitulo II. el tipo de riego es: "+itemRiego)
                 longitude.visibility = View.VISIBLE
                 latitude.visibility = View.INVISIBLE
@@ -145,12 +229,15 @@ class FormParcela : AppCompatActivity() {
             val input13 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
             val input6 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
             val input7 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
-            val input8 = findViewById<EditText>(R.id.aguaInput)
-            val input9 = findViewById<EditText>(R.id.largoInput)
-            val input10 = findViewById<EditText>(R.id.anchoInput)
-            val input11 = findViewById<EditText>(R.id.timeInput)
+            input8 = findViewById<EditText>(R.id.aguaInput)
+            input9 = findViewById<EditText>(R.id.largoInput)
+            input10 = findViewById<EditText>(R.id.anchoInput)
+            input11 = findViewById<EditText>(R.id.timeInput)
             val nanendoSwitch = findViewById<Switch>(R.id.switch1)
             input16 =  findViewById(R.id.CMInput)
+            input17 = findViewById(R.id.CMInput0)
+            input18 = findViewById(R.id.CMInput1)
+            input19 = findViewById(R.id.CMInput2)
 
             println("Comando!!!! Comando!!!")
             println(idParcela)
@@ -179,17 +266,128 @@ class FormParcela : AppCompatActivity() {
                     println("es goteo")
                     input16.visibility = View.VISIBLE
                     input16.isEnabled = true
+
+                    input17.visibility = View.VISIBLE
+                    input17.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input19.visibility = View.VISIBLE
+                    input19.isEnabled = true
+
+                    input8.visibility = View.INVISIBLE
+                    input8.isEnabled = false
+
+                    input9.visibility = View.INVISIBLE
+                    input9.isEnabled = false
+
+                    input10.visibility = View.INVISIBLE
+                    input10.isEnabled = false
+
                 }else if(parcela.riego == "Pivote"){
                     println("no es goteo es: "+parcela.riego)
-                    input16.isEnabled = false
+
                     input16.visibility = View.INVISIBLE
+                    input16.isEnabled = false
+
+                    input17.visibility = View.INVISIBLE
+                    input17.isEnabled = false
+
+                    input18.visibility = View.INVISIBLE
+                    input18.isEnabled = false
+
+                    input19.visibility = View.INVISIBLE
+                    input19.isEnabled = false
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+                    input10.visibility = View.INVISIBLE
+                    input10.isEnabled = false
+
+                }else if(parcela.riego == "Compuertas"){
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input17.visibility = View.INVISIBLE
+                    input17.isEnabled = false
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input19.visibility = View.INVISIBLE
+                    input19.isEnabled = false
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.INVISIBLE
+                    input9.isEnabled = false
+
+                    input10.visibility = View.INVISIBLE
+                    input10.isEnabled = false
+
+                }else if(parcela.riego == "Avance frontal"){
+
+                    input16.visibility = View.INVISIBLE
+                    input16.isEnabled = false
+
+                    input17.visibility = View.INVISIBLE
+                    input17.isEnabled = false
+
+                    input18.visibility = View.INVISIBLE
+                    input18.isEnabled = false
+
+                    input19.visibility = View.INVISIBLE
+                    input19.isEnabled = false
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+                    input10.visibility = View.VISIBLE
+                    input10.isEnabled = true
+
+                }else if(parcela.riego == "Surco"){
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input17.visibility = View.INVISIBLE
+                    input17.isEnabled = false
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input19.visibility = View.INVISIBLE
+                    input19.isEnabled = false
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.INVISIBLE
+                    input9.isEnabled = false
+
+                    input10.visibility = View.INVISIBLE
+                    input10.isEnabled = false
+
                 }
                 input7.setText(parcela.suelo)
-                input8.setText(parcela.agua)
+                input8.setText(parcela.pozo)
                 input9.setText(parcela.larg)
                 input10.setText(parcela.anch)
-                input11.setText(parcela.hora)
-                input16.setText(parcela.cmXsuko)
+                input11.setText(parcela.dias)
+                input16.setText(parcela.largXsurco)
+                input17.setText(parcela.gotero)
+                input18.setText(parcela.cmXsuko)
+                input19.setText(parcela.cmXgotero)
             })
             /* if (intent.hasExtra("parcela")){
                  var actparcela = intent.extras?.getSerializable("parcela") as Parcela
@@ -221,33 +419,107 @@ class FormParcela : AppCompatActivity() {
                 val lon = longitude.text.toString()
                 val dia = input5.text.toString()
                 val creci = input13.text.toString()
-                var cmxsk = ""
                 val triego = input6.text.toString()
                     if (triego == "Goteo"){
                         input16.text.toString()
+                        input17.text.toString()
+                        input18.text.toString()
+                        input19.text.toString()
+                        input8.setText("")
+                        input9.setText("")
+                        input10.setText("")
                     }else if(triego == "Pivote"){
                         input16.setText("")
+                        input17.setText("")
+                        input18.setText("")
+                        input19.setText("")
+                        input8.text.toString()
+                        input9.text.toString()
+                        input10.setText("")
+                    }else if(triego == "Compuertas" ){
+                        input16.text.toString()
+                        input17.setText("")
+                        input18.text.toString()
+                        input19.setText("")
+                        input8.text.toString()
+                        input9.setText("")
+                        input10.setText("")
+                    }else if(triego == "Avance frontal"){
+                        input16.setText("")
+                        input17.setText("")
+                        input18.setText("")
+                        input19.setText("")
+                        input8.text.toString()
+                        input9.text.toString()
+                        input10.text.toString()
+                    }else if(triego == "Surco"){
+                        input16.text.toString()
+                        input17.setText("")
+                        input18.text.toString()
+                        input19.setText("")
+                        input8.text.toString()
+                        input9.setText("")
+                        input10.setText("")
                     }
                 val tsuelo = input7.text.toString()
                 // val agua = input8.text.toString()
                 if(nanendoSwitch.isChecked){
                     val cantwater = input8.text.toString().toDouble()
-                    val convert =(0.264172*cantwater)
+                    val convert =(3.78541*cantwater)
                     agua = convert.toString()
                 }else{
                     agua = input8.text.toString()
                 }
-                val largo = input9.text.toString()
-                val ancho = input10.text.toString()
-                val hora = input11.text.toString()
+
+                val dias = input11.text.toString()
+
+                val amumu_2 =  input9.text.toString()
+                val largo = if(amumu_2 != ""){
+                    input9.text.toString()
+                }else{
+                    input9.setText("")
+                    ""
+                }
+
+                val amumu_1 = input10.text.toString()
+                val ancho = if(amumu_1 != ""){
+                    input10.text.toString()
+                }else{
+                    input10.setText("")
+                    ""
+                }
+
                 val nunu = input16.text.toString()
                 println("en un yeti!!! "+nunu)
-
-                if(nunu != ""){
-                    cmxsk = input16.text.toString()
+                val lgxsrc = if(nunu != ""){
+                    input16.text.toString()
                 }else{
                     input16.setText("")
-                    cmxsk = ""
+                    ""
+                }
+
+                val amumu = input17.text.toString()
+                val gotero = if(amumu != ""){
+                    input17.text.toString()
+                }else{
+                    input17.setText("")
+                    ""
+                }
+
+                val anumu1 = input18.text.toString()
+                val cmxsk = if(anumu1 != ""){
+                    input18.text.toString()
+                }else{
+                    input18.setText("")
+                    ""
+                }
+
+                val amumu2 = input19.text.toString()
+                val cmxgo = if(amumu2 != ""){
+                    input19.text.toString()
+                }else{
+                    input19.setText("")
+                    ""
                 }
                 /******/
 
@@ -276,36 +548,17 @@ class FormParcela : AppCompatActivity() {
                 }else if(tsuelo.isEmpty()){
                     input7.setError("Seleccione el tipo de suelo")
                     return@setOnClickListener
-                }else if(agua.isEmpty()){
-                    input8.setError("Ingrese la cantidad de agua")
-                    return@setOnClickListener
-                }else if(largo.isEmpty()){
-                    input9.setError("Ingrese el dato solicitante")
-                    return@setOnClickListener
-                }else if(ancho.isEmpty()){
-                    input10.setError("Ingrese el dato solicitante")
-                    return@setOnClickListener
-                }else if(hora.isEmpty()){
+                }else if(dias.isEmpty()){
                     input11.setError("Ingrese el dato solicitante")
                     return@setOnClickListener
                 }else{
                     dbase = DBparcela.getDatabase(this)
                     parcelabusqueda = dbase.parcelas().consutaParcelaName(nombre)
                     parcelabusqueda.observe( this, Observer {
-                        if(it?.naame ==  nombre){
-                            val dialogs = Dialog(this)
-                            dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                            dialogs.setCancelable(false)
-                            dialogs.setContentView(R.layout.alertdialog_questionfile)
-                            dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                        println("miraaaaaaaaa"+it.id)
+                        println("miraaaaaaaaa"+idParcela)
+                        if(it.id == idParcela){
 
-                            val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
-
-                            btncloses.setOnClickListener {
-                                dialogs.dismiss()
-                            }
-                            dialogs.show()
-                        }else{
                             val dialog = Dialog(this)
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                             dialog.setCancelable(false)
@@ -325,11 +578,14 @@ class FormParcela : AppCompatActivity() {
                                     parcela.crecimieto = creci
                                     parcela.riego = triego
                                     parcela.suelo = tsuelo
-                                    parcela.agua = agua
+                                    parcela.pozo = agua
                                     parcela.larg = largo
                                     parcela.anch = ancho
-                                    parcela.hora = hora
+                                    parcela.dias = dias
+                                    parcela.largXsurco = lgxsrc
+                                    parcela.gotero = gotero
                                     parcela.cmXsuko =  cmxsk
+                                    parcela.cmXgotero = cmxgo
                                     //println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
                                     println(parcela)
                                     databse.parcelas().editarParcela(parcela)
@@ -338,6 +594,19 @@ class FormParcela : AppCompatActivity() {
                                 this@FormParcela.finish()
                             }
                             dialog.show()
+                        }else{
+                            val dialogs = Dialog(this)
+                            dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialogs.setCancelable(false)
+                            dialogs.setContentView(R.layout.alertdialog_questionfile)
+                            dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                            val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
+
+                            btncloses.setOnClickListener {
+                                dialogs.dismiss()
+                            }
+                            dialogs.show()
                         }
                     })
                     /*parcelaTropper = dbase.parcelas().existeName(nombre)
@@ -462,12 +731,86 @@ class FormParcela : AppCompatActivity() {
                     input16.visibility = View.VISIBLE
                     input16.isEnabled = true
 
+                    input17.visibility = View.VISIBLE
+                    input17.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input19.visibility = View.VISIBLE
+                    input19.isEnabled = true
+
+                    input8.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
                 }else if(itemRiego == "Pivote"){
                     println(" el tipo de riego es: "+itemRiego)
                     input16.visibility = View.INVISIBLE
+                    input17.visibility = View.INVISIBLE
+                    input18.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
 
 
-                }/*else if( position == 2){
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+
+                }else if(itemRiego == "Compuertas"){
+                    println(" el tipo de riego es: "+itemRiego)
+                    input17.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                }else if(itemRiego == "Avance frontal"){
+                    println(" el tipo de riego es: "+itemRiego)
+
+                    input16.visibility = View.INVISIBLE
+                    input17.visibility = View.INVISIBLE
+                    input18.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+
+                    input9.visibility = View.VISIBLE
+                    input9.isEnabled = true
+
+                    input10.visibility = View.VISIBLE
+                    input10.isEnabled = true
+
+                }else if(itemRiego == "Surco"){
+                    println(" el tipo de riego es: "+itemRiego)
+
+                    input17.visibility = View.INVISIBLE
+                    input19.visibility = View.INVISIBLE
+                    input9.visibility = View.INVISIBLE
+                    input10.visibility = View.INVISIBLE
+
+                    input16.visibility = View.VISIBLE
+                    input16.isEnabled = true
+
+                    input18.visibility = View.VISIBLE
+                    input18.isEnabled = true
+
+                    input8.visibility = View.VISIBLE
+                    input8.isEnabled = true
+                }
+                /*else if( position == 2){
                 println("Capitulo II. el tipo de riego es: "+itemRiego)
                 longitude.visibility = View.VISIBLE
                 latitude.visibility = View.INVISIBLE
@@ -518,14 +861,39 @@ class FormParcela : AppCompatActivity() {
             val input13 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
             val input6 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
             val input7 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
-            val input8 = findViewById<EditText>(R.id.aguaInput)
-            val input9 = findViewById<EditText>(R.id.largoInput)
-            val input10 = findViewById<EditText>(R.id.anchoInput)
-            val input11 = findViewById<EditText>(R.id.timeInput)
+            input8 = findViewById<EditText>(R.id.aguaInput)
+            input8.isEnabled = false
+            input8.visibility = View.INVISIBLE
+
+            input9 = findViewById<EditText>(R.id.largoInput)
+            input9.isEnabled = false
+            input9.visibility = View.INVISIBLE
+
+            input10 = findViewById<EditText>(R.id.anchoInput)
+            input10.isEnabled = false
+            input10.visibility = View.INVISIBLE
+
+            input11 = findViewById<EditText>(R.id.timeInput)
+
+
             val nanendoSwitch = findViewById<Switch>(R.id.switch1)
+
             input16 =  findViewById(R.id.CMInput)
             input16.isEnabled = false
             input16.visibility = View.INVISIBLE
+
+            input17 = findViewById(R.id.CMInput0)
+            input17.isEnabled = false
+            input17.visibility = View.INVISIBLE
+
+            input18 = findViewById(R.id.CMInput1)
+            input18.isEnabled = false
+            input18.visibility = View.INVISIBLE
+
+            input19 = findViewById(R.id.CMInput2)
+            input19.isEnabled = false
+            input19.visibility = View.INVISIBLE
+
             println("Comando!!!! Comando!!!")
             println(idParcela)
             //
@@ -551,25 +919,61 @@ class FormParcela : AppCompatActivity() {
                 val tsuelo = input7.text.toString()
                 if(nanendoSwitch.isChecked){
                     val cantwater = input8.text.toString().toDouble()
-                    val convert =(0.264172*cantwater)
+                    val convert =(3.78541*cantwater)
                     agua = convert.toString()
                 }else{
                     agua = input8.text.toString()
                 }
-                agua
+                //agua
                 //val agua = input8.text.toString()
-                val largo = input9.text.toString()
-                val ancho = input10.text.toString()
-                val hora = input11.text.toString()
-                val nunu = input16.text.toString()
-                println("en un yeti!!! "+nunu)
-                var cmxsk = ""
-                if(nunu != ""){
-                    cmxsk = input16.text.toString()
+                //val largo = input9.text.toString()
+                //val ancho = input10.text.toString()
+                val dias = input11.text.toString()
+
+                /**START**/
+                val nunu_3= input9.text.toString()
+                val largo = if(nunu_3 != ""){
+                    input9.text.toString()
                 }else{
-                    cmxsk = ""
+                    ""
                 }
 
+                val nunu_2= input10.text.toString()
+                val ancho = if(nunu_2 != ""){
+                    input10.text.toString()
+                }else{
+                    ""
+                }
+
+                val nunu = input16.text.toString()
+                println("en un yeti!!! "+nunu)
+                val lgxsrc = if(nunu != ""){
+                    input16.text.toString()
+                }else{
+                    ""
+                }
+
+                val nunu1 = input17.text.toString()
+                val gotero = if(nunu1 != ""){
+                    input17.text.toString()
+                }else{
+                    ""
+                }
+
+                val nunu2 = input18.text.toString()
+                val cmxsk = if(nunu2 != ""){
+                    input18.text.toString()
+                }else{
+                    ""
+                }
+
+                val nunu3 = input19.text.toString()
+                val cmxgo = if(nunu3 != ""){
+                    input19.text.toString()
+                }else{
+                    ""
+                }
+                /**END**/
                 /******/
                 if(nombre.isEmpty()){
                     input1.setError("Ingrese el nombre de la parcela")
@@ -595,7 +999,7 @@ class FormParcela : AppCompatActivity() {
                 }else if(tsuelo.isEmpty()){
                     input7.setError("Seleccione el tipo de suelo")
                     return@setOnClickListener
-                }else if(agua.isEmpty()){
+                }/*else if(agua.isEmpty()){
                     input8.setError("Ingrese la cantidad de agua")
                     return@setOnClickListener
                 }else if(largo.isEmpty()){
@@ -604,11 +1008,11 @@ class FormParcela : AppCompatActivity() {
                 }else if(ancho.isEmpty()){
                     input10.setError("Ingrese el dato solicitante")
                     return@setOnClickListener
-                }else if(hora.isEmpty()){
+                }*/else if(dias.isEmpty()){
                     input11.setError("Ingrese el dato solicitante")
                     return@setOnClickListener
                 }else{
-                    println(nombre + cultivo + lat + lon +dia+ creci + triego + tsuelo+ agua+ largo +ancho+ hora)
+                    println(nombre + cultivo + lat + lon +dia+ creci + triego + tsuelo+ agua+ largo +ancho+ dias)
                     //println(cultivo)
                     //parcelaLiveData= databse.parcelas().existeName(nombre)
 
@@ -634,7 +1038,7 @@ class FormParcela : AppCompatActivity() {
                         }else{
                             println("dato unico ${it?.naame}, y $nombre son diferentes")
 
-                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, hora, cmxsk)
+                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, dias, cmxsk, lgxsrc, cmxgo, gotero)
                             println(newParcela)
 
                             val dialog = Dialog(this)

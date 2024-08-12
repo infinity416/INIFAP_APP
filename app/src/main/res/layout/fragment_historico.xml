@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.HistoricoFragment"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo2"
     android:orientation="vertical"
     android:id="@+id/ViewHistoricoFragment">
 
@@ -67,7 +67,7 @@
            android:gravity="center"
            android:orientation="vertical"
            android:text="Sin datos"
-           android:textColor="@color/black"
+           android:textColor="@color/Cbtn1"
            android:textSize="30dp"
            android:textStyle="bold" />
 
@@ -106,9 +106,19 @@
            android:layout_alignParentTop="true"
            android:layout_marginStart="11dp"
            android:layout_marginTop="11dp"
-           android:background="@drawable/baseline_arrow_back"/>
+           android:background="@drawable/baseline_arrow_fffff_24"/>
 
        <ImageButton
+           android:id="@+id/imgbtnG"
+           android:layout_width="40dp"
+           android:layout_height="38dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentTop="true"
+           android:layout_marginEnd="11dp"
+           android:layout_marginTop="11dp"
+           android:background="@drawable/baseline_assessment_fffffff"/>
+
+       <!--<ImageButton
            android:id="@+id/imageButton1"
            android:layout_width="40dp"
            android:layout_height="38dp"
@@ -116,7 +126,7 @@
            android:layout_alignParentTop="true"
            android:layout_marginEnd="11dp"
            android:layout_marginTop="11dp"
-           android:background="@drawable/baseline_arrow_forward"/>
+           android:background="@drawable/baseline_arrow_forward"/>-->
 
        <TextView
            android:id="@+id/textView14"
@@ -129,10 +139,11 @@
            android:layout_marginTop="10dp"
            android:layout_marginEnd="137dp"
            android:gravity="center"
-           android:text="Historico"
+           android:text="Histórico"
            android:textSize="30dp"
            android:textStyle="bold"
-           android:textAlignment="center" />
+           android:textAlignment="center"
+           android:textColor="@color/white"/>
 
 
 

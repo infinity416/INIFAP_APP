@@ -3,13 +3,13 @@
     <style name="Theme.Riego" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:windowIsTranslucent">true</item>
-        <item name="colorPrimary">@color/cpNavbar</item>
+        <item name="colorPrimary">@color/Cnav</item>
         <item name="colorPrimaryVariant">@color/cpNavbar</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/black</item>
-        <item name="colorSecondaryVariant">@color/black</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/Cnav</item>
+        <item name="colorSecondaryVariant">@color/Cnav</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/cpNavbar</item>
 
@@ -17,7 +17,7 @@
     </style>
 
     <style name="BottomNavigation">
-        <item name="android:background">@color/cpNavbar</item>
+        <item name="android:background">@color/Cnav</item>
         <item name="itemIconTint">@color/cButton</item>
         <item name="itemTextColor">@color/cButton</item>
     </style>

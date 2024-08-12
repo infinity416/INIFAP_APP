@@ -18,5 +18,10 @@
     <color name="graficas1">#9E4068</color>
     <color name="graficas2">#6C40CD</color>
     <color name="textriegocard">#00A4E1</color>
+    <color name="blue_0">#BFDBFF</color>
+    <color name="blue_1">#5689C5</color>
+    <color name="Cbtn">#3f76ac</color>
+    <color name="Cnav">#00ADEF</color>
+    <color name="Cbtn1">#00688F</color>
 
 </resources>

@@ -85,6 +85,10 @@ class HistoricoFragment : Fragment() {
         var largoParcela = arguments?.getString("StationsLargo")
         var anchoParcela = arguments?.getString("StationsAncho")
         var aguaParcela = arguments?.getString("StationsAgua")
+        var LGsurcoParcela = arguments?.getString("StationsLGSurco")
+        var goteoParcela = arguments?.getString("StationsGotero")
+        var cmsurcoParcela = arguments?.getString("StationsCMSurco")
+        var cmgoteroParcela = arguments?.getString("StationsCMGoteo")
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
             "Algodón"       -> 1
@@ -102,25 +106,40 @@ class HistoricoFragment : Fragment() {
 
         var sueloClave = when (sueloParcela){
             "Ligero"  -> 1
-            "Media"   -> 2
+            "Medio"   -> 2
             "Pesado"  -> 3
             else      -> "Invalid_Tipo_de_suelo."
         }
 
         var riegoClave = when (riegoParcela){
-            "Goteo"         -> 1
-            "Pivote"        -> 2
-            //"Compuertas"  -> 3
-            //"Gravedad"    -> 4
+            "Goteo"             -> 1
+            "Pivote"            -> 2
+            "Compuertas"        -> 3
+            "Avance frontal"    -> 4
+            "Surco"             -> 5
             else            -> "Invalid_Tipo_de_Goteo."
         }
 
-        println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+
+        val url = if(riegoClave == 1){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$goteoParcela&a3=$cmsurcoParcela&a4=$cmgoteroParcela"
+        }else if(riegoClave == 2){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=null&a4=null"
+        }else if(riegoClave == 3){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+        }else if(riegoClave == 4){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=$anchoParcela&a4=null"
+        }else if(riegoClave == 5){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+        } else {
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+        }
+        ////////println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
        // println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="41276"&fechaIni="15052018"&fechaFin="10072018"&cultivo="1"&crecimiento="2"&suelo="2"&riego="1"&a1="0.8"&a2="0.2"&a3="0.8)
         // otro funcioan val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
-        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
-        println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
-
+        // esta es la PRO val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+        //////////println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+println(url)
         /*****A.C.*******/
 
 
@@ -136,7 +155,7 @@ class HistoricoFragment : Fragment() {
 
         /****/
         //solovino
-        val solovino = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
+        val solovino = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
         //val solovinos = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
         //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
         //solovino
@@ -159,8 +178,6 @@ class HistoricoFragment : Fragment() {
 
                 /****/
                 //alertDialog
-
-
                 //alertDialog
                 /****/
 
@@ -184,8 +201,24 @@ class HistoricoFragment : Fragment() {
                             println(codeclave)
                             if(codeclave == 400){
                                 /******/
-                                val solovino = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
-                                val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+                                val solovino = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+                                //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+
+                                val urlii = if(riegoClave == 1){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+LGsurcoParcela+"&a2="+goteoParcela+"&a3="+cmsurcoParcela+"&a4="+cmgoteroParcela
+                                }else if(riegoClave == 2){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=null&a4=null"
+                                }else if(riegoClave == 3){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+                                }else if(riegoClave == 4){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=$anchoParcela&a4=null"
+                                }else if(riegoClave == 5){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+                                } else {
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+                                }
+
+
 
                                 if(urlii==solovino){
                                     haydata.setVisibility(TextView.VISIBLE)
@@ -498,7 +531,8 @@ class HistoricoFragment : Fragment() {
 
 
         var back = movimiento.findViewById<ImageButton>(R.id.imageButton)
-        var next = movimiento.findViewById<ImageButton>(R.id.imageButton1)
+        //var next = movimiento.findViewById<ImageButton>(R.id.imageButton1)
+        var next = movimiento.findViewById<ImageButton>(R.id.imgbtnG)
 
 
         back.setOnClickListener {
@@ -527,6 +561,11 @@ class HistoricoFragment : Fragment() {
             pck.putString("StationsLargo", largoParcela)
             pck.putString("StationsAncho", anchoParcela)
             pck.putString("StationsAgua", aguaParcela)
+            pck.putString("StationsLGSurco",LGsurcoParcela )
+            pck.putString("StationsGotero",goteoParcela)
+            pck.putString("StationsCMSurco",cmsurcoParcela)
+            pck.putString("StationsCMGoteo",cmgoteroParcela)
+
             graficoFragment.arguments = pck
             childFragmentManager
                 .beginTransaction()

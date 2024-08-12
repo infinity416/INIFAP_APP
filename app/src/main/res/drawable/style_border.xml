@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <stroke
-        android:width="1sp"
-        android:color="@color/cpNavbar"/>
+        android:width="2sp"
+        android:color="@color/white" />
     <padding
         android:bottom="10sp"
         android:left="10sp"
@@ -12,5 +12,5 @@
         android:radius="10dp"
         />
     <solid
-        android:color="@color/cpNavbar"/>
+        android:color="@color/white"/>
 </shape>

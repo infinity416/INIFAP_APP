@@ -56,7 +56,7 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.historico -> {
+                /*R.id.historico -> {
                     historicoFragment = HistoricoFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -71,7 +71,7 @@ class Home : AppCompatActivity() {
                         .replace(R.id.fl_primero,graficoFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
-                }
+                }*/
 
             }
             true

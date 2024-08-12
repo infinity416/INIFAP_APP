@@ -368,6 +368,16 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         val lulu = responses.body!!.string()
                                         val  nautilus= JSONObject(lulu)
                                         val bilz = nautilus.getJSONArray("estacion_cercana")
+
+                                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                                        val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
+                                        mMaparcela.addMarker(ubicactionParcela )
+                                        mMaparcela.animateCamera(
+                                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
+                                            15,
+                                            null,
+                                        )
+
                                         for(C in 0 until bilz.length()){
                                             val brand = bilz.getJSONObject(C)
                                             val rakan = brand.getString("Clasificacion")
@@ -381,7 +391,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
                                                     CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
-                                                    4000,
+                                                    15,
                                                     null
                                                 )
                                                 /****/
@@ -407,7 +417,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
-                                                        args.putString("StationsAgua", parcela.agua)
+                                                        args.putString("StationsAgua", parcela.pozo)
+                                                        args.putString("StationsLGSurco", parcela.largXsurco)
+                                                        args.putString("StationsGotero", parcela.gotero)
+                                                        args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                        args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                         historicoFragment.arguments = args
                                                             childFragmentManager
                                                                 .beginTransaction()
@@ -425,7 +439,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
                                                     CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
-                                                    4000,
+                                                    15,
                                                     null
                                                 )
                                                 /****/
@@ -449,7 +463,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
-                                                        args.putString("StationsAgua", parcela.agua)
+                                                        args.putString("StationsAgua", parcela.pozo)
+                                                        args.putString("StationsLGSurco", parcela.largXsurco)
+                                                        args.putString("StationsGotero", parcela.gotero)
+                                                        args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                        args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                         historicoFragment.arguments = args
                                                          childFragmentManager
                                                             .beginTransaction()
@@ -467,7 +485,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
                                                     CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
-                                                    4000,
+                                                    15,
                                                     null
                                                 )
                                                 /****/
@@ -491,7 +509,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
-                                                        args.putString("StationsAgua", parcela.agua)
+                                                        args.putString("StationsAgua", parcela.pozo)
+                                                        args.putString("StationsLGSurco", parcela.largXsurco)
+                                                        args.putString("StationsGotero", parcela.gotero)
+                                                        args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                        args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                         historicoFragment.arguments = args
                                                         childFragmentManager
                                                             .beginTransaction()
@@ -505,14 +527,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 /******/
                                             }
                                         }
-                                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
-                                        val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
-                                        mMaparcela.addMarker(ubicactionParcela )
-                                        mMaparcela.animateCamera(
-                                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
-                                            15,
-                                            null,
-                                        )
+
                                     }
 
                                 }
@@ -532,6 +547,15 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                             val GameCube = Atari.getJSONArray("estacion_cercana")
                             //println(GameCube.length())
 
+                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                            val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
+                            mMaparcela.addMarker(ubicactionParcela)
+                            mMaparcela.animateCamera(
+                                CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
+                                15,
+                                null,
+                            )
+
                                 for (E in 0 until GameCube.length()){
                                     val ND64 = GameCube.getJSONObject(E)
                                     //val kmStation = ND64.getInt("Dias")
@@ -548,7 +572,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
                                             CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                            4000,
+                                            15,
                                             null
                                         )
                                         /****/
@@ -572,7 +596,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
-                                                args.putString("StationsAgua", parcela.agua)
+                                                args.putString("StationsAgua", parcela.pozo)
+                                                args.putString("StationsLGSurco", parcela.largXsurco)
+                                                args.putString("StationsGotero", parcela.gotero)
+                                                args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -591,7 +619,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
                                             CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                            4000,
+                                            15,
                                             null
                                         )
 
@@ -615,7 +643,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
-                                                args.putString("StationsAgua", parcela.agua)
+                                                args.putString("StationsAgua", parcela.pozo)
+                                                args.putString("StationsLGSurco", parcela.largXsurco)
+                                                args.putString("StationsGotero", parcela.gotero)
+                                                args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -633,7 +665,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
                                             CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
-                                            4000,
+                                            15,
                                             null
                                         )
 
@@ -657,7 +689,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
-                                                args.putString("StationsAgua", parcela.agua)
+                                                args.putString("StationsAgua", parcela.pozo)
+                                                args.putString("StationsLGSurco", parcela.largXsurco)
+                                                args.putString("StationsGotero", parcela.gotero)
+                                                args.putString("StationsCMSurco", parcela.cmXsuko)
+                                                args.putString("StationsCMGoteo", parcela.cmXgotero)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -716,7 +752,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     args.putString("StationsReigo", parcela.riego)
                                     args.putString("StationsLargo", parcela.larg)
                                     args.putString("StationsAncho", parcela.anch)
-                                    args.putString("StationsAgua", parcela.agua)
+                                    args.putString("StationsAgua", parcela.pozo)
                                     historicoFragment.arguments = args
                                     childFragmentManager
                                     .beginTransaction()
@@ -859,14 +895,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     }*/
 
                                 }
-                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
-                            val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
-                            mMaparcela.addMarker(ubicactionParcela)
-                            mMaparcela.animateCamera(
-                                CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
-                                15,
-                                null,
-                            )
+
 
                         }
                     }

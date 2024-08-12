@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_margin="12dp"
-    card_view:cardBackgroundColor="@color/cpNavbar"
+    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="20dp"
     card_view:cardElevation="6dp"
     card_view:contentPadding="2dp"
@@ -18,37 +18,42 @@
 
         <TextView
             android:id="@+id/txtcultivo"
-            android:layout_width="wrap_content"
+            android:layout_width="247dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:text="TextView"
-            android:textSize="18dp" />
+            android:textColor="@color/Cbtn1"
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtnombre"
-            android:layout_width="wrap_content"
+            android:layout_width="244dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtcultivo"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:text="TextView"
-            android:textSize="18dp"/>
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtfecha"
-            android:layout_width="wrap_content"
+            android:layout_width="244dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtnombre"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:text="TextView"
+            android:textColor="@color/black"
             android:textSize="18dp"
-            />
+            android:textStyle="bold"/>
 
         <ImageButton
             android:id="@+id/btnedit"
@@ -59,7 +64,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/style_btn_circle"
-            android:src="@drawable/baseline_edit" />
+            android:src="@drawable/baseline_mode_edit_24" />
 
         <ImageButton
             android:id="@+id/btndelete"
@@ -72,6 +77,6 @@
             android:layout_marginEnd="60dp"
             android:layout_marginBottom="-16dp"
             android:background="@drawable/style_btn_circle"
-            android:src="@drawable/baseline_delete" />
+            android:src="@drawable/baseline_delete_24" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

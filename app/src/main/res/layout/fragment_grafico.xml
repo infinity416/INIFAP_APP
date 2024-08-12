@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.GraficoFragment"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo2"
     android:id="@+id/ViewGraficoFragment">
 
 
@@ -29,7 +29,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="2dp"
-            android:background="?attr/colorPrimary"
+            android:background="@color/Cnav"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
@@ -48,7 +48,7 @@
             android:backgroundTint="@color/cpNavbar"
             android:background="@color/cpNavbar" />-->
 
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/imageBtnGrafica"
             android:layout_width="40dp"
             android:layout_height="38dp"
@@ -56,7 +56,20 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="11dp"
             android:layout_marginTop="11dp"
-            android:background="@drawable/baseline_arrow_back" />
+            android:background="@drawable/baseline_arrow_fffff_24"
+            app:itemIconTint="@drawable/icon_color"
+            app:itemTextColor="@drawable/icon_color"/>-->
+
+        <ImageButton
+            android:id="@+id/imgbtnH"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/baseline_calendar_ffffff"
+            />
 
 
         <TextView
@@ -70,10 +83,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="137dp"
             android:gravity="center"
-            android:text="Grafico"
+            android:text="Gráfico"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textAlignment="center"  />
+            android:textAlignment="center"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/valueview"
@@ -85,7 +99,9 @@
             android:layout_marginEnd="0dp"
             android:text=""
             android:textAlignment="textEnd"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/ViewGrafica"
