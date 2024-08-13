@@ -2,6 +2,7 @@ package com.example.riego
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -52,6 +53,7 @@ class FormParcela : AppCompatActivity() {
     lateinit var input17 : EditText
     lateinit var input18 : EditText
     lateinit var input19 : EditText
+    lateinit var nombreparcelaid : String
 
     private lateinit var databse: DBparcela
     private lateinit var parcela: Parcela
@@ -81,6 +83,7 @@ class FormParcela : AppCompatActivity() {
             val adapter1 = this.let { ArrayAdapter(it.applicationContext, R.layout.list_items, suelo) }
             val adapter2 = this.let { ArrayAdapter(it.applicationContext, R.layout.list_items, rigo) }
             val adapter3 = this.let {ArrayAdapter(it.applicationContext, R.layout.list_items, cresimiento)}
+
 
             lisCultivo.setAdapter(adapter)
             lisSuelo.setAdapter(adapter1)
@@ -254,8 +257,10 @@ class FormParcela : AppCompatActivity() {
             parcelaLiveData.observe(this, Observer {
                 parcela = it
                 //var n1 =input1.setText(parcela.naame).toString()
-               var clock1 = input1.setText(parcela.naame).toString()
-                var z =parcela.naame
+               //var clock1 =
+                nombreparcelaid = parcela.naame
+                input1.setText(parcela.naame).toString()
+                //var z =parcela.naame
                 input2.setText(parcela.cultivo)
                 latitude.setText(parcela.lat)
                 longitude.setText(parcela.lon)
@@ -554,10 +559,106 @@ class FormParcela : AppCompatActivity() {
                 }else{
                     dbase = DBparcela.getDatabase(this)
                     parcelabusqueda = dbase.parcelas().consutaParcelaName(nombre)
+                    parcelabusqueda.observe(this, Observer {
+                        if(it?.naame == nombre){
+                            println("existe ${it?.naame} == $nombre")
+                            if(it?.id == idParcela){
+                                println("son el mismo ${it?.id} == $idParcela")
+                                val dialog = Dialog(this)
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialog.setCancelable(false)
+                                dialog.setContentView(R.layout.alertdialog_update)
+                                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                val btnclose = dialog.findViewById<Button>(R.id.btnclose6)
+
+                                btnclose.setOnClickListener {
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        parcela.id = idParcela
+                                        parcela.naame = nombre
+                                        parcela.cultivo = cultivo
+                                        parcela.lat = lat
+                                        parcela.lon = lon
+                                        parcela.fecha = dia
+                                        parcela.crecimieto = creci
+                                        parcela.riego = triego
+                                        parcela.suelo = tsuelo
+                                        parcela.pozo = agua
+                                        parcela.larg = largo
+                                        parcela.anch = ancho
+                                        parcela.dias = dias
+                                        parcela.largXsurco = lgxsrc
+                                        parcela.gotero = gotero
+                                        parcela.cmXsuko =  cmxsk
+                                        parcela.cmXgotero = cmxgo
+                                        //println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
+                                        println(parcela)
+                                        databse.parcelas().editarParcela(parcela)
+                                    }
+                                    dialog.dismiss()
+                                    this@FormParcela.finish()
+                                }
+                                dialog.show()
+                            }else{
+                                println("es alguien mas no tiene el mismo id: ${it.id} == $idParcela")
+                                val dialogs = Dialog(this)
+                                dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialogs.setCancelable(false)
+                                dialogs.setContentView(R.layout.alertdialog_questionfile)
+                                dialogs.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                                val btncloses = dialogs.findViewById<Button>(R.id.btncloseQF)
+
+                                btncloses.setOnClickListener {
+                                    dialogs.dismiss()
+                                }
+                                dialogs.show()
+                            }
+                        }else{
+                            println("no existe ${it?.naame} == $nombre")
+                            val dialog = Dialog(this)
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialog.setCancelable(false)
+                            dialog.setContentView(R.layout.alertdialog_update)
+                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                            val btnclose = dialog.findViewById<Button>(R.id.btnclose6)
+
+                            btnclose.setOnClickListener {
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    parcela.id = idParcela
+                                    parcela.naame = nombre
+                                    parcela.cultivo = cultivo
+                                    parcela.lat = lat
+                                    parcela.lon = lon
+                                    parcela.fecha = dia
+                                    parcela.crecimieto = creci
+                                    parcela.riego = triego
+                                    parcela.suelo = tsuelo
+                                    parcela.pozo = agua
+                                    parcela.larg = largo
+                                    parcela.anch = ancho
+                                    parcela.dias = dias
+                                    parcela.largXsurco = lgxsrc
+                                    parcela.gotero = gotero
+                                    parcela.cmXsuko =  cmxsk
+                                    parcela.cmXgotero = cmxgo
+                                    //println("HOLAAAAAAAAAAAAA!!!!!!!!!!")
+                                    println(parcela)
+                                    databse.parcelas().editarParcela(parcela)
+                                }
+                                dialog.dismiss()
+                                this@FormParcela.finish()
+                            }
+                            dialog.show()
+                        }
+                     })
+                    /***parcelabusqueda = dbase.parcelas().consutaParcela(idParcela)
                     parcelabusqueda.observe( this, Observer {
                         println("miraaaaaaaaa"+it.id)
                         println("miraaaaaaaaa"+idParcela)
-                        if(it.id == idParcela){
+                        println("por aqui levy $nombreparcelaid")
+                        if(it.naame == parcela.naame){
 
                             val dialog = Dialog(this)
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -608,7 +709,10 @@ class FormParcela : AppCompatActivity() {
                             }
                             dialogs.show()
                         }
-                    })
+                    })*///
+
+
+
                     /*parcelaTropper = dbase.parcelas().existeName(nombre)
                    parcelaTropper.observe( this, Observer {
                        if(it === null){

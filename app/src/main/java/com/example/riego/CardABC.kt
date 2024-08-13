@@ -55,7 +55,8 @@ class CardABC(private val parcelaList: List<Parcela>): RecyclerView.Adapter<Card
         val G = parcelaList[position]
 
         holder.sierra1.text = G.cultivo
-        holder.sierra2.text = G.id.toString()
+        //holder.sierra2.text = G.id.toString()
+        holder.sierra2.text =  G.naame
         holder.sierra3.text = G.fecha
 
         val database = DBparcela.getDatabase(holder.itemView.context)
