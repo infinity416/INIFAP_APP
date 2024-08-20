@@ -12,7 +12,7 @@ import java.text.DecimalFormat
 
 @Dao
 interface Controller_parcelas {
-    @Query("SELECT * FROM parcelas ORDER BY fecha DESC")
+    @Query("SELECT * FROM parcelas ORDER BY id asc")
     fun obtenerParcela(): LiveData<List<Parcela>>
 
     @Insert

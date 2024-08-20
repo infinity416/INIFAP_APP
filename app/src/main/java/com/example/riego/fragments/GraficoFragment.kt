@@ -75,18 +75,29 @@ class GraficoFragment : Fragment() {
         val goku= arguments?.getString("Stationsid")
         var vegeta = arguments?.getString("StationsDateInput")
         var piccolo = arguments?.getString("StationsDateStart")
+        var maestrokarim = arguments?.getString("StationsDateSembrada")
         var krillin = arguments?.getString("StationsCultivo")
         var gohan = arguments?.getString("StationsCrecimiento")
         var trukns = arguments?.getString("StationsSuelo")
         var goten = arguments?.getString("StationsReigo")
+
         var tenshihan = arguments?.getString("StationsLargo")
         var yamcha = arguments?.getString("StationsAncho")
+        var yayirobe = arguments?.getString("StationsTimeR")
         var chaos = arguments?.getString("StationsAgua")
+
         var pan= arguments?.getString("StationsLGSurco")
         var videl= arguments?.getString("StationsGotero")
         var bulma= arguments?.getString("StationsCMSurco")
         var milk= arguments?.getString("StationsCMGoteo")
 
+        var carter= arguments?.getString("StationsGGg")
+        var kat= arguments?.getString("StationsGSs")
+        var jun= arguments?.getString("StationsGSg")
+
+        var emile= arguments?.getString("StationsPGa")
+        var jorge= arguments?.getString("StationsPDp")
+        var six= arguments?.getString("StationsPHr")
 
         var frezzer = when (krillin){
             "Algodón"       -> 1
@@ -96,7 +107,7 @@ class GraficoFragment : Fragment() {
         }
 
         var cellperfecto = when (gohan){
-            "Precoz"      -> 1
+            "Temprano"      -> 1
             "Intermedio"  -> 2
             "Tardío"      -> 3
             else          -> "Invalid_Tipo_de_Crecimiento."
@@ -112,32 +123,31 @@ class GraficoFragment : Fragment() {
         var majinbu = when (goten){
             "Goteo"             -> 1
             "Pivote"            -> 2
-            "Compuertas"        -> 3
-            "Avance Frontal"    -> 4
-            "Surco"             -> 5
+            "Avance Frontal"    -> 3
+            "Compuertas"        -> 6
+            "Surco"             -> 7
             else -> "Invalid_Tipo_de_Goteo."
         }
 
         val url = if(majinbu == 1){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$videl&a3=$bulma&a4=$milk"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$kat&a2=$jun&a3=$carter&a4=0"
         }else if(majinbu == 2){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=null&a4=null"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=$six&a4=0"
         }else if(majinbu == 3){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$yamcha&a4=null"
-        }else if(majinbu == 4){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=$bulma&a4=null"
-        }else if(majinbu == 5){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$bulma&a4=null"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$yamcha&a3=$chaos&a4=$yayirobe"
+        }else if(majinbu == 6){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$bulma&a2=$pan&a3=$videl&a4=$milk"
+        }else if(majinbu == 7){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$bulma&a2=$pan&a3=$videl&a4=$milk"
         }else{
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
-
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
         }
 
         // otro funcional val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+vegeta+"&fechaFin="+piccolo+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
-        println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
-        println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
+        println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
+        println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
         ///////este sirve val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
-        val urlIvacio = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+        val urlIvacio = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
 
         // Inflate the layout for this fragment
         val con = inflater.inflate(R.layout.fragment_grafico, container, false)
@@ -166,19 +176,20 @@ class GraficoFragment : Fragment() {
                             println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos)
                             ////esta sirve  val urlII = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+goku+"&fechaIni="+piccolo+"&fechaFin="+vegeta+"&cultivo="+frezzer+"&crecimiento="+cellperfecto+"&suelo="+androides17y18+"&riego="+majinbu+"&a1="+tenshihan+"&a2="+yamcha+"&a3="+chaos
                             val urlII = if(majinbu == 1){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$videl&a3=$bulma&a4=$milk"
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$kat&a2=$jun&a3=$carter&a4=0"
                             }else if(majinbu == 2){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=null&a4=null"
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=$six&a4=0"
                             }else if(majinbu == 3){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$yamcha&a4=null"
-                            }else if(majinbu == 4){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$chaos&a3=$bulma&a4=null"
-                            }else if(majinbu == 5){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechaIni=$piccolo&fechaFin=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$pan&a2=$chaos&a3=$bulma&a4=null"
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$yamcha&a3=$chaos&a4=$yayirobe"
+                            }else if(majinbu == 6){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$bulma&a2=$pan&a3=$videl&a4=$milk"
+                            }else if(majinbu == 7){
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$bulma&a2=$pan&a3=$videl&a4=$milk"
                             }else{
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null&a4=null"
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
                             }
-                            val urlIIvacia = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null&a4=null"
+
+                            val urlIIvacia = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=null&crecimiento=null&suelo=null&riego=null&a1=null&a2=null&a3=null&a4=null"
 
                             if(urlII == urlIIvacia){
                             println("Vacia")
@@ -696,13 +707,13 @@ class GraficoFragment : Fragment() {
 
                                                 lineDateSet = LineDataSet(datagrafic as List<Entry>?, "Agua Disponible")
                                                 lineDateSet.setLineWidth(4f)
-                                                lineDateSet.setColor(Color.BLUE)
+                                                lineDateSet.setColor(Color.rgb(10, 122,255))
                                                 lineDateSet.setDrawFilled(true)
-                                                lineDateSet.setFillDrawable(Color.argb(60,108, 64,205).toDrawable())
+                                                lineDateSet.setFillDrawable(Color.argb(60,10, 122,255).toDrawable())
                                                 //lineDateSet.valueTextColor = Color.GREEN
                                                 lineDateSet.setDrawCircles(true)
                                                 lineDateSet.setDrawCircleHole(true)
-                                                lineDateSet.setCircleColor(Color.GREEN)
+                                                lineDateSet.setCircleColor(Color.rgb(2, 64,138))
                                                 lineDateSet.setCircleRadius(3f)
                                                 lineDateSet.setValueTextSize(22f)
                                                 //lineDateSet.setDrawValues(false)
@@ -716,12 +727,12 @@ class GraficoFragment : Fragment() {
 
                                                 val lineDateSet2 = LineDataSet(datagrafic2 as List<Entry>?, "Abate")
                                                 lineDateSet2.setLineWidth(4f)
-                                                lineDateSet2.setColor(Color.RED)
+                                                lineDateSet2.setColor(Color.rgb(17, 255,9))
                                                 lineDateSet2.setDrawFilled(true)
-                                                lineDateSet2.setFillDrawable(Color.argb(60,158, 64,104).toDrawable())
+                                                lineDateSet2.setFillDrawable(Color.argb(60,17, 255,9).toDrawable())
                                                 lineDateSet2.setDrawCircles(true)
                                                 lineDateSet2.setDrawCircleHole(true)
-                                                lineDateSet2.setCircleColor(Color.MAGENTA)
+                                                lineDateSet2.setCircleColor(Color.rgb(9,140,5))
                                                 lineDateSet2.setCircleRadius(3f)
                                                 lineDateSet2.setValueTextSize(22f)
                                                 //lineDateSet2.setValueTextSize(5f)
@@ -801,6 +812,7 @@ class GraficoFragment : Fragment() {
                 vadeNuez.putString("Stationsid", goku)
                 vadeNuez.putString("StationsDateInput", vegeta)
                 vadeNuez.putString("StationsDateStart", piccolo)
+                vadeNuez.putString("StationsDateSembrada", maestrokarim)
                 vadeNuez.putString("StationsCultivo", krillin)
                 vadeNuez.putString("StationsCrecimiento", gohan)
                 vadeNuez.putString("StationsSuelo", trukns)
@@ -808,6 +820,17 @@ class GraficoFragment : Fragment() {
                 vadeNuez.putString("StationsLargo", tenshihan)
                 vadeNuez.putString("StationsAncho", yamcha)
                 vadeNuez.putString("StationsAgua", chaos)
+                vadeNuez.putString("StationsLGSurco", pan)
+                vadeNuez.putString("StationsGotero", videl)
+                vadeNuez.putString("StationsCMSurco", bulma)
+                vadeNuez.putString("StationsCMGoteo", milk)
+                vadeNuez.putString("StationsTimeR", yayirobe)
+                vadeNuez.putString("StationsGGG", carter)
+                vadeNuez.putString("StationsGSS", kat)
+                vadeNuez.putString("StationsGSG", jun)
+                vadeNuez.putString("StationsPGA", emile)
+                vadeNuez.putString("StationsPDP", jorge)
+                vadeNuez.putString("StationsPHR", six)
                 historicoFragment.arguments = vadeNuez
                 childFragmentManager
                     .beginTransaction()
@@ -839,6 +862,7 @@ class GraficoFragment : Fragment() {
             vadeNuez.putString("Stationsid", goku)
             vadeNuez.putString("StationsDateInput", vegeta)
             vadeNuez.putString("StationsDateStart", piccolo)
+            vadeNuez.putString("StationsDateSembrada", maestrokarim)
             vadeNuez.putString("StationsCultivo", krillin)
             vadeNuez.putString("StationsCrecimiento", gohan)
             vadeNuez.putString("StationsSuelo", trukns)
@@ -850,6 +874,13 @@ class GraficoFragment : Fragment() {
             vadeNuez.putString("StationsGotero", videl)
             vadeNuez.putString("StationsCMSurco", bulma)
             vadeNuez.putString("StationsCMGoteo", milk)
+            vadeNuez.putString("StationsTimeR", yayirobe)
+            vadeNuez.putString("StationsGGG", carter)
+            vadeNuez.putString("StationsGSS", kat)
+            vadeNuez.putString("StationsGSG", jun)
+            vadeNuez.putString("StationsPGA", emile)
+            vadeNuez.putString("StationsPDP", jorge)
+            vadeNuez.putString("StationsPHR", six)
             historicoFragment.arguments = vadeNuez
             childFragmentManager
                 .beginTransaction()

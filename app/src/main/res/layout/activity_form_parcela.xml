@@ -34,18 +34,20 @@
             android:background="@drawable/style_border"
             android:hint="Nombre de la parcela"
             android:inputType="text"
-            app:helperText="Required"/>
+            app:helperText="Required"
+            style="@style/REDONDOSEDIT"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="80dp">
+            android:layout_marginEnd="80dp"
+            >
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
@@ -54,9 +56,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-
                 android:background="@drawable/style_border"
-                android:hint="Cultivo" />
+                android:hint="Cultivo"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,7 +80,8 @@
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
             android:hint="Latitud"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/REDONDOSEDIT"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonUbication"
@@ -90,7 +92,8 @@
             android:layout_marginTop="-55dp"
             android:backgroundTint="@color/Cnav"
             android:clickable="true"
-            app:srcCompat="@drawable/baseline_my_location_fffff" />
+            app:srcCompat="@drawable/baseline_my_location_fffff"
+            />
 
         <!--<ImageButton
         android:id="@+id/buttonUbication"
@@ -115,7 +118,8 @@
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
             android:hint="Longitud"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/REDONDOSEDIT"/>
 
         <EditText
             android:id="@+id/dateInput"
@@ -129,7 +133,8 @@
             android:background="@drawable/style_border"
             android:clickable="false"
             android:focusable="false"
-            android:hint="Inicio de siembra" />
+            android:hint="Inicio de siembra"
+            style="@style/REDONDOSEDIT"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
@@ -150,7 +155,6 @@
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/style_border"
-
                 android:hint="Longitud del ciclo" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,7 +205,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Switch
+        <!--<Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -209,9 +213,9 @@
             android:layout_marginTop="13dp"
             android:text="Galón"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
 
-
+        <!--AF-->
         <EditText
             android:id="@+id/aguaInput"
             android:layout_width="match_parent"
@@ -219,11 +223,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="-35dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Gasto del pozo"
-            android:inputType="numberDecimal" />
+            android:hint="Gasto (gal/min)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
 
         <EditText
@@ -233,11 +238,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Largo del sistema (M)"
-            android:inputType="numberDecimal" />
+            android:hint="Largo del sistema (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
         <EditText
             android:id="@+id/anchoInput"
@@ -246,14 +252,117 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Ancho del sistema (M)"
-            android:inputType="numberDecimal" />
+            android:hint="Ancho del sistema (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
+        <EditText
+            android:id="@+id/TimeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Tiempo de riego (h)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+        <!--AF-->
 
+        <!--pivote-->
+        <EditText
+            android:id="@+id/PiInputgasto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="-200dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Gasto de agua (gal/min)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
+        <EditText
+            android:id="@+id/PiInputdistancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Distancia del pivote (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+
+        <EditText
+            android:id="@+id/PiInputhoras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Horas por vuelta"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+        <!-- pivote-->
+
+        <!--goteo-->
+        <EditText
+            android:id="@+id/GInputgotero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="-148dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Gasto del gotero (l/h)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+
+        <EditText
+            android:id="@+id/GInputsepS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Separación entre surcos (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+
+        <EditText
+            android:id="@+id/GInputsepG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:hint="Separación de goteros (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+        <!--goteo-->
+
+        <!--surcos/compuertas-->
         <EditText
             android:id="@+id/CMInput0"
             android:layout_width="match_parent"
@@ -261,11 +370,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="-140dp"
+            android:layout_marginTop="-148dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Gasto gotero"
-            android:inputType="numberDecimal" />
+            android:hint="Gasto (l/s)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
         <EditText
             android:id="@+id/CMInput"
@@ -274,11 +384,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Largo del surco (cm)"
-            android:inputType="numberDecimal" />
+            android:hint="Largo de los surcos (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
         <EditText
             android:id="@+id/CMInput1"
@@ -287,11 +398,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Separacion entre surco (cm)"
-            android:inputType="numberDecimal" />
+            android:hint="Separación de surcos (m)"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
 
         <EditText
             android:id="@+id/CMInput2"
@@ -300,13 +412,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
-            android:hint="Separacion de goteros (cm)"
-            android:inputType="numberDecimal" />
+            android:hint="Surcos por tendidad"
+            android:inputType="numberDecimal"
+            style="@style/REDONDOSEDIT"/>
+        <!--surcos/compuertas-->
 
-        <EditText
+        <!--<EditText
             android:id="@+id/timeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -317,7 +431,7 @@
             android:layout_marginEnd="80dp"
             android:background="@drawable/style_border"
             android:hint="Intervalo de riego (Dias)"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal" />-->
 
         <Button
             android:id="@+id/saveBtn"
@@ -326,7 +440,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="130dp"
             android:layout_marginBottom="1dp"
             android:text="Guardar"
@@ -341,7 +455,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="130dp"
             android:text="Cancelar"
             android:textColor="@color/white"

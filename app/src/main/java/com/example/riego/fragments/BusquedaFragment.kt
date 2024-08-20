@@ -73,6 +73,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var calve = arrayListOf("")
     var km = ""
     var inputfecha = ""
+    var urfecha = ""
     var identification = toString()
     var namelat = toString()
     var namelon = toString()
@@ -126,9 +127,30 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             /////////////////
 
             //val rango = con.findViewById<EditText>(R.id.distanciaInput)
+            /****ultima*****/
+            val ultimaRFecha = con.findViewById<EditText>(R.id.fechaultimoriego)
+            ultimaRFecha.setOnClickListener {
+                val datePicker = DateTimeBusqueda1 { day, month, year ->
+                    if (day < 10) {
+                        if ((month + 1) <= 9) {
+                            ultimaRFecha.setText("0" + day.toString() + "/" + "0" + (month + 1) + "/" + year)
+                        } else {
+                            ultimaRFecha.setText("0" + day.toString() + "/" + (month + 1) + "/" + year)
+                        }
+                    } else if ((month + 1) <= 9) {
+                        ultimaRFecha.setText(day.toString() + "/" + "0" + (month + 1) + "/" + year)
+                    } else {
+                        ultimaRFecha.setText(day.toString() + "/" + (month + 1) + "/" + year)
+                    }
 
 
+                    //var nux.text = interFecha.setText(day.toString()+"/"+month.toString()+"/"+year.toString())
+                }.also {
+                    it.show(childFragmentManager,"datePicker")
+                }
 
+            }
+            /****END ultima****/
             //
             //
             //
@@ -224,6 +246,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             btnConsulta.setOnClickListener{
                 //km = rango.text.toString()
                 inputfecha = interFecha?.text.toString()
+                urfecha = ultimaRFecha?.text.toString()
                 val Nparcela = lisParcelas.text.toString()
 
 //            println("cadena de catos lat:"+parcela.lat+", lon:"+parcela.lon+", name:"+parcela.naame+", km:"+km+" y fecha:"+ interFecha?.text.toString()+"  ATT: INFINITY")
@@ -237,8 +260,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                     Toast.makeText(this.context, "Selecione la parcela", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }else if (inputfecha.isEmpty()){
-                    interFecha.setError("Seleccione la fecha")
+                    interFecha.setError("Seleccione la fecha a consultar")
                     return@setOnClickListener
+                }else if (urfecha.isEmpty()){
+                        interFecha.setError("Seleccione la ultima fecha de riego")
+                        return@setOnClickListener
                 }else{
                     Toast.makeText(this.context, "Buscando...", Toast.LENGTH_LONG).show()
                     createFragment()
@@ -283,9 +309,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
         //var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=${namelat}&longitud=${namelon}&distanciaEst=${km}"
         //println("https://appinifap.sytes.net/apiweb/api/localizar?latitud=31.117659&longitud=-106.876329&fechaIni=15/05/2023&fechaFin=10/07/2023")
         var fechaingresa = this.inputfecha
+        var ultimafechar = this.urfecha
 
-        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa
-        println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
+        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa
+        //println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
+        println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa)
 
 
         val nes = okhttp3.Request.Builder().url(url).build()
@@ -313,8 +341,9 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                         dialog.show()
                     }
                 }else if (clavemorce == 400){
-                    println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
-                    val urlII = "https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa
+                    //println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
+                    println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa)
+                    val urlII = "https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa
 
                     val leona = okhttp3.Request.Builder().url(urlII).build()
                     sal.newCall(leona).enqueue(object : Callback{
@@ -369,14 +398,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         val  nautilus= JSONObject(lulu)
                                         val bilz = nautilus.getJSONArray("estacion_cercana")
 
-                                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
-                                        val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
-                                        mMaparcela.addMarker(ubicactionParcela )
-                                        mMaparcela.animateCamera(
-                                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
-                                            15,
-                                            null,
-                                        )
+
 
                                         for(C in 0 until bilz.length()){
                                             val brand = bilz.getJSONObject(C)
@@ -410,18 +432,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
                                                         args.putString("StationsDateInput", inputfecha)
-                                                        args.putString("StationsDateStart", parcela.fecha)
+                                                        args.putString("StationsDateStart", urfecha)
+                                                        args.putString("StationsDateSembrada", parcela.fecha)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
+                                                        args.putString("StationsTimeR", parcela.timear)
                                                         args.putString("StationsAgua", parcela.pozo)
                                                         args.putString("StationsLGSurco", parcela.largXsurco)
                                                         args.putString("StationsGotero", parcela.gotero)
                                                         args.putString("StationsCMSurco", parcela.cmXsuko)
                                                         args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                        args.putString("StationsGGG", parcela.gastogot)
+                                                        args.putString("StationsGSS", parcela.sepsurco)
+                                                        args.putString("StationsGSG", parcela.sepgot)
+                                                        args.putString("StationsPGA", parcela.gastoagua)
+                                                        args.putString("StationsPDP", parcela.dispi)
+                                                        args.putString("StationsPHR", parcela.horas)
                                                         historicoFragment.arguments = args
                                                             childFragmentManager
                                                                 .beginTransaction()
@@ -456,18 +486,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
                                                         args.putString("StationsDateInput", inputfecha)
-                                                        args.putString("StationsDateStart", parcela.fecha)
+                                                        args.putString("StationsDateStart", urfecha)
+                                                        args.putString("StationsDateSembrada", parcela.fecha)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
+                                                        args.putString("StationsTimeR", parcela.timear)
                                                         args.putString("StationsAgua", parcela.pozo)
                                                         args.putString("StationsLGSurco", parcela.largXsurco)
                                                         args.putString("StationsGotero", parcela.gotero)
                                                         args.putString("StationsCMSurco", parcela.cmXsuko)
                                                         args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                        args.putString("StationsGGG", parcela.gastogot)
+                                                        args.putString("StationsGSS", parcela.sepsurco)
+                                                        args.putString("StationsGSG", parcela.sepgot)
+                                                        args.putString("StationsPGA", parcela.gastoagua)
+                                                        args.putString("StationsPDP", parcela.dispi)
+                                                        args.putString("StationsPHR", parcela.horas)
                                                         historicoFragment.arguments = args
                                                          childFragmentManager
                                                             .beginTransaction()
@@ -502,18 +540,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
                                                         args.putString("StationsDateInput", inputfecha)
-                                                        args.putString("StationsDateStart", parcela.fecha)
+                                                        args.putString("StationsDateStart", urfecha)
+                                                        args.putString("StationsDateSembrada", parcela.fecha)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
                                                         args.putString("StationsReigo", parcela.riego)
                                                         args.putString("StationsLargo", parcela.larg)
                                                         args.putString("StationsAncho", parcela.anch)
+                                                        args.putString("StationsTimeR", parcela.timear)
                                                         args.putString("StationsAgua", parcela.pozo)
                                                         args.putString("StationsLGSurco", parcela.largXsurco)
                                                         args.putString("StationsGotero", parcela.gotero)
                                                         args.putString("StationsCMSurco", parcela.cmXsuko)
                                                         args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                        args.putString("StationsGGG", parcela.gastogot)
+                                                        args.putString("StationsGSS", parcela.sepsurco)
+                                                        args.putString("StationsGSG", parcela.sepgot)
+                                                        args.putString("StationsPGA", parcela.gastoagua)
+                                                        args.putString("StationsPDP", parcela.dispi)
+                                                        args.putString("StationsPHR", parcela.horas)
                                                         historicoFragment.arguments = args
                                                         childFragmentManager
                                                             .beginTransaction()
@@ -527,7 +573,14 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 /******/
                                             }
                                         }
-
+                                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                                        val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
+                                        mMaparcela.addMarker(ubicactionParcela )
+                                        mMaparcela.animateCamera(
+                                            CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
+                                            15,
+                                            null,
+                                        )
                                     }
 
                                 }
@@ -547,14 +600,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                             val GameCube = Atari.getJSONArray("estacion_cercana")
                             //println(GameCube.length())
 
-                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
-                            val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
-                            mMaparcela.addMarker(ubicactionParcela)
-                            mMaparcela.animateCamera(
-                                CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
-                                15,
-                                null,
-                            )
+
 
                                 for (E in 0 until GameCube.length()){
                                     val ND64 = GameCube.getJSONObject(E)
@@ -589,18 +635,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
                                                 args.putString("StationsDateInput", inputfecha)
-                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsDateStart", urfecha)
+                                                args.putString("StationsDateSembrada", parcela.fecha)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsTimeR", parcela.timear)
                                                 args.putString("StationsAgua", parcela.pozo)
                                                 args.putString("StationsLGSurco", parcela.largXsurco)
                                                 args.putString("StationsGotero", parcela.gotero)
                                                 args.putString("StationsCMSurco", parcela.cmXsuko)
                                                 args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                args.putString("StationsGGG", parcela.gastogot)
+                                                args.putString("StationsGSS", parcela.sepsurco)
+                                                args.putString("StationsGSG", parcela.sepgot)
+                                                args.putString("StationsPGA", parcela.gastoagua)
+                                                args.putString("StationsPDP", parcela.dispi)
+                                                args.putString("StationsPHR", parcela.horas)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -636,18 +690,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
                                                 args.putString("StationsDateInput", inputfecha)
-                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsDateStart", urfecha)
+                                                args.putString("StationsDateSembrada", parcela.fecha)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsTimeR", parcela.timear)
                                                 args.putString("StationsAgua", parcela.pozo)
                                                 args.putString("StationsLGSurco", parcela.largXsurco)
                                                 args.putString("StationsGotero", parcela.gotero)
                                                 args.putString("StationsCMSurco", parcela.cmXsuko)
                                                 args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                args.putString("StationsGGG", parcela.gastogot)
+                                                args.putString("StationsGSS", parcela.sepsurco)
+                                                args.putString("StationsGSG", parcela.sepgot)
+                                                args.putString("StationsPGA", parcela.gastoagua)
+                                                args.putString("StationsPDP", parcela.dispi)
+                                                args.putString("StationsPHR", parcela.horas)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -682,18 +744,26 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
                                                 args.putString("StationsDateInput", inputfecha)
-                                                args.putString("StationsDateStart", parcela.fecha)
+                                                args.putString("StationsDateStart", urfecha)
+                                                args.putString("StationsDateSembrada", parcela.fecha)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
                                                 args.putString("StationsReigo", parcela.riego)
                                                 args.putString("StationsLargo", parcela.larg)
                                                 args.putString("StationsAncho", parcela.anch)
+                                                args.putString("StationsTimeR", parcela.timear)
                                                 args.putString("StationsAgua", parcela.pozo)
                                                 args.putString("StationsLGSurco", parcela.largXsurco)
                                                 args.putString("StationsGotero", parcela.gotero)
                                                 args.putString("StationsCMSurco", parcela.cmXsuko)
                                                 args.putString("StationsCMGoteo", parcela.cmXgotero)
+                                                args.putString("StationsGGG", parcela.gastogot)
+                                                args.putString("StationsGSS", parcela.sepsurco)
+                                                args.putString("StationsGSG", parcela.sepgot)
+                                                args.putString("StationsPGA", parcela.gastoagua)
+                                                args.putString("StationsPDP", parcela.dispi)
+                                                args.putString("StationsPHR", parcela.horas)
                                                 historicoFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
@@ -895,7 +965,14 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     }*/
 
                                 }
-
+                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                            val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
+                            mMaparcela.addMarker(ubicactionParcela)
+                            mMaparcela.animateCamera(
+                                CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
+                                15,
+                                null,
+                            )
 
                         }
                     }

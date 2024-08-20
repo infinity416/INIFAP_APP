@@ -78,17 +78,30 @@ class HistoricoFragment : Fragment() {
         //var latParcela = arguments?.getString("Stationslat")?.toInt()
         var dateinputParcela = arguments?.getString("StationsDateInput")
         var datestartParcela = arguments?.getString("StationsDateStart")
+        var datesiembraParcela = arguments?.getString("StationsDateSembrada")
         var cultivoParcela = arguments?.getString("StationsCultivo")
         var crecimientoParcela = arguments?.getString("StationsCrecimiento")
         var sueloParcela = arguments?.getString("StationsSuelo")
         var riegoParcela = arguments?.getString("StationsReigo")
+
         var largoParcela = arguments?.getString("StationsLargo")
         var anchoParcela = arguments?.getString("StationsAncho")
+        var TrParcela = arguments?.getString("StationsTimeR")
         var aguaParcela = arguments?.getString("StationsAgua")
+
         var LGsurcoParcela = arguments?.getString("StationsLGSurco")
         var goteoParcela = arguments?.getString("StationsGotero")
         var cmsurcoParcela = arguments?.getString("StationsCMSurco")
         var cmgoteroParcela = arguments?.getString("StationsCMGoteo")
+
+        var GggParcela = arguments?.getString("StationsGGG")
+        var GssParcela = arguments?.getString("StationsGSS")
+        var GsgParcela = arguments?.getString("StationsGSG")
+
+        var PgaParcela = arguments?.getString("StationsPGA")
+        var PdpParcela = arguments?.getString("StationsPDP")
+        var PhrParcela = arguments?.getString("StationsPHR")
+
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
             "Algodón"       -> 1
@@ -98,7 +111,7 @@ class HistoricoFragment : Fragment() {
         }
 
         var cresClave = when (crecimientoParcela){
-            "Precoz"      -> 1
+            "Temprano"      -> 1
             "Intermedio"  -> 2
             "Tardío"      -> 3
             else          -> "Invalid_Tipo_de_Crecimiento."
@@ -114,31 +127,31 @@ class HistoricoFragment : Fragment() {
         var riegoClave = when (riegoParcela){
             "Goteo"             -> 1
             "Pivote"            -> 2
-            "Compuertas"        -> 3
-            "Avance frontal"    -> 4
-            "Surco"             -> 5
+            "Avance frontal"    -> 3
+            "Compuertas"        -> 6
+            "Surco"             -> 7
             else            -> "Invalid_Tipo_de_Goteo."
         }
 
 
         val url = if(riegoClave == 1){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$goteoParcela&a3=$cmsurcoParcela&a4=$cmgoteroParcela"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$GssParcela&a2=$GsgParcela&a3=$GggParcela&a4=0"
         }else if(riegoClave == 2){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=null&a4=null"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=$PhrParcela&a4=0"
         }else if(riegoClave == 3){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
-        }else if(riegoClave == 4){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=$anchoParcela&a4=null"
-        }else if(riegoClave == 5){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$anchoParcela&a3=$riegoParcela&a4=$TrParcela"
+        }else if(riegoClave == 6){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$cmsurcoParcela&a2=$LGsurcoParcela&a3=$cmgoteroParcela&a4=$goteoParcela"
+        }else if(riegoClave == 7){
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$cmsurcoParcela&a2=$LGsurcoParcela&a3=$cmgoteroParcela&a4=$goteoParcela"
         } else {
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
         }
-        ////////println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
-       // println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="41276"&fechaIni="15052018"&fechaFin="10072018"&cultivo="1"&crecimiento="2"&suelo="2"&riego="1"&a1="0.8"&a2="0.2"&a3="0.8)
-        // otro funcioan val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
-        // esta es la PRO val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
-        //////////println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+        ////////println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+       // println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="41276"&fechasiembra="15052018"&fechaconsulta="10072018"&cultivo="1"&crecimiento="2"&suelo="2"&riego="1"&a1="0.8"&a2="0.2"&a3="0.8)
+        // otro funcioan val url = "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+        // esta es la PRO val url = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+        //////////println("https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
 println(url)
         /*****A.C.*******/
 
@@ -155,9 +168,9 @@ println(url)
 
         /****/
         //solovino
-        val solovino = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
-        //val solovinos = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
-        //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+        val solovino = "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+        //val solovinos = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null"
+        //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
         //solovino
         /****/
            //getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -201,23 +214,22 @@ println(url)
                             println(codeclave)
                             if(codeclave == 400){
                                 /******/
-                                val solovino = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
-                                //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
+                                val solovino = "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+                                //val urlii= "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela
 
                                 val urlii = if(riegoClave == 1){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+LGsurcoParcela+"&a2="+goteoParcela+"&a3="+cmsurcoParcela+"&a4="+cmgoteroParcela
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$GssParcela&a2=$GsgParcela&a3=$GggParcela&a4=0"
                                 }else if(riegoClave == 2){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=null&a4=null"
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=$PhrParcela&a4=0"
                                 }else if(riegoClave == 3){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
-                                }else if(riegoClave == 4){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$aguaParcela&a3=$anchoParcela&a4=null"
-                                }else if(riegoClave == 5){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechaIni=$datestartParcela&fechaFin=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$LGsurcoParcela&a2=$aguaParcela&a3=$cmsurcoParcela&a4=null"
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$anchoParcela&a3=$riegoParcela&a4=$TrParcela"
+                                }else if(riegoClave == 6){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$cmsurcoParcela&a2=$LGsurcoParcela&a3=$cmgoteroParcela&a4=$goteoParcela"
+                                }else if(riegoClave == 7){
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$cmsurcoParcela&a2=$LGsurcoParcela&a3=$cmgoteroParcela&a4=$goteoParcela"
                                 } else {
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechaIni=null&fechaFin=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=null&fechasiembra=null&fechaultriego=null&fechaconsulta=null&cultivo=Invalid_Cultivo.&crecimiento=Invalid_Tipo_de_Crecimiento.&suelo=Invalid_Tipo_de_suelo.&riego=Invalid_Tipo_de_Goteo.&a1=null&a2=null&a3=null&a4=null"
                                 }
-
 
 
                                 if(urlii==solovino){
@@ -227,7 +239,7 @@ println(url)
                                     println("con datos"+urlii)
                                     haydata.setVisibility(TextView.INVISIBLE)
 
-                                    //println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechaIni="+datestartParcela+"&fechaFin="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
+                                    //println("https://appinifap.sytes.net/apiweb/api/riego?estacionID="+idParcela+"&fechasiembra="+datestartParcela+"&fechaconsulta="+dateinputParcela+"&cultivo="+cultivoClave+"&crecimiento="+cresClave+"&suelo="+sueloClave+"&riego="+riegoClave+"&a1="+largoParcela+"&a2="+anchoParcela+"&a3="+aguaParcela)
 
                                     val imperioii = Request.Builder().url(urlii).header(header, "Vfm8JkqzCLYghAs0531Y1FBvgDBxu0a4OEbME").build()
 
@@ -329,7 +341,10 @@ println(url)
                                                         activity?.runOnUiThread {
                                                             val senalii = algoii.getJSONObject("riego")
                                                             val cuantossonii = senalii.getJSONArray("RequerimientoRiego")
+                                                            val diadeaguaii = senalii.get("DiasConAgua")
+                                                            val textdiaswaterii = movimiento.findViewById<TextView>(R.id.diasconagua15)
                                                             if (cuantossonii.length() == 0) {
+                                                                textdiaswaterii.text = diadeaguaii.toString()
                                                                 val dialog = Dialog(context as Activity)
                                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                                 dialog.setCancelable(false)
@@ -344,6 +359,7 @@ println(url)
                                                                 dialog.show()
                                                             } else {
                                                                 println("has tomado el camio II")
+                                                                textdiaswaterii.text = diadeaguaii.toString()
                                                                 for (l in 0 until cuantossonii.length()) {
                                                                     val contacto = cuantossonii.getJSONObject(l)
                                                                     val historial = Historial(
@@ -446,10 +462,13 @@ println(url)
                                                 activity?.runOnUiThread{
                                             val senal = algo.getJSONObject("riego")
                                             val cuantosson = senal.getJSONArray("RequerimientoRiego")
+                                            val diadeagua = senal.get("DiasConAgua")
+                                            val textdiaswater = movimiento.findViewById<TextView>(R.id.diasconagua15)
                                             println("halo 2 "+cuantosson.length())
                                             println("halo ce "+cuantosson)
                                             if(cuantosson.length()==0){
                                                 println("no ahi datos")
+                                                textdiaswater.text = diadeagua.toString()
                                                 val dialog = Dialog(context as Activity)
                                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                 dialog.setCancelable(false)
@@ -464,6 +483,7 @@ println(url)
                                                 dialog.show()
                                             }else{
                                                 println("has tomado el camio I")
+                                                textdiaswater.text = diadeagua.toString()
                                                 for (l in 0 until cuantosson.length()){
                                                     val contacto = cuantosson.getJSONObject(l)
                                                     val historial = Historial(
@@ -554,17 +574,28 @@ println(url)
             pck.putString("Stationsid", idParcela)
             pck.putString("StationsDateInput", dateinputParcela)
             pck.putString("StationsDateStart", datestartParcela)
+            pck.putString("StationsDateSembrada", datesiembraParcela)
             pck.putString("StationsCultivo", cultivoParcela)
             pck.putString("StationsCrecimiento", crecimientoParcela)
             pck.putString("StationsSuelo", sueloParcela)
             pck.putString("StationsReigo", riegoParcela)
             pck.putString("StationsLargo", largoParcela)
             pck.putString("StationsAncho", anchoParcela)
+            pck.putString("StationsTimeR", TrParcela)
             pck.putString("StationsAgua", aguaParcela)
+
             pck.putString("StationsLGSurco",LGsurcoParcela )
             pck.putString("StationsGotero",goteoParcela)
             pck.putString("StationsCMSurco",cmsurcoParcela)
             pck.putString("StationsCMGoteo",cmgoteroParcela)
+
+            pck.putString("StationsGGg",GggParcela)
+            pck.putString("StationsGSs",GssParcela)
+            pck.putString("StationsGSg",GsgParcela)
+
+            pck.putString("StationsPGa",PgaParcela)
+            pck.putString("StationsPDp",PdpParcela)
+            pck.putString("StationsPHr",PhrParcela)
 
             graficoFragment.arguments = pck
             childFragmentManager

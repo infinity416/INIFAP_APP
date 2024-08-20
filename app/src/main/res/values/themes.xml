@@ -22,6 +22,10 @@
         <item name="itemTextColor">@color/cButton</item>
     </style>
 
+    <style name="REDONDOSEDIT">
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
    <!-- <style name="splashscreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/cpNavbar</item>
     </style>-->
