@@ -345,7 +345,8 @@
             android:background="@drawable/style_border"
             android:hint="Separación entre surcos (m)"
             android:inputType="numberDecimal"
-            style="@style/REDONDOSEDIT"/>
+            style="@style/REDONDOSEDIT"
+            android:textSize="17dp"/>
 
         <EditText
             android:id="@+id/GInputsepG"

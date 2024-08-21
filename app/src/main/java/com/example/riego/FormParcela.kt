@@ -39,7 +39,7 @@ class FormParcela : AppCompatActivity() {
     val cultivo = arrayOf("Algodón","Maíz Grano","Maíz Forraje")
     val cresimiento = arrayOf("Temprano", "Intermedio", "Tardío")
     val suelo = arrayOf("Ligero","Medio","Pesado")
-    val rigo = arrayOf("Goteo", "Pivote",  "Avance frontal", "Compuertas", "Surco" )
+    val rigo = arrayOf("Goteo", "Pivote",  /*"Avance frontal",*/ "Compuertas", "Surco" )
 
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
