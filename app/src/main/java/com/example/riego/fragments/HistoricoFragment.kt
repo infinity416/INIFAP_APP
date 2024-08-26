@@ -100,7 +100,7 @@ class HistoricoFragment : Fragment() {
 
         var PgaParcela = arguments?.getString("StationsPGA")
         var PdpParcela = arguments?.getString("StationsPDP")
-        var PhrParcela = arguments?.getString("StationsPHR")
+        //var PhrParcela = arguments?.getString("StationsPHR")
 
         //println("lokkk..."+dateinputParcela+datestartParcela)
         var cultivoClave = when (cultivoParcela){
@@ -137,7 +137,7 @@ class HistoricoFragment : Fragment() {
         val url = if(riegoClave == 1){
             "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$GssParcela&a2=$GsgParcela&a3=$GggParcela&a4=0"
         }else if(riegoClave == 2){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=$PhrParcela&a4=0"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=0&a4=0"
         }else if(riegoClave == 3){
             "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$anchoParcela&a3=$riegoParcela&a4=$TrParcela"
         }else if(riegoClave == 6){
@@ -220,7 +220,7 @@ println(url)
                                 val urlii = if(riegoClave == 1){
                                     "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$GssParcela&a2=$GsgParcela&a3=$GggParcela&a4=0"
                                 }else if(riegoClave == 2){
-                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=$PhrParcela&a4=0"
+                                    "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$PdpParcela&a2=$PgaParcela&a3=0&a4=0"
                                 }else if(riegoClave == 3){
                                     "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$idParcela&fechasiembra=$datesiembraParcela&fechaultriego=$datestartParcela&fechaconsulta=$dateinputParcela&cultivo=$cultivoClave&crecimiento=$cresClave&suelo=$sueloClave&riego=$riegoClave&a1=$largoParcela&a2=$anchoParcela&a3=$riegoParcela&a4=$TrParcela"
                                 }else if(riegoClave == 6){
@@ -595,7 +595,7 @@ println(url)
 
             pck.putString("StationsPGa",PgaParcela)
             pck.putString("StationsPDp",PdpParcela)
-            pck.putString("StationsPHr",PhrParcela)
+            //pck.putString("StationsPHr",PhrParcela)
 
             graficoFragment.arguments = pck
             childFragmentManager

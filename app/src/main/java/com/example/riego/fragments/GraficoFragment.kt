@@ -97,7 +97,7 @@ class GraficoFragment : Fragment() {
 
         var emile= arguments?.getString("StationsPGa")
         var jorge= arguments?.getString("StationsPDp")
-        var six= arguments?.getString("StationsPHr")
+        //var six= arguments?.getString("StationsPHr")
 
         var frezzer = when (krillin){
             "Algodón"       -> 1
@@ -132,7 +132,7 @@ class GraficoFragment : Fragment() {
         val url = if(majinbu == 1){
             "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$kat&a2=$jun&a3=$carter&a4=0"
         }else if(majinbu == 2){
-            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=$six&a4=0"
+            "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=0&a4=0"
         }else if(majinbu == 3){
             "https://secrural.chihuahua.gob.mx/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$yamcha&a3=$chaos&a4=$yayirobe"
         }else if(majinbu == 6){
@@ -178,7 +178,7 @@ class GraficoFragment : Fragment() {
                             val urlII = if(majinbu == 1){
                                 "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$kat&a2=$jun&a3=$carter&a4=0"
                             }else if(majinbu == 2){
-                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=$six&a4=0"
+                                "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$jorge&a2=$emile&a3=0&a4=0"
                             }else if(majinbu == 3){
                                 "https://appinifap.sytes.net/apiweb/api/riego?estacionID=$goku&fechasiembra=$maestrokarim&fechaultriego=$piccolo&fechaconsulta=$vegeta&cultivo=$frezzer&crecimiento=$cellperfecto&suelo=$androides17y18&riego=$majinbu&a1=$tenshihan&a2=$yamcha&a3=$chaos&a4=$yayirobe"
                             }else if(majinbu == 6){
@@ -830,7 +830,7 @@ class GraficoFragment : Fragment() {
                 vadeNuez.putString("StationsGSG", jun)
                 vadeNuez.putString("StationsPGA", emile)
                 vadeNuez.putString("StationsPDP", jorge)
-                vadeNuez.putString("StationsPHR", six)
+                //vadeNuez.putString("StationsPHR", six)
                 historicoFragment.arguments = vadeNuez
                 childFragmentManager
                     .beginTransaction()
@@ -880,7 +880,7 @@ class GraficoFragment : Fragment() {
             vadeNuez.putString("StationsGSG", jun)
             vadeNuez.putString("StationsPGA", emile)
             vadeNuez.putString("StationsPDP", jorge)
-            vadeNuez.putString("StationsPHR", six)
+            //vadeNuez.putString("StationsPHR", six)
             historicoFragment.arguments = vadeNuez
             childFragmentManager
                 .beginTransaction()

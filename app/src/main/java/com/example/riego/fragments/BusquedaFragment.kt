@@ -412,7 +412,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 val ubicactionStation = MarkerOptions().position(xayah).title(tresh.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
-                                                    CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
+                                                    CameraUpdateFactory.newLatLngZoom(xayah, 8f),
                                                     15,
                                                     null
                                                 )
@@ -468,7 +468,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 val ubicactionStation = MarkerOptions().position(xayah).title(tresh.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
-                                                    CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
+                                                    CameraUpdateFactory.newLatLngZoom(xayah, 8f),
                                                     15,
                                                     null
                                                 )
@@ -522,7 +522,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 val ubicactionStation = MarkerOptions().position(xayah).title(tresh.toString() ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
                                                 mMap.addMarker(ubicactionStation)
                                                 mMap.animateCamera(
-                                                    CameraUpdateFactory.newLatLngZoom(xayah, 16.5f),
+                                                    CameraUpdateFactory.newLatLngZoom(xayah, 8f),
                                                     15,
                                                     null
                                                 )
@@ -573,14 +573,14 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 /******/
                                             }
                                         }
-                                        val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+                                       /*** val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
                                         val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
                                         mMaparcela.addMarker(ubicactionParcela )
                                         mMaparcela.animateCamera(
                                             CameraUpdateFactory.newLatLngZoom(coordeParcela, 12f),
                                             15,
                                             null,
-                                        )
+                                        )***/
                                     }
 
                                 }
@@ -617,7 +617,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_green)).anchor(0.0f, 0.0f)
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
-                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 8f),
                                             15,
                                             null
                                         )
@@ -672,7 +672,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_amarillo)).anchor(0.0f, 0.0f)
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
-                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 8f),
                                             15,
                                             null
                                         )
@@ -726,7 +726,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                         val ubicactionStation = MarkerOptions().position(coordeStation).title(idStation.toString() ).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rojo)).anchor(0.0f, 0.0f)
                                         mMap.addMarker(ubicactionStation)
                                         mMap.animateCamera(
-                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 16.5f),
+                                            CameraUpdateFactory.newLatLngZoom(coordeStation, 8f),
                                             15,
                                             null
                                         )
@@ -965,14 +965,15 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                     }*/
 
                                 }
-                            val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
+
+                            /*** val coordeParcela= LatLng(parcela.lat.toDouble(), parcela.lon.toDouble())
                             val ubicactionParcela = MarkerOptions().position(coordeParcela).title(parcela.naame +", "+ coordeParcela).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tractor)).anchor(0.0f, 0.0f)
                             mMaparcela.addMarker(ubicactionParcela)
                             mMaparcela.animateCamera(
                                 CameraUpdateFactory.newLatLngZoom(coordeParcela, 8f),
                                 15,
                                 null,
-                            )
+                            )*///
 
                         }
                     }

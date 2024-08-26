@@ -147,7 +147,7 @@ class FormParcela : AppCompatActivity() {
                     input23.visibility = View.INVISIBLE
                     input24.visibility = View.INVISIBLE
                     input25.visibility = View.INVISIBLE
-
+                    input22.visibility = View.INVISIBLE
 
                     input20.visibility = View.VISIBLE
                     input20.isEnabled = true
@@ -155,8 +155,7 @@ class FormParcela : AppCompatActivity() {
                     input21.visibility = View.VISIBLE
                     input21.isEnabled = true
 
-                    input22.visibility = View.VISIBLE
-                    input22.isEnabled = true
+
 
 
                 }else if(itemRiego == "Compuertas"){
@@ -376,8 +375,7 @@ class FormParcela : AppCompatActivity() {
                     input21.visibility = View.VISIBLE
                     input21.isEnabled = true
 
-                    input22.visibility = View.VISIBLE
-                    input22.isEnabled = true
+
 
                     input8.visibility = View.INVISIBLE
                     input8.isEnabled = false
@@ -402,6 +400,9 @@ class FormParcela : AppCompatActivity() {
 
                     input19.visibility = View.INVISIBLE
                     input19.isEnabled = false
+
+                    input22.visibility = View.INVISIBLE
+                    input22.isEnabled = false
 
                     input23.visibility = View.INVISIBLE
                     input23.isEnabled = false
@@ -611,7 +612,6 @@ class FormParcela : AppCompatActivity() {
                     }else if(triego == "Pivote"){
                         input20.text.toString()
                         input21.text.toString()
-                        input22.text.toString()
                         input8.setText("")
                         input9.setText("")
                         input10.setText("")
@@ -620,6 +620,7 @@ class FormParcela : AppCompatActivity() {
                         input17.setText("")
                         input18.setText("")
                         input19.setText("")
+                        input22.setText("")
                         input23.setText("")
                         input24.setText("")
                         input25.setText("")
@@ -1142,6 +1143,7 @@ class FormParcela : AppCompatActivity() {
                     input17.visibility = View.INVISIBLE
                     input18.visibility = View.INVISIBLE
                     input19.visibility = View.INVISIBLE
+                    input22.visibility = View.INVISIBLE
                     input23.visibility = View.INVISIBLE
                     input24.visibility = View.INVISIBLE
                     input25.visibility = View.INVISIBLE
@@ -1153,8 +1155,7 @@ class FormParcela : AppCompatActivity() {
                     input21.visibility = View.VISIBLE
                     input21.isEnabled = true
 
-                    input22.visibility = View.VISIBLE
-                    input22.isEnabled = true
+
 
                 }else if(itemRiego == "Compuertas"){
                     println(" el tipo de riego es: "+itemRiego)
