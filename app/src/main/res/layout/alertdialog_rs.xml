@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
-    android:layout_marginHorizontal="20dp">
+    android:layout_marginHorizontal="20dp"
+    android:id="@+id/alertQF">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/msmdialogwifi"
-            android:layout_width="match_parent"
+            android:id="@+id/msmdialogrs"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Se ha Actualizado
-            correctamente"
-            android:textColor="@color/updateAction"
+            android:text=""
             android:textSize="30dp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
-            />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="262dp"
-            android:layout_height="165dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:srcCompat="@drawable/update"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="8dp"/>
 
         <Button
-            android:id="@+id/btnclose6"
+            android:id="@+id/btnclosers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/style_border"
+            android:text="Cerrar"
             android:gravity="center"
-            android:text="Ok"
             android:textSize="25dp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"/>
-
 
     </LinearLayout>
 

@@ -54,6 +54,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mMaparcela: GoogleMap
     lateinit var historicoFragment: HistoricoFragment
+    lateinit var riegoAplicFragment: RiegoAplicFragment
 
 
     /* private lateinit var databse: DBparcela
@@ -78,6 +79,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
     var namelat = toString()
     var namelon = toString()
     var diaff = toString()
+    var diaRS = toString()
     lateinit var btnConsulta :Button
 
     //private lateinit var  dx : FragmentActivity
@@ -128,7 +130,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
             //val rango = con.findViewById<EditText>(R.id.distanciaInput)
             /****ultima*****/
-            val ultimaRFecha = con.findViewById<EditText>(R.id.fechaultimoriego)
+            /***val ultimaRFecha = con.findViewById<EditText>(R.id.fechaultimoriego)
             ultimaRFecha.setOnClickListener {
                 val datePicker = DateTimeBusqueda1 { day, month, year ->
                     if (day < 10) {
@@ -149,7 +151,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                     it.show(childFragmentManager,"datePicker")
                 }
 
-            }
+            }***/
             /****END ultima****/
             //
             //
@@ -197,6 +199,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                             namelon = parcela.lon
                             identification = parcela.id.toString()
                             diaff = parcela.fecha
+                            val conF = parcela.fechariegosiem.get(8).toString()
+                            val conF1 = parcela.fechariegosiem.get(9).toString()
+                            val confDD = conF+conF1
+                            val conF3 = parcela.fechariegosiem.get(5).toString()
+                            val conF4 = parcela.fechariegosiem.get(6).toString()
+                            val confMM = conF3+conF4
+                            val conF6 = parcela.fechariegosiem.get(0).toString()
+                            val conF7 = parcela.fechariegosiem.get(1).toString()
+                            val conF8 = parcela.fechariegosiem.get(2).toString()
+                            val conF9 = parcela.fechariegosiem.get(3).toString()
+                            val confYY = conF6+conF7+conF8+conF9
+                            diaRS = "$confDD/$confMM/$confYY"
                             println("LOKKKK"+namelat + namelon+" "+it.id)
                         })
 
@@ -246,7 +260,7 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
             btnConsulta.setOnClickListener{
                 //km = rango.text.toString()
                 inputfecha = interFecha?.text.toString()
-                urfecha = ultimaRFecha?.text.toString()
+                //urfecha = ultimaRFecha?.text.toString()
                 val Nparcela = lisParcelas.text.toString()
 
 //            println("cadena de catos lat:"+parcela.lat+", lon:"+parcela.lon+", name:"+parcela.naame+", km:"+km+" y fecha:"+ interFecha?.text.toString()+"  ATT: INFINITY")
@@ -255,16 +269,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                     //rango.setError("Ingrese la distancia")
                     //return@setOnClickListener
                 //}else
-                    if(Nparcela.isEmpty()){
+                if(Nparcela.isEmpty()){
                     //lisParcelas.setError("Seleccione la parcela")
                     Toast.makeText(this.context, "Selecione la parcela", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
-                }else if (inputfecha.isEmpty()){
+                }else if(inputfecha.isEmpty()){
                     interFecha.setError("Seleccione la fecha a consultar")
                     return@setOnClickListener
-                }else if (urfecha.isEmpty()){
-                        interFecha.setError("Seleccione la ultima fecha de riego")
-                        return@setOnClickListener
                 }else{
                     Toast.makeText(this.context, "Buscando...", Toast.LENGTH_LONG).show()
                     createFragment()
@@ -309,11 +320,11 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
         //var url = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=${namelat}&longitud=${namelon}&distanciaEst=${km}"
         //println("https://appinifap.sytes.net/apiweb/api/localizar?latitud=31.117659&longitud=-106.876329&fechaIni=15/05/2023&fechaFin=10/07/2023")
         var fechaingresa = this.inputfecha
-        var ultimafechar = this.urfecha
+        //var ultimafechar = this.urfecha
 
-        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa
+        val url = "https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud=$namelat&longitud=$namelon&fechaIni=$diaRS&fechaFin=$fechaingresa"
         //println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
-        println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa)
+        println("https://secrural.chihuahua.gob.mx/apiweb/api/localizar?latitud=$namelat&longitud=$namelon&fechaIni=$diaRS&fechaFin=$fechaingresa")
 
 
         val nes = okhttp3.Request.Builder().url(url).build()
@@ -342,8 +353,8 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                     }
                 }else if (clavemorce == 400){
                     //println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+diaff+"&fechaFin="+fechaingresa)
-                    println("https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa)
-                    val urlII = "https://appinifap.sytes.net/apiweb/api/localizar?latitud="+namelat+"&longitud="+namelon+"&fechaIni="+ultimafechar+"&fechaFin="+fechaingresa
+                    println("https://appinifap.sytes.net/apiweb/api/localizar?latitud=$namelat&longitud=$namelon&fechaIni=$diaRS&fechaFin=$fechaingresa")
+                    val urlII = "https://appinifap.sytes.net/apiweb/api/localizar?latitud=$namelat&longitud=$namelon&fechaIni=$diaRS&fechaFin=$fechaingresa"
 
                     val leona = okhttp3.Request.Builder().url(urlII).build()
                     sal.newCall(leona).enqueue(object : Callback{
@@ -425,15 +436,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
                                                         historicoFragment = HistoricoFragment()
+                                                        riegoAplicFragment = RiegoAplicFragment()
                                                         val tit1 = marker.title
                                                         println(tit1)
                                                         val args = Bundle()
                                                         //args.putString("Stationsname", nameStation.toString())
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
+                                                        args.putInt("StationsIdParcela",parcela.id)
                                                         args.putString("StationsDateInput", inputfecha)
                                                         args.putString("StationsDateStart", urfecha)
-                                                        args.putString("StationsDateSembrada", parcela.fecha)
+                                                        args.putString("StationsDateSembrada", parcela.fecha )
+                                                        args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
@@ -452,10 +466,10 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsPGA", parcela.gastoagua)
                                                         args.putString("StationsPDP", parcela.dispi)
                                                         args.putString("StationsPHR", parcela.horas)
-                                                        historicoFragment.arguments = args
+                                                        riegoAplicFragment.arguments = args
                                                             childFragmentManager
                                                                 .beginTransaction()
-                                                                .replace(R.id.ViewBusquedaFragment, historicoFragment)
+                                                                .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                                 .commit()
 
@@ -479,15 +493,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
                                                         historicoFragment = HistoricoFragment()
+                                                        riegoAplicFragment = RiegoAplicFragment()
                                                         val tit1 = marker.title
                                                         println(tit1)
                                                         val args = Bundle()
                                                         //args.putString("Stationsname", nameStation.toString())
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
+                                                        args.putInt("StationsIdParcela",parcela.id)
                                                         args.putString("StationsDateInput", inputfecha)
                                                         args.putString("StationsDateStart", urfecha)
                                                         args.putString("StationsDateSembrada", parcela.fecha)
+                                                        args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
@@ -506,13 +523,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsPGA", parcela.gastoagua)
                                                         args.putString("StationsPDP", parcela.dispi)
                                                         args.putString("StationsPHR", parcela.horas)
-                                                        historicoFragment.arguments = args
-                                                         childFragmentManager
+                                                        riegoAplicFragment.arguments = args
+                                                        childFragmentManager
                                                             .beginTransaction()
-                                                            .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                            .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                             .commit()
-                                                        //R.id.ViewBusquedaFragment
+
                                                         btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                         return false
                                                     }
@@ -533,15 +550,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                                     override fun onMarkerClick(marker: Marker): Boolean {
                                                         historicoFragment = HistoricoFragment()
+                                                        riegoAplicFragment = RiegoAplicFragment()
                                                         val tit1 = marker.title
                                                         println(tit1)
                                                         val args = Bundle()
                                                         //args.putString("Stationsname", nameStation.toString())
                                                         args.putString("Stationsid", tit1)
                                                         //args.putString("Stationslat", latStation.toString())
+                                                        args.putInt("StationsIdParcela",parcela.id)
                                                         args.putString("StationsDateInput", inputfecha)
                                                         args.putString("StationsDateStart", urfecha)
                                                         args.putString("StationsDateSembrada", parcela.fecha)
+                                                        args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                         args.putString("StationsCultivo", parcela.cultivo)
                                                         args.putString("StationsCrecimiento", parcela.crecimieto)
                                                         args.putString("StationsSuelo", parcela.suelo)
@@ -560,12 +580,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                         args.putString("StationsPGA", parcela.gastoagua)
                                                         args.putString("StationsPDP", parcela.dispi)
                                                         args.putString("StationsPHR", parcela.horas)
-                                                        historicoFragment.arguments = args
+                                                        riegoAplicFragment.arguments = args
                                                         childFragmentManager
                                                             .beginTransaction()
-                                                            .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                            .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                             .commit()
+
                                                         btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                         return false
                                                     }
@@ -628,15 +649,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
 
                                             override fun onMarkerClick(marker: Marker): Boolean {
                                                 historicoFragment = HistoricoFragment()
+                                                riegoAplicFragment = RiegoAplicFragment()
                                                 val tit1 = marker.title
                                                 println(tit1)
                                                 val args = Bundle()
                                                 //args.putString("Stationsname", nameStation.toString())
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
+                                                args.putInt("StationsIdParcela",parcela.id)
                                                 args.putString("StationsDateInput", inputfecha)
                                                 args.putString("StationsDateStart", urfecha)
                                                 args.putString("StationsDateSembrada", parcela.fecha)
+                                                args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
@@ -655,13 +679,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsPGA", parcela.gastoagua)
                                                 args.putString("StationsPDP", parcela.dispi)
                                                 args.putString("StationsPHR", parcela.horas)
-                                                historicoFragment.arguments = args
+                                                riegoAplicFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
-                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
-                                                    //.replace(R.id.bottom_navigation, historicoFragment)
+                                                    .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
+
                                                 btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }
@@ -683,15 +707,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                             @SuppressLint("ResourceType")
                                             override fun onMarkerClick(marker: Marker): Boolean {
                                                 historicoFragment = HistoricoFragment()
+                                                riegoAplicFragment = RiegoAplicFragment()
                                                 val tit1 = marker.title
                                                 println(tit1)
                                                 val args = Bundle()
                                                 //args.putString("Stationsname", nameStation.toString())
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
+                                                args.putInt("StationsIdParcela",parcela.id)
                                                 args.putString("StationsDateInput", inputfecha)
                                                 args.putString("StationsDateStart", urfecha)
                                                 args.putString("StationsDateSembrada", parcela.fecha)
+                                                args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
@@ -710,12 +737,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsPGA", parcela.gastoagua)
                                                 args.putString("StationsPDP", parcela.dispi)
                                                 args.putString("StationsPHR", parcela.horas)
-                                                historicoFragment.arguments = args
+                                                riegoAplicFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
-                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
+
                                                 btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }
@@ -737,15 +765,18 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                             @SuppressLint("ResourceType")
                                             override fun onMarkerClick(marker: Marker): Boolean {
                                                 historicoFragment = HistoricoFragment()
+                                                riegoAplicFragment = RiegoAplicFragment()
                                                 val tit1 = marker.title
                                                 println(tit1)
                                                 val args = Bundle()
                                                 //args.putString("Stationsname", nameStation.toString())
                                                 args.putString("Stationsid", tit1)
                                                 //args.putString("Stationslat", latStation.toString())
+                                                args.putInt("StationsIdParcela",parcela.id)
                                                 args.putString("StationsDateInput", inputfecha)
                                                 args.putString("StationsDateStart", urfecha)
                                                 args.putString("StationsDateSembrada", parcela.fecha)
+                                                args.putString("StationsDateRiegoSiembra", parcela.fechariegosiem)
                                                 args.putString("StationsCultivo", parcela.cultivo)
                                                 args.putString("StationsCrecimiento", parcela.crecimieto)
                                                 args.putString("StationsSuelo", parcela.suelo)
@@ -764,12 +795,13 @@ class BusquedaFragment : Fragment(), OnMapReadyCallback {
                                                 args.putString("StationsPGA", parcela.gastoagua)
                                                 args.putString("StationsPDP", parcela.dispi)
                                                 args.putString("StationsPHR", parcela.horas)
-                                                historicoFragment.arguments = args
+                                                riegoAplicFragment.arguments = args
                                                 childFragmentManager
                                                     .beginTransaction()
-                                                    .replace(R.id.ViewBusquedaFragment,historicoFragment)
+                                                    .replace(R.id.ViewBusquedaFragment, riegoAplicFragment)
                                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                                     .commit()
+
                                                 btnConsulta.setTransitionVisibility(View.INVISIBLE)
                                                 return false
                                             }

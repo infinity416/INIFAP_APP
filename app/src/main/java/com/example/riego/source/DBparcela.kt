@@ -1,7 +1,6 @@
 package com.example.riego.source
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase

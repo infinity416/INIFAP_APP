@@ -15,68 +15,55 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-
         <TextView
-            android:id="@+id/txtcultivo"
+            android:id="@+id/txtfecha"
             android:layout_width="247dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="TextView"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="DateView"
             android:textColor="@color/Cbtn1"
             android:textSize="22dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtnombre"
-            android:layout_width="244dp"
+            android:id="@+id/txthora"
+            android:layout_width="247dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtcultivo"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="155dp"
             android:layout_marginTop="20dp"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/txtfecha"
-            android:layout_width="244dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtnombre"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="18dp"
+            android:text="TimeView"
+            android:textColor="@color/Cbtn1"
+            android:textSize="22dp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/btnedit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <TextView
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="60dp"
-            android:background="@drawable/style_btn_circle"
-            android:src="@drawable/baseline_mode_edit_24" />
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="20dp"
+            android:text=","
+            android:textColor="@color/Cbtn1"
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btndelete"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/btnedit"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="-16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/style_btn_circle"
             android:src="@drawable/baseline_delete_24" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

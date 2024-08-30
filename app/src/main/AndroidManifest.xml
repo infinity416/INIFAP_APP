@@ -22,7 +22,9 @@
 
         <activity
             android:name=".WelcomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,10 +38,12 @@
 
         <activity
             android:name=".FormParcela"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Home"
             android:exported="true"
+            android:windowSoftInputMode="adjustPan"
             />
     </application>
 

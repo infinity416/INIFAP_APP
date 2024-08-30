@@ -57,7 +57,18 @@ class CardABC(private val parcelaList: List<Parcela>): RecyclerView.Adapter<Card
         holder.sierra1.text = G.cultivo
         //holder.sierra2.text = G.id.toString()
         holder.sierra2.text =  G.naame
-        holder.sierra3.text = G.fecha
+        val camF = G.fecha.get(8).toString()
+        val camF1 = G.fecha.get(9).toString()
+        val camFDD = camF+camF1
+        val camF3 = G.fecha.get(5).toString()
+        val camF4 = G.fecha.get(6).toString()
+        val camFMM = camF3+camF4
+        val camF6 = G.fecha.get(0).toString()
+        val camF7 = G.fecha.get(1).toString()
+        val camF8 = G.fecha.get(2).toString()
+        val camF9 = G.fecha.get(3).toString()
+        val camFYY = camF6+camF7+camF8+camF9
+        holder.sierra3.text = "$camFDD/$camFMM/$camFYY"
 
         val database = DBparcela.getDatabase(holder.itemView.context)
 

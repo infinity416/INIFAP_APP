@@ -133,7 +133,22 @@
             android:background="@drawable/style_border"
             android:clickable="false"
             android:focusable="false"
-            android:hint="Inicio de siembra"
+            android:hint="Fecha de siembra"
+            style="@style/REDONDOSEDIT"/>
+
+        <EditText
+            android:id="@+id/dateInputsiembra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/style_border"
+            android:clickable="false"
+            android:focusable="false"
+            android:hint="Fecha de riego de siembra"
             style="@style/REDONDOSEDIT"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -155,7 +170,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/style_border"
-                android:hint="Longitud del ciclo" />
+                android:hint="Ciclo" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

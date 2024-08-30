@@ -3,6 +3,7 @@ package com.example.riego.DB
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.sql.Date
 
 @Entity(tableName = "parcelas")
 data class Parcela(
@@ -11,6 +12,7 @@ data class Parcela(
     var lat: String,
     var lon: String,
     var fecha: String,
+    var fechariegosiem: String,
     var crecimieto: String,
     var riego: String,
     var suelo: String,

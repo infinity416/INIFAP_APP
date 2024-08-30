@@ -279,6 +279,23 @@ class FormParcela : AppCompatActivity() {
             val input13 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
             val input6 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
             val input7 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
+            val input903 = findViewById<EditText>(R.id.dateInputsiembra)
+            input903.setOnClickListener {
+                val datePicker = DateTime{day, month, year ->
+                    if(day<10){
+                        if((month+1) <= 9){
+                            input903.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
+                        }else{
+                            input903.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                        }
+                    }else if((month+1) <= 9){
+                        input903.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
+                    }else{
+                        input903.setText(day.toString()+"/"+(month+1)+"/"+year )
+                    }
+                }
+                datePicker.show(supportFragmentManager,"datePicker")
+            }
             input8 = findViewById<EditText>(R.id.aguaInput)
             input9 = findViewById<EditText>(R.id.largoInput)
             input10 = findViewById<EditText>(R.id.anchoInput)
@@ -318,7 +335,32 @@ class FormParcela : AppCompatActivity() {
                 input2.setText(parcela.cultivo)
                 latitude.setText(parcela.lat)
                 longitude.setText(parcela.lon)
-                input5.setText(parcela.fecha)
+
+                val ScamF = parcela.fecha.get(8).toString()
+                val ScamF1 = parcela.fecha.get(9).toString()
+                val ScamFDD = ScamF+ScamF1
+                val ScamF3 = parcela.fecha.get(5).toString()
+                val ScamF4 = parcela.fecha.get(6).toString()
+                val ScamFMM = ScamF3+ScamF4
+                val ScamF6 = parcela.fecha.get(0).toString()
+                val ScamF7 = parcela.fecha.get(1).toString()
+                val ScamF8 = parcela.fecha.get(2).toString()
+                val ScamF9 = parcela.fecha.get(3).toString()
+                val ScamFYY = ScamF6+ScamF7+ScamF8+ScamF9
+                input5.setText("$ScamFDD/$ScamFMM/$ScamFYY")
+
+                val RScamF = parcela.fechariegosiem.get(8).toString()
+                val RScamF1 = parcela.fechariegosiem.get(9).toString()
+                val RScamFDD = RScamF+RScamF1
+                val RScamF3 = parcela.fechariegosiem.get(5).toString()
+                val RScamF4 = parcela.fechariegosiem.get(6).toString()
+                val RScamFMM = RScamF3+RScamF4
+                val RScamF6 = parcela.fechariegosiem.get(0).toString()
+                val RScamF7 = parcela.fechariegosiem.get(1).toString()
+                val RScamF8 = parcela.fechariegosiem.get(2).toString()
+                val RScamF9 = parcela.fechariegosiem.get(3).toString()
+                val RScamFYY = RScamF6+RScamF7+RScamF8+RScamF9
+                input903.setText("$RScamFDD/$RScamFMM/$RScamFYY")
                 input13.setText(parcela.crecimieto)
                 input6.setText(parcela.riego)
                 if(parcela.riego ==  "Goteo") {
@@ -591,7 +633,31 @@ class FormParcela : AppCompatActivity() {
                 val cultivo = input2.text.toString()
                 val lat = latitude.text.toString()
                 val lon = longitude.text.toString()
-                val dia = input5.text.toString()
+
+                val SmodF = input5.text.toString().get(0)
+                val SmodF1 = input5.text.toString().get(1)
+                val SmodDD = SmodF.toString()+SmodF1.toString()
+                val SmodF3 = input5.text.toString().get(3)
+                val SmodF4 = input5.text.toString().get(4)
+                val SmodMM = SmodF3.toString()+SmodF4.toString()
+                val SmodF6 = input5.text.toString().get(6)
+                val SmodF7 = input5.text.toString().get(7)
+                val SmodF8 = input5.text.toString().get(8)
+                val SmodF9 = input5.text.toString().get(9)
+                val SmodYY = SmodF6.toString()+SmodF7.toString()+SmodF8.toString()+SmodF9.toString()
+                val dia = SmodYY+"-"+SmodMM+"-"+SmodDD
+                val RSmodF = input903.text.toString().get(0)
+                val RSmodF1 = input903.text.toString().get(1)
+                val RSmodDD = RSmodF.toString()+RSmodF1.toString()
+                val RSmodF3 = input903.text.toString().get(3)
+                val RSmodF4 = input903.text.toString().get(4)
+                val RSmodMM = RSmodF3.toString()+RSmodF4.toString()
+                val RSmodF6 = input903.text.toString().get(6)
+                val RSmodF7 = input903.text.toString().get(7)
+                val RSmodF8 = input903.text.toString().get(8)
+                val RSmodF9 = input903.text.toString().get(9)
+                val RSmodYY = RSmodF6.toString()+RSmodF7.toString()+RSmodF8.toString()+RSmodF9.toString()
+                val diariegosiem = RSmodYY+"-"+RSmodMM+"-"+RSmodDD
                 val creci = input13.text.toString()
                 val triego = input6.text.toString()
                     if (triego == "Goteo"){
@@ -821,6 +887,9 @@ class FormParcela : AppCompatActivity() {
                 }else if(tsuelo.isEmpty()){
                     input7.setError("Seleccione el tipo de suelo")
                     return@setOnClickListener
+                }else if(diariegosiem.isEmpty()){
+                    input903.setError("Ingrese la fecha de riego de siembra")
+                    return@setOnClickListener
                 }else{
                     dbase = DBparcela.getDatabase(this)
                     parcelabusqueda = dbase.parcelas().consutaParcelaName(nombre)
@@ -845,6 +914,7 @@ class FormParcela : AppCompatActivity() {
                                         parcela.lat = lat
                                         parcela.lon = lon
                                         parcela.fecha = dia
+                                        parcela.fechariegosiem = diariegosiem
                                         parcela.crecimieto = creci
                                         parcela.riego = triego
                                         parcela.suelo = tsuelo
@@ -904,6 +974,7 @@ class FormParcela : AppCompatActivity() {
                                     parcela.lat = lat
                                     parcela.lon = lon
                                     parcela.fecha = dia
+                                    parcela.fechariegosiem = diariegosiem
                                     parcela.crecimieto = creci
                                     parcela.riego = triego
                                     parcela.suelo = tsuelo
@@ -1286,6 +1357,23 @@ class FormParcela : AppCompatActivity() {
             val input13 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView3)
             val input6 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1)
             val input7 = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView2)
+            val input903 = findViewById<EditText>(R.id.dateInputsiembra)
+            input903.setOnClickListener {
+                val datePicker = DateTime{day, month, year ->
+                    if(day<10){
+                        if((month+1) <= 9){
+                            input903.setText("0"+day.toString()+"/"+"0"+(month+1)+"/"+year )
+                        }else{
+                            input903.setText("0"+day.toString()+"/"+(month+1)+"/"+year)
+                        }
+                    }else if((month+1) <= 9){
+                        input903.setText(day.toString()+"/"+"0"+(month+1)+"/"+year)
+                    }else{
+                        input903.setText(day.toString()+"/"+(month+1)+"/"+year )
+                    }
+                }
+                datePicker.show(supportFragmentManager,"datePicker")
+            }
             input8 = findViewById<EditText>(R.id.aguaInput)
             input8.isEnabled = false
             input8.visibility = View.INVISIBLE
@@ -1364,10 +1452,40 @@ class FormParcela : AppCompatActivity() {
                 val cultivo = input2.text.toString()
                 val lat = latitude.text.toString()
                 val lon = longitude.text.toString()
-                val dia = input5.text.toString()
+
+                val SmodF = input5.text.toString().get(0)
+                val SmodF1 = input5.text.toString().get(1)
+                val SmodDD = SmodF.toString()+SmodF1.toString()
+                val SmodF3 = input5.text.toString().get(3)
+                val SmodF4 = input5.text.toString().get(4)
+                val SmodMM = SmodF3.toString()+SmodF4.toString()
+                val SmodF6 = input5.text.toString().get(6)
+                val SmodF7 = input5.text.toString().get(7)
+                val SmodF8 = input5.text.toString().get(8)
+                val SmodF9 = input5.text.toString().get(9)
+                val SmodYY = SmodF6.toString()+SmodF7.toString()+SmodF8.toString()+SmodF9.toString()
+                val dia = SmodYY+"-"+SmodMM+"-"+SmodDD
                 val creci = input13.text.toString()
                 val triego = input6.text.toString()
                 val tsuelo = input7.text.toString()
+
+                val RSmodF = input903.text.toString().get(0)
+                val RSmodF1 = input903.text.toString().get(1)
+                val RSmodDD = RSmodF.toString()+RSmodF1.toString()
+                val RSmodF3 = input903.text.toString().get(3)
+                val RSmodF4 = input903.text.toString().get(4)
+                val RSmodMM = RSmodF3.toString()+RSmodF4.toString()
+                val RSmodF6 = input903.text.toString().get(6)
+                val RSmodF7 = input903.text.toString().get(7)
+                val RSmodF8 = input903.text.toString().get(8)
+                val RSmodF9 = input903.text.toString().get(9)
+                val RSmodYY = RSmodF6.toString()+RSmodF7.toString()+RSmodF8.toString()+RSmodF9.toString()
+                val diariegos = RSmodYY+"-"+RSmodMM+"-"+RSmodDD
+                
+                
+                
+                
+                
                 /**if(nanendoSwitch.isChecked){
                     val cantwater = input8.text.toString().toDouble()
                     val convert =(3.78541*cantwater)
@@ -1506,8 +1624,11 @@ class FormParcela : AppCompatActivity() {
                 }else if(tsuelo.isEmpty()){
                     input7.setError("Seleccione el tipo de suelo")
                     return@setOnClickListener
+                }else if(diariegos.isEmpty()){
+                    input903.setError("Ingrese la fecha de riego de siembra")
+                    return@setOnClickListener
                 }else{
-                    println(nombre + cultivo + lat + lon +dia+ creci + triego + tsuelo+ agua + largo +ancho+ timeR+cmxsk+lgxsrc+cmxgo+gotero+Ggg+Gs+Ggs+ piG+Pidp+Pihr)
+                    println(nombre + cultivo + lat + lon +dia+ diariegos+ creci + triego + tsuelo+ agua + largo +ancho+ timeR+cmxsk+lgxsrc+cmxgo+gotero+Ggg+Gs+Ggs+ piG+Pidp+Pihr)
                     //println(cultivo)
                     //parcelaLiveData= databse.parcelas().existeName(nombre)
 
@@ -1533,7 +1654,7 @@ class FormParcela : AppCompatActivity() {
                         }else{
                             println("dato unico ${it?.naame}, y $nombre son diferentes")
 
-                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, creci,  triego, tsuelo,  agua, largo, ancho, timeR, cmxsk, lgxsrc, cmxgo, gotero, Ggg, Gs, Ggs , piG, Pidp, Pihr)
+                            val newParcela = Parcela(nombre , cultivo , lat , lon ,dia, diariegos, creci,  triego, tsuelo,  agua, largo, ancho, timeR, cmxsk, lgxsrc, cmxgo, gotero, Ggg, Gs, Ggs , piG, Pidp, Pihr)
                             println(newParcela)
 
                             val dialog = Dialog(this)

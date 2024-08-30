@@ -104,7 +104,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="11dp"
             android:layout_marginTop="11dp"
-            android:background="@drawable/baseline_arrow_fffff_24" />
+            android:background="@drawable/baseline_grass_ffffff" />
 
         <ImageButton
             android:id="@+id/imgbtnG"
