@@ -131,11 +131,11 @@ class GraficoFragment : Fragment() {
             "Surco" -> 7
             else -> "Invalid_Tipo_de_Goteo."
         }
-        val fcm = vegeta.toString().get(3)
-        val fcm1 = vegeta.toString().get(4)
+        val fcm = vegeta.toString().get(0)
+        val fcm1 = vegeta.toString().get(1)
         val fcdd = fcm.toString()+fcm1.toString()
-        val fcd = vegeta.toString().get(0)
-        val fcd1 = vegeta.toString().get(1)
+        val fcd = vegeta.toString().get(3)
+        val fcd1 = vegeta.toString().get(4)
         val fcmm= fcd.toString()+fcd1.toString()
         val fcy = vegeta.toString().get(6)
         val fcy1 = vegeta.toString().get(7)
@@ -576,56 +576,92 @@ class GraficoFragment : Fragment() {
                                                                 elmasalla.getJSONObject("error")
                                                                     .get("id")
                                                             if (n20 == 1) {
-                                                                val dialog =
-                                                                    Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(
-                                                                    ColorDrawable(Color.TRANSPARENT)
-                                                                )
+                                                                val res4 =
+                                                                    elmasalla.getJSONObject("error")
+                                                                        .get("info")
+                                                                activity?.runOnUiThread {
+                                                                    val dialog =
+                                                                        Dialog(context as Activity)
+                                                                    dialog.requestWindowFeature(
+                                                                        Window.FEATURE_NO_TITLE
+                                                                    )
+                                                                    dialog.setCancelable(false)
+                                                                    dialog.setContentView(R.layout.alertdialog_id1error)
+                                                                    val nel =
+                                                                        dialog.findViewById<TextView>(R.id.msmdialogid1)
+                                                                    nel.setText(res4.toString())
+                                                                    dialog.window?.setBackgroundDrawable(
+                                                                        ColorDrawable(Color.TRANSPARENT)
+                                                                    )
 
-                                                                val btnclose =
-                                                                    dialog.findViewById<Button>(R.id.btnclose2)
+                                                                    val btnclose =
+                                                                        dialog.findViewById<Button>(
+                                                                            R.id.btnclose2
+                                                                        )
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
+                                                                    btnclose.setOnClickListener {
+                                                                        dialog.dismiss()
+                                                                    }
+                                                                    dialog.show()
                                                                 }
-                                                                dialog.show()
                                                             } else if (n20 == 2) {
-                                                                val dialog =
-                                                                    Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(
-                                                                    ColorDrawable(Color.TRANSPARENT)
-                                                                )
+                                                                val res4 =
+                                                                    elmasalla.getJSONObject("error")
+                                                                        .get("info")
+                                                                activity?.runOnUiThread {
+                                                                    val dialog =
+                                                                        Dialog(context as Activity)
+                                                                    dialog.requestWindowFeature(
+                                                                        Window.FEATURE_NO_TITLE
+                                                                    )
+                                                                    dialog.setCancelable(false)
+                                                                    dialog.setContentView(R.layout.alertdialog_id2error)
+                                                                    val nel =
+                                                                        dialog.findViewById<TextView>(R.id.msmdialogid2)
+                                                                    nel.setText(res4.toString())
+                                                                    dialog.window?.setBackgroundDrawable(
+                                                                        ColorDrawable(Color.TRANSPARENT)
+                                                                    )
 
-                                                                val btnclose =
-                                                                    dialog.findViewById<Button>(R.id.btnclose2)
+                                                                    val btnclose =
+                                                                        dialog.findViewById<Button>(
+                                                                            R.id.btnclose2
+                                                                        )
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
+                                                                    btnclose.setOnClickListener {
+                                                                        dialog.dismiss()
+                                                                    }
+                                                                    dialog.show()
                                                                 }
-                                                                dialog.show()
                                                             } else if (n20 == 3) {
-                                                                val dialog =
-                                                                    Dialog(context as Activity)
-                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                dialog.setCancelable(false)
-                                                                dialog.setContentView(R.layout.alertdialog_notdata)
-                                                                dialog.window?.setBackgroundDrawable(
-                                                                    ColorDrawable(Color.TRANSPARENT)
-                                                                )
+                                                                val res4 =
+                                                                    elmasalla.getJSONObject("error")
+                                                                        .get("info")
+                                                                activity?.runOnUiThread {
+                                                                    val dialog =
+                                                                        Dialog(context as Activity)
+                                                                    dialog.requestWindowFeature(
+                                                                        Window.FEATURE_NO_TITLE
+                                                                    )
+                                                                    dialog.setCancelable(false)
+                                                                    dialog.setContentView(R.layout.alertdialog_id3error)
+                                                                    val nel =
+                                                                        dialog.findViewById<TextView>(R.id.msmdialogid3)
+                                                                    nel.setText(res4.toString())
+                                                                    dialog.window?.setBackgroundDrawable(
+                                                                        ColorDrawable(Color.TRANSPARENT)
+                                                                    )
 
-                                                                val btnclose =
-                                                                    dialog.findViewById<Button>(R.id.btnclose2)
+                                                                    val btnclose =
+                                                                        dialog.findViewById<Button>(
+                                                                            R.id.btnclose2
+                                                                        )
 
-                                                                btnclose.setOnClickListener {
-                                                                    dialog.dismiss()
+                                                                    btnclose.setOnClickListener {
+                                                                        dialog.dismiss()
+                                                                    }
+                                                                    dialog.show()
                                                                 }
-                                                                dialog.show()
                                                             } else if (n20 == 4) {
                                                                 val res4 =
                                                                     elmasalla.getJSONObject("error")
@@ -717,11 +753,16 @@ class GraficoFragment : Fragment() {
                                                 //val codeid = aram.get("id")
                                                 println(arena)
                                                 if (arena == 1) {
+                                                    val res4 =
+                                                        aram.getJSONObject("error").get("info")
                                                     activity?.runOnUiThread {
                                                         val dialog = Dialog(context as Activity)
                                                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                         dialog.setCancelable(false)
-                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.setContentView(R.layout.alertdialog_id1error)
+                                                        val nel =
+                                                            dialog.findViewById<TextView>(R.id.msmdialogid1)
+                                                        nel.setText(res4.toString())
                                                         dialog.window?.setBackgroundDrawable(
                                                             ColorDrawable(Color.TRANSPARENT)
                                                         )
@@ -735,11 +776,16 @@ class GraficoFragment : Fragment() {
                                                         dialog.show()
                                                     }
                                                 } else if (arena == 2) {
+                                                    val res4 =
+                                                        aram.getJSONObject("error").get("info")
                                                     activity?.runOnUiThread {
                                                         val dialog = Dialog(context as Activity)
                                                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                         dialog.setCancelable(false)
-                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.setContentView(R.layout.alertdialog_id2error)
+                                                        val nel =
+                                                            dialog.findViewById<TextView>(R.id.msmdialogid2)
+                                                        nel.setText(res4.toString())
                                                         dialog.window?.setBackgroundDrawable(
                                                             ColorDrawable(Color.TRANSPARENT)
                                                         )
@@ -754,11 +800,16 @@ class GraficoFragment : Fragment() {
                                                     }
 
                                                 } else if (arena == 3) {
+                                                    val res4 =
+                                                        aram.getJSONObject("error").get("info")
                                                     activity?.runOnUiThread {
                                                         val dialog = Dialog(context as Activity)
                                                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                                                         dialog.setCancelable(false)
-                                                        dialog.setContentView(R.layout.alertdialog_notdata)
+                                                        dialog.setContentView(R.layout.alertdialog_id3error)
+                                                        val nel =
+                                                            dialog.findViewById<TextView>(R.id.msmdialogid3)
+                                                        nel.setText(res4.toString())
                                                         dialog.window?.setBackgroundDrawable(
                                                             ColorDrawable(Color.TRANSPARENT)
                                                         )

@@ -142,11 +142,11 @@ class HistoricoFragment : Fragment() {
         println(" $dateinputParcela, $datestartParcela, $datesiembraParcela, $datesriegosiembra, $cultivoParcela,$crecimientoParcela,$sueloParcela,$riegoParcela,$largoParcela,$anchoParcela,$TrParcela,$aguaParcela,$LGsurcoParcela,$goteoParcela,$cmsurcoParcela,$cmgoteroParcela,$GggParcela,$GssParcela,$GsgParcela,$PgaParcela,$PdpParcela")
 
         /**3puntos**/
-        val fcm = dateinputParcela.toString().get(3)
-        val fcm1 = dateinputParcela.toString().get(4)
+        val fcm = dateinputParcela.toString().get(0)
+        val fcm1 = dateinputParcela.toString().get(1)
         val fcdd = fcm.toString()+fcm1.toString()
-        val fcd = dateinputParcela.toString().get(0)
-        val fcd1 = dateinputParcela.toString().get(1)
+        val fcd = dateinputParcela.toString().get(3)
+        val fcd1 = dateinputParcela.toString().get(4)
         val fcmm= fcd.toString()+fcd1.toString()
         val fcy = dateinputParcela.toString().get(6)
         val fcy1 = dateinputParcela.toString().get(7)
@@ -322,44 +322,71 @@ class HistoricoFragment : Fragment() {
                                                     if(encontreii == notverygood){
                                                         val senalii = algoii.getJSONObject("error").get("id")
                                                         if(senalii == 1){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                            val res4 = algoii.getJSONObject("error").get("info")
+                                                            activity?.runOnUiThread {
+                                                                val dialog =
+                                                                    Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_id1error)
+                                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid1)
+                                                                nel.setText(res4.toString())
+                                                                dialog.window?.setBackgroundDrawable(
+                                                                    ColorDrawable(Color.TRANSPARENT)
+                                                                )
 
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                                val btnclose =
+                                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
                                                             }
-                                                            dialog.show()
                                                         }else if(senalii == 2){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                            val res4 = algoii.getJSONObject("error").get("info")
+                                                            activity?.runOnUiThread {
+                                                                val dialog =
+                                                                    Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_id2error)
+                                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid2)
+                                                                nel.setText(res4.toString())
+                                                                dialog.window?.setBackgroundDrawable(
+                                                                    ColorDrawable(Color.TRANSPARENT)
+                                                                )
 
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                                val btnclose =
+                                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
                                                             }
-                                                            dialog.show()
                                                         }else if(senalii == 3){
-                                                            val dialog = Dialog(context as Activity)
-                                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                            dialog.setCancelable(false)
-                                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                            val res4 = algoii.getJSONObject("error").get("info")
+                                                            activity?.runOnUiThread {
+                                                                val dialog =
+                                                                    Dialog(context as Activity)
+                                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                                dialog.setCancelable(false)
+                                                                dialog.setContentView(R.layout.alertdialog_id3error)
+                                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid3)
+                                                                nel.setText(res4.toString())
+                                                                dialog.window?.setBackgroundDrawable(
+                                                                    ColorDrawable(Color.TRANSPARENT)
+                                                                )
 
-                                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                                val btnclose =
+                                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                                            btnclose.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                btnclose.setOnClickListener {
+                                                                    dialog.dismiss()
+                                                                }
+                                                                dialog.show()
                                                             }
-                                                            dialog.show()
                                                         }else if(senalii == 4){
                                                             val res4 = algoii.getJSONObject("error").get("info")
                                                             activity?.runOnUiThread{
@@ -387,19 +414,30 @@ class HistoricoFragment : Fragment() {
                                                                 val diadeaguaii = senalii.get("DiasConAgua")
                                                                 val textdiaswaterii = movimiento.findViewById<TextView>(R.id.diasconagua15)
                                                                 if (cuantossonii.length() == 0) {
-                                                                    textdiaswaterii.text = diadeaguaii.toString()
-                                                                    val dialog = Dialog(context as Activity)
-                                                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                                                    dialog.setCancelable(false)
-                                                                    dialog.setContentView(R.layout.alertdialog_notserver)
-                                                                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                                                    activity?.runOnUiThread {
+                                                                        textdiaswaterii.text =
+                                                                            diadeaguaii.toString()
+                                                                        val dialog =
+                                                                            Dialog(context as Activity)
+                                                                        dialog.requestWindowFeature(
+                                                                            Window.FEATURE_NO_TITLE
+                                                                        )
+                                                                        dialog.setCancelable(false)
+                                                                        dialog.setContentView(R.layout.alertdialog_notserver)
+                                                                        dialog.window?.setBackgroundDrawable(
+                                                                            ColorDrawable(Color.TRANSPARENT)
+                                                                        )
 
-                                                                    val btnclose = dialog.findViewById<Button>(R.id.btnclose3)
+                                                                        val btnclose =
+                                                                            dialog.findViewById<Button>(
+                                                                                R.id.btnclose3
+                                                                            )
 
-                                                                    btnclose.setOnClickListener {
-                                                                        dialog.dismiss()
+                                                                        btnclose.setOnClickListener {
+                                                                            dialog.dismiss()
+                                                                        }
+                                                                        dialog.show()
                                                                     }
-                                                                    dialog.show()
                                                                 } else {
                                                                     println("has tomado el camio II")
                                                                     textdiaswaterii.text = diadeaguaii.toString()
@@ -456,46 +494,76 @@ class HistoricoFragment : Fragment() {
                                         val senal = algo.getJSONObject("error").get("id")
                                         if(senal == 1){
                                             println("Error en el Key")
-                                            val dialog = Dialog(context as Activity)
-                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                            dialog.setCancelable(false)
-                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                            val res4 = algo.getJSONObject("error").get("info")
+                                            activity?.runOnUiThread {
+                                                val dialog = Dialog(context as Activity)
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                dialog.setCancelable(false)
+                                                dialog.setContentView(R.layout.alertdialog_id1error)
+                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid1)
+                                                nel.setText(res4.toString())
+                                                dialog.window?.setBackgroundDrawable(
+                                                    ColorDrawable(
+                                                        Color.TRANSPARENT
+                                                    )
+                                                )
 
-                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                val btnclose =
+                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                            btnclose.setOnClickListener {
-                                                dialog.dismiss()
+                                                btnclose.setOnClickListener {
+                                                    dialog.dismiss()
+                                                }
+                                                dialog.show()
                                             }
-                                            dialog.show()
                                         }else if(senal == 2){
                                             println("Error en el valor de la key")
-                                            val dialog = Dialog(context as Activity)
-                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                            dialog.setCancelable(false)
-                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                            val res4 = algo.getJSONObject("error").get("info")
+                                            activity?.runOnUiThread {
+                                                val dialog = Dialog(context as Activity)
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                dialog.setCancelable(false)
+                                                dialog.setContentView(R.layout.alertdialog_id2error)
+                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid2)
+                                                nel.setText(res4.toString())
+                                                dialog.window?.setBackgroundDrawable(
+                                                    ColorDrawable(
+                                                        Color.TRANSPARENT
+                                                    )
+                                                )
 
-                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                val btnclose =
+                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                            btnclose.setOnClickListener {
-                                                dialog.dismiss()
+                                                btnclose.setOnClickListener {
+                                                    dialog.dismiss()
+                                                }
+                                                dialog.show()
                                             }
-                                            dialog.show()
                                         }else if(senal == 3){
                                             println("Error en la creacion de datos")
-                                            val dialog = Dialog(context as Activity)
-                                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                                            dialog.setCancelable(false)
-                                            dialog.setContentView(R.layout.alertdialog_notdata)
-                                            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                            val res4 = algo.getJSONObject("error").get("info")
+                                            activity?.runOnUiThread {
+                                                val dialog = Dialog(context as Activity)
+                                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                                dialog.setCancelable(false)
+                                                dialog.setContentView(R.layout.alertdialog_id3error)
+                                                val nel = dialog.findViewById<TextView>(R.id.msmdialogid3)
+                                                nel.setText(res4.toString())
+                                                dialog.window?.setBackgroundDrawable(
+                                                    ColorDrawable(
+                                                        Color.TRANSPARENT
+                                                    )
+                                                )
 
-                                            val btnclose = dialog.findViewById<Button>(R.id.btnclose2)
+                                                val btnclose =
+                                                    dialog.findViewById<Button>(R.id.btnclose2)
 
-                                            btnclose.setOnClickListener {
-                                                dialog.dismiss()
+                                                btnclose.setOnClickListener {
+                                                    dialog.dismiss()
+                                                }
+                                                dialog.show()
                                             }
-                                            dialog.show()
                                         }else if(senal == 4){
                                             val res4 = algo.getJSONObject("error").get("info")
                                             activity?.runOnUiThread{

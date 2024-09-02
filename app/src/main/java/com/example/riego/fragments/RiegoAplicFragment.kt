@@ -146,11 +146,11 @@ class RiegoAplicFragment : Fragment() {
         var RSFechaNEW = frsdd+"/"+frsmm+"/"+frsyyyy
         println("$RSFechaNEW mira como gozan")
 */
-        val fcm = dateinputParcela.toString().get(3)
-        val fcm1 = dateinputParcela.toString().get(4)
+        val fcm = dateinputParcela.toString().get(0)
+        val fcm1 = dateinputParcela.toString().get(1)
         val fcdd = fcm.toString()+fcm1.toString()
-        val fcd = dateinputParcela.toString().get(0)
-        val fcd1 = dateinputParcela.toString().get(1)
+        val fcd = dateinputParcela.toString().get(3)
+        val fcd1 = dateinputParcela.toString().get(4)
         val fcmm= fcd.toString()+fcd1.toString()
         val fcy = dateinputParcela.toString().get(6)
         val fcy1 = dateinputParcela.toString().get(7)
@@ -178,6 +178,7 @@ class RiegoAplicFragment : Fragment() {
         if(newtworkinfo!= null && newtworkinfo.isConnected()){
 
 
+            println("datos de la consulta DB: $isbnParcela, $datesriegosiembra, $FechaNEW")
 
 
 
